@@ -91,6 +91,7 @@ FTP_PORT="$(parse_ftp_field port)"
 FTP_USER="$(parse_ftp_field username)"
 FTP_PASS="$(parse_ftp_field password)"
 REMOTE_PATH="$(parse_ftp_field path)"
+CONFIGURED_REMOTE_PATH="$REMOTE_PATH"
 
 if [[ -z "$FTP_HOST" || -z "$FTP_USER" || -z "$FTP_PASS" || -z "$REMOTE_PATH" ]]; then
   echo "ERROR: unable to read FTP profile '$PROFILE_NAME' from $FTP_CONFIG"
@@ -200,6 +201,55 @@ lftp_run() {
   "${lftp_base[@]}" -e "set ssl:verify-certificate no; set cmd:fail-exit yes; $cmd; bye" >/dev/null
 }
 
+remote_path_exists() {
+  local path="$1"
+  set +e
+  "${lftp_base[@]}" -e "set ssl:verify-certificate no; set cmd:fail-exit yes; cd \"$path\"; bye" >/dev/null 2>&1
+  local rc=$?
+  set -e
+  [[ $rc -eq 0 ]]
+}
+
+remote_dir_exists_or_creatable() {
+  local path="$1"
+  local parent
+  parent="$(dirname "$path")"
+
+  set +e
+  "${lftp_base[@]}" -e "set ssl:verify-certificate no; set cmd:fail-exit yes; cd \"$parent\"; bye" >/dev/null 2>&1
+  local rc=$?
+  set -e
+  [[ $rc -eq 0 ]]
+}
+
+resolve_remote_path() {
+  local configured="$1"
+  local alt="$configured"
+
+  if [[ "$configured" == /public_html/* ]]; then
+    alt="/${configured#/public_html/}"
+  elif [[ "$configured" == "/public_html" ]]; then
+    alt="/"
+  fi
+
+  if [[ "$alt" != "$configured" ]]; then
+    if remote_path_exists "$alt"; then
+      echo "$alt"
+      return
+    fi
+    if remote_path_exists "$configured"; then
+      echo "$configured"
+      return
+    fi
+    if remote_dir_exists_or_creatable "$alt"; then
+      echo "$alt"
+      return
+    fi
+  fi
+
+  echo "$configured"
+}
+
 ensure_remote_dir() {
   local remote_dir="$1"
   # GoDaddy FTP can return 550 when the directory already exists.
@@ -208,6 +258,7 @@ ensure_remote_dir() {
 }
 
 MANIFEST_NAME=".deploy_sha256_manifest.tsv"
+REMOTE_PATH="$(resolve_remote_path "$REMOTE_PATH")"
 REMOTE_MANIFEST_PATH="$REMOTE_PATH/$MANIFEST_NAME"
 TMP_DIR="$(mktemp -d)"
 LOCAL_MANIFEST="$TMP_DIR/local_manifest.tsv"
@@ -217,6 +268,11 @@ cleanup_tmp() {
   rm -rf "$TMP_DIR"
 }
 trap cleanup_tmp EXIT
+
+if [[ "$REMOTE_PATH" != "$CONFIGURED_REMOTE_PATH" ]]; then
+  echo "Configured path: $CONFIGURED_REMOTE_PATH"
+  echo "Resolved path:   $REMOTE_PATH"
+fi
 
 echo "Uploading changed files to ftp://$FTP_HOST:$FTP_PORT$REMOTE_PATH ..."
 
