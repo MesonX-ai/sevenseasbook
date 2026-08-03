@@ -1,10 +1,15 @@
-import { associatedSites } from "../../lib/sevenSeasData";
+import { associatedSites, chapters } from "../../lib/sevenSeasData";
+
+const chapterNav = chapters.map((chapter) => ({
+  id: chapter.id,
+  label: chapter.navTitle || chapter.title,
+}));
 
 export default function ProjectsPage() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <>
+    <div className="page-shell page-projects">
       <div id="header-wrap">
         <header>
           <hgroup>
@@ -20,13 +25,12 @@ export default function ProjectsPage() {
                 <a href="/">Home</a>
                 <span></span>
               </li>
-              <li><a href="/chapters/1">One Universal Language</a><span></span></li>
-              <li><a href="/chapters/2">Two Unique Languages</a><span></span></li>
-              <li><a href="/chapters/3">Three NIM</a><span></span></li>
-              <li><a href="/chapters/4">Gang of Four</a><span></span></li>
-              <li><a href="/chapters/5">Five Methodologies</a><span></span></li>
-              <li><a href="/chapters/6">Six Frameworks</a><span></span></li>
-              <li><a href="/chapters/7">Seven Java EE APIs</a><span></span></li>
+              {chapterNav.map((item) => (
+                <li key={item.id}>
+                  <a href={`/chapters/${item.id}`}>{item.label}</a>
+                  <span></span>
+                </li>
+              ))}
             </ul>
           </nav>
 
@@ -126,6 +130,6 @@ export default function ProjectsPage() {
           <a href="/">Home</a> | <a href="#">Sitemap</a> | <a href="#">RSS Feed</a> | <a href="#top" className="back-to-top">Back to Top</a>
         </p>
       </footer>
-    </>
+    </div>
   );
 }

@@ -2,9 +2,9 @@ export default function McpPage() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <>
+    <div className="page-shell page-mcp">
       <div id="header-wrap"><header><hgroup><h1><a href="/">Seven SEAS</a></h1><h3>Solutions for Enterprise Applications &amp; Services</h3></hgroup>
-        <nav><ul><li><a href="/">Home</a><span></span></li><li><a href="/chapters/1">One Universal Language</a><span></span></li><li><a href="/chapters/2">Two Unique Languages</a><span></span></li><li><a href="/chapters/3">Three NIM</a><span></span></li><li><a href="/chapters/4">Gang of Four</a><span></span></li><li><a href="/chapters/5">Five Methodologies</a><span></span></li><li><a href="/chapters/6">Six Frameworks</a><span></span></li><li><a href="/chapters/7">Seven Java EE APIs</a><span></span></li></ul></nav>
+        <nav><ul><li><a href="/">Home</a><span></span></li><li><a href="/chapters/1">State &amp; Memory</a><span></span></li><li><a href="/chapters/2">Tool Calls</a><span></span></li><li><a href="/chapters/3">Execution Loop</a><span></span></li><li><a href="/chapters/4">RAG Grounding</a><span></span></li><li><a href="/chapters/5">Multi-Agent</a><span></span></li><li><a href="/chapters/6">Guardrails</a><span></span></li><li><a href="/chapters/7">Observability</a><span></span></li></ul></nav>
       </header></div>
 
       <div id="content-wrap"><div id="content" className="clearfix"><div id="main"><article className="post"><div className="primary">
@@ -20,6 +20,6 @@ export default function McpPage() {
       </div></div>
 
       <footer><p className="footer-left">Copyright &copy; {currentYear} Mesonsoft LLC. All Rights Reserved.</p><p className="footer-right"><a href="/">Home</a> | <a href="#top" className="back-to-top">Back to Top</a></p></footer>
-    </>
+    </div>
   );
 }

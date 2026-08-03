@@ -8,74 +8,13 @@ export default async function ChapterPage({ params }) {
   const { chapter } = await params;
   const chapterData = chapters.find((item) => item.id === chapter);
   const currentYear = new Date().getFullYear();
-  const navTitles = {
-    "1": "One Universal Language",
-    "2": "Two Unique Languages",
-    "3": "Three NIM",
-    "4": "Gang of Four",
-    "5": "Five Methodologies",
-    "6": "Six Frameworks",
-    "7": "Seven Java EE APIs",
-  };
-
-  const chapterSections = {
-    "1": [
-      "1. OOPS",
-      "2. Core Java",
-      "3. JVM and Class Loader",
-      "4. Garbage Collector",
-      "5. Java Collection Framework",
-      "6. Java Threading Model",
-    ],
-    "2": [
-      "7. Unified Modeling Language (UML)",
-      "8. Structured Query Language (SQL)",
-      "9. Procedural Language extension of SQL (PL/SQL)",
-    ],
-    "3": [
-      "10. Computer Network",
-      "11. Clustering and Load Balancing",
-      "12. Continuous Integration Process",
-      "13. Project Management Tools",
-      "14. Unit Test",
-    ],
-    "4": [
-      "15. Software Design Patterns",
-      "16. J2EE Design Patterns with Frameworks",
-    ],
-    "5": [
-      "17. Rational Unified Process (RUP)",
-      "18. Six Sigma",
-      "19. Software Development Life Cycle (SDLC)",
-      "20. Agile Methodology",
-      "21. Waterfall Model",
-    ],
-    "6": [
-      "22. Struts",
-      "23. Spring",
-      "24. Hibernate",
-      "25. iBatis",
-      "26. Framework Configuration and Integration",
-      "27. Apache Axis",
-      "28. Jersey",
-    ],
-    "7": [
-      "29. Messaging Service",
-      "30. Enterprise Bean",
-      "31. Persistence",
-      "32. User Interface",
-      "33. Security",
-      "34. SOAP and REST",
-      "35. JAXB and JAXP",
-      "36. Web Service",
-      "",
-      "Bonus Feature",
-      "37. Java Script",
-      "38. jQuery",
-      "39. AJAX, JSON and DOJO",
-      "40. UNIX Shell Script",
-    ],
-  };
+  const conceptDetails = chapterData?.conceptDetails || [chapterData?.concept];
+  const implementationDetails = chapterData?.implementationDetails || [chapterData?.implementation];
+  const diagramTitle = chapterData?.diagram?.title;
+  const diagramSteps = chapterData?.diagram?.steps || [];
+  const enterpriseScenario = chapterData?.enterpriseScenario;
+  const operationalOutcomes = chapterData?.operationalOutcomes || [];
+  const flowDiagrams = chapterData?.flowDiagrams || [];
 
   if (!chapterData) {
     return (
@@ -100,7 +39,7 @@ export default async function ChapterPage({ params }) {
   }
 
   return (
-    <>
+    <div className="page-shell page-chapter">
       <div id="header-wrap">
         <header>
           <hgroup>
@@ -118,7 +57,7 @@ export default async function ChapterPage({ params }) {
               </li>
               {chapters.map((item) => (
                 <li key={item.id} id={item.id === chapter ? "current" : undefined}>
-                  <a href={`/chapters/${item.id}`}>{navTitles[item.id]}</a>
+                    <a href={`/chapters/${item.id}`}>{item.navTitle || item.title}</a>
                   <span></span>
                 </li>
               ))}
@@ -148,38 +87,89 @@ export default async function ChapterPage({ params }) {
         <div id="content" className="clearfix">
           <div id="main">
             <article className="post">
-              <iframe
-                src={`/docs/chapters/${chapter}.pdf`}
-                style={{ width: "726px", height: "908px" }}
-                frameBorder="0"
-                title={`Chapter ${chapter}: ${chapterData.title}`}
-              />
+              <div className="primary">
+                <h2>
+                  {chapterData.id}. {chapterData.title}
+                </h2>
+                <p>{chapterData.summary}</p>
+
+                <h3>The Concept</h3>
+                {conceptDetails.map((paragraph, index) => (
+                  <p key={`concept-${chapterData.id}-${index}`}>{paragraph}</p>
+                ))}
+
+                <h3>Technical Implementation</h3>
+                {implementationDetails.map((paragraph, index) => (
+                  <p key={`implementation-${chapterData.id}-${index}`}>{paragraph}</p>
+                ))}
+
+                {diagramSteps.length > 0 ? (
+                  <>
+                    <h3>{diagramTitle || "Architecture Diagram"}</h3>
+                    <div className="chapter-diagram" role="img" aria-label={diagramTitle || "Chapter architecture diagram"}>
+                      {diagramSteps.map((step, index) => (
+                        <div className="chapter-diagram-step" key={`diagram-${chapterData.id}-${index}`}>
+                          <span className="chapter-diagram-node">{step}</span>
+                          {index < diagramSteps.length - 1 ? <span className="chapter-diagram-arrow">&rarr;</span> : null}
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                ) : null}
+
+                {enterpriseScenario ? (
+                  <>
+                    <h3>Enterprise Scenario</h3>
+                    <p>{enterpriseScenario}</p>
+                  </>
+                ) : null}
+
+                {operationalOutcomes.length > 0 ? (
+                  <>
+                    <h3>Operational Outcomes</h3>
+                    <ul className="chapter-outcomes">
+                      {operationalOutcomes.map((outcome, index) => (
+                        <li key={`outcome-${chapterData.id}-${index}`}>{outcome}</li>
+                      ))}
+                    </ul>
+                  </>
+                ) : null}
+
+                {flowDiagrams.length > 0 ? (
+                  <>
+                    <h3>Flow Diagrams</h3>
+                    <div className="chapter-flow-grid">
+                      {flowDiagrams.map((flow, flowIndex) => (
+                        <section className="chapter-flow-card" key={`flow-${chapterData.id}-${flowIndex}`}>
+                          <h4>{flow.title}</h4>
+                          <div className="chapter-diagram" role="img" aria-label={flow.title}>
+                            {(flow.steps || []).map((step, stepIndex) => (
+                              <div className="chapter-diagram-step" key={`flow-step-${chapterData.id}-${flowIndex}-${stepIndex}`}>
+                                <span className="chapter-diagram-node">{step}</span>
+                                {stepIndex < flow.steps.length - 1 ? <span className="chapter-diagram-arrow">&rarr;</span> : null}
+                              </div>
+                            ))}
+                          </div>
+                        </section>
+                      ))}
+                    </div>
+                  </>
+                ) : null}
+              </div>
             </article>
           </div>
 
           <div id="sidebar">
             <div className="sidemenu">
-              <h3>Chapters</h3>
+              <h3>Seven Technical Pillars</h3>
               <ul>
-                {(chapterSections[chapter] || []).map((line, idx) => {
-                  if (!line) {
-                    return <li key={`blank-${idx}`}>&nbsp;</li>;
-                  }
-
-                  if (line === "Bonus Feature") {
-                    return (
-                      <li key={`bonus-${idx}`}>
-                        <strong>Bonus Feature</strong>
-                      </li>
-                    );
-                  }
-
-                  return (
-                    <li key={line}>
-                      <a href="#">{line}</a>
-                    </li>
-                  );
-                })}
+                {chapters.map((item) => (
+                  <li key={`sidebar-${item.id}`}>
+                    <a href={`/chapters/${item.id}`}>
+                      {item.id}. {item.title}
+                    </a>
+                  </li>
+                ))}
               </ul>
             </div>
 
@@ -323,6 +313,6 @@ export default async function ChapterPage({ params }) {
           <a href="#top" className="back-to-top">Back to Top</a>
         </p>
       </footer>
-    </>
+    </div>
   );
 }
