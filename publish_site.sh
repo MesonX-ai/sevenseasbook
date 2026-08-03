@@ -2,9 +2,9 @@
 set -euo pipefail
 
 # Publish flow:
-# 1) Commit and push current changes to GitHub.
-# 2) Build local static publish payload.
-# 3) Upload only new/changed files to GoDaddy using checksum comparison.
+# 1) Build static export (Next.js -> out/).
+# 2) Optional: commit + push to GitHub.
+# 3) Upload only new/changed files to GoDaddy via checksum manifest.
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 APP_DIR="$SCRIPT_DIR/nextjs-react"
@@ -13,11 +13,13 @@ FTP_CONFIG="$SCRIPT_DIR/../ftp-config.json"
 PROFILE_NAME="SevenSeasBook"
 GITHUB_REMOTE_URL="https://github.com/MesonX-ai/sevenseasbook.git"
 BRANCH_NAME="main"
-COMMIT_MSG="${1:-chore: publish sevenseas updates}"
 CONFIG_FILE="$APP_DIR/next.config.mjs"
 CONFIG_BACKUP="$APP_DIR/next.config.mjs.publish_backup"
+
 BUILD_ONLY="false"
 SKIP_GIT="false"
+CUSTOM_COMMIT_MSG=""
+DEFAULT_COMMIT_MSG="chore: publish sevenseas updates"
 
 for arg in "$@"; do
   case "$arg" in
@@ -27,8 +29,22 @@ for arg in "$@"; do
     --skip-git)
       SKIP_GIT="true"
       ;;
+    --commit-msg=*)
+      CUSTOM_COMMIT_MSG="${arg#*=}"
+      ;;
+    --*)
+      echo "ERROR: unknown option: $arg"
+      exit 1
+      ;;
+    *)
+      if [[ -z "$CUSTOM_COMMIT_MSG" ]]; then
+        CUSTOM_COMMIT_MSG="$arg"
+      fi
+      ;;
   esac
 done
+
+COMMIT_MSG="${CUSTOM_COMMIT_MSG:-$DEFAULT_COMMIT_MSG}"
 
 require_cmd() {
   if ! command -v "$1" >/dev/null 2>&1; then
@@ -42,6 +58,7 @@ require_cmd lftp
 require_cmd npm
 require_cmd python3
 require_cmd shasum
+require_cmd awk
 
 if [[ ! -d "$APP_DIR" ]]; then
   echo "ERROR: missing app directory: $APP_DIR"
@@ -63,13 +80,9 @@ with open(path, 'r', encoding='utf-8') as f:
 for entry in data:
     if entry.get('name') == profile_name:
         value = entry.get(field)
-        if value is None:
-            print("")
-        else:
-            print(value)
+        print("" if value is None else value)
         sys.exit(0)
 print("")
-sys.exit(0)
 PY
 }
 
@@ -88,7 +101,11 @@ if [[ -z "$FTP_PORT" ]]; then
   FTP_PORT="21"
 fi
 
-cd "$SCRIPT_DIR"
+restore_config() {
+  if [[ -f "$CONFIG_BACKUP" ]]; then
+    mv -f "$CONFIG_BACKUP" "$CONFIG_FILE"
+  fi
+}
 
 build_static_export() {
   echo "Building static export from $APP_DIR ..."
@@ -99,16 +116,10 @@ build_static_export() {
     exit 1
   fi
 
-  restore_config() {
-    if [[ -f "$CONFIG_BACKUP" ]]; then
-      mv -f "$CONFIG_BACKUP" "$CONFIG_FILE"
-    fi
-  }
-
   trap restore_config EXIT
 
   cp "$CONFIG_FILE" "$CONFIG_BACKUP"
-  cat > "$CONFIG_FILE" <<'EOF'
+  cat > "$CONFIG_FILE" <<'CFG'
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -120,10 +131,11 @@ const nextConfig = {
 };
 
 export default nextConfig;
-EOF
+CFG
 
   rm -rf .next out
   npm run build >/dev/null
+
   restore_config
   trap - EXIT
 
@@ -142,12 +154,14 @@ if [[ "$BUILD_ONLY" == "true" ]]; then
   exit 0
 fi
 
-if [[ "$SKIP_GIT" != "true" ]] && ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-  echo "ERROR: $SCRIPT_DIR is not a git repository. Initialize git first."
-  exit 1
-fi
+cd "$SCRIPT_DIR"
 
 if [[ "$SKIP_GIT" != "true" ]]; then
+  if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    echo "ERROR: $SCRIPT_DIR is not a git repository. Initialize git first."
+    exit 1
+  fi
+
   if git remote get-url origin >/dev/null 2>&1; then
     git remote set-url origin "$GITHUB_REMOTE_URL"
   else
@@ -164,11 +178,11 @@ if [[ "$SKIP_GIT" != "true" ]]; then
   if git show-ref --verify --quiet "refs/heads/$BRANCH_NAME"; then
     git push -u origin "$BRANCH_NAME"
   else
-    CURRENT_BRANCH="$(git branch --show-current)"
-    if [[ -z "$CURRENT_BRANCH" ]]; then
-      CURRENT_BRANCH="$BRANCH_NAME"
+    current_branch="$(git branch --show-current)"
+    if [[ -z "$current_branch" ]]; then
+      current_branch="$BRANCH_NAME"
     fi
-    git push -u origin "$CURRENT_BRANCH:$BRANCH_NAME"
+    git push -u origin "$current_branch:$BRANCH_NAME"
   fi
 else
   echo "Skip-git mode: skipping commit/push."
@@ -186,36 +200,55 @@ lftp_run() {
   "${lftp_base[@]}" -e "set ssl:verify-certificate no; set cmd:fail-exit yes; $cmd; bye" >/dev/null
 }
 
-remote_file_hash() {
-  local remote_file="$1"
-  local hash
-  set +e
-  hash="$("${lftp_base[@]}" -e "set ssl:verify-certificate no; set cmd:fail-exit yes; cat \"$remote_file\"; bye" 2>/dev/null | shasum -a 256 | awk '{print $1}')"
-  local rc=$?
-  set -e
-  if [[ $rc -ne 0 || -z "$hash" ]]; then
-    echo ""
-  else
-    echo "$hash"
-  fi
-}
-
 ensure_remote_dir() {
   local remote_dir="$1"
   lftp_run "mkdir -p \"$remote_dir\""
 }
 
+MANIFEST_NAME=".deploy_sha256_manifest.tsv"
+REMOTE_MANIFEST_PATH="$REMOTE_PATH/$MANIFEST_NAME"
+TMP_DIR="$(mktemp -d)"
+LOCAL_MANIFEST="$TMP_DIR/local_manifest.tsv"
+REMOTE_MANIFEST_LOCAL="$TMP_DIR/remote_manifest.tsv"
+
+cleanup_tmp() {
+  rm -rf "$TMP_DIR"
+}
+trap cleanup_tmp EXIT
+
 echo "Uploading changed files to ftp://$FTP_HOST:$FTP_PORT$REMOTE_PATH ..."
 
 cd "$PUBLISH_ROOT"
+: > "$LOCAL_MANIFEST"
+
+echo "Preparing local checksum manifest ..."
+while IFS= read -r -d '' file; do
+  rel="${file#./}"
+  local_hash="$(shasum -a 256 "$file" | awk '{print $1}')"
+  local_size="$(wc -c < "$file" | tr -d '[:space:]')"
+  printf "%s\t%s\t%s\n" "$rel" "$local_hash" "$local_size" >> "$LOCAL_MANIFEST"
+done < <(find . -type f -print0)
+
+echo "Fetching remote checksum manifest ..."
+set +e
+"${lftp_base[@]}" -e "set ssl:verify-certificate no; set cmd:fail-exit yes; get \"$REMOTE_MANIFEST_PATH\" -o \"$REMOTE_MANIFEST_LOCAL\"; bye" >/dev/null 2>&1
+remote_manifest_rc=$?
+set -e
+
+if [[ $remote_manifest_rc -ne 0 ]]; then
+  : > "$REMOTE_MANIFEST_LOCAL"
+fi
+
 new_count=0
 edit_count=0
 skip_count=0
 
-while IFS= read -r -d '' file; do
-  rel="${file#./}"
-  local_hash="$(shasum -a 256 "$file" | awk '{print $1}')"
-  remote_hash="$(remote_file_hash "$REMOTE_PATH/$rel")"
+while IFS=$'\t' read -r rel local_hash local_size; do
+  if [[ -z "$rel" ]]; then
+    continue
+  fi
+
+  remote_hash="$(awk -F '\t' -v p="$rel" '$1==p { print $2; exit }' "$REMOTE_MANIFEST_LOCAL")"
 
   if [[ "$local_hash" == "$remote_hash" && -n "$remote_hash" ]]; then
     echo "SKIP  $rel"
@@ -223,6 +256,7 @@ while IFS= read -r -d '' file; do
     continue
   fi
 
+  file="./$rel"
   ensure_remote_dir "$(dirname "$REMOTE_PATH/$rel")"
   "${lftp_base[@]}" -e "set ssl:verify-certificate no; set cmd:fail-exit yes; put -O \"$(dirname "$REMOTE_PATH/$rel")\" \"$file\"; bye" >/dev/null
 
@@ -233,6 +267,9 @@ while IFS= read -r -d '' file; do
     echo "EDIT  $rel"
     edit_count=$((edit_count + 1))
   fi
-done < <(find . -type f -print0)
+done < "$LOCAL_MANIFEST"
+
+echo "Uploading checksum manifest ..."
+"${lftp_base[@]}" -e "set ssl:verify-certificate no; set cmd:fail-exit yes; put \"$LOCAL_MANIFEST\" -o \"$REMOTE_MANIFEST_PATH\"; bye" >/dev/null
 
 echo "Done. New: $new_count, Edited: $edit_count, Unchanged: $skip_count"
