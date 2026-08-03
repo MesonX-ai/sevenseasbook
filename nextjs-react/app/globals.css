@@ -1,0 +1,39 @@
+@import url('/css/coolblue.css');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: #333;
+}
+
+a {
+  color: #2b76c2;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+#sidebar .sidemenu blockquote {
+  overflow: visible;
+  height: auto;
+}
+
+#sidebar .sidemenu blockquote p {
+  margin-bottom: 10px;
+  overflow-wrap: anywhere;
+}
+
+#sidebar .sidemenu blockquote .author {
+  display: block;
+  white-space: normal;
+  word-break: break-word;
+}
+
+#sidebar .sidemenu blockquote a {
+  overflow-wrap: anywhere;
+}
