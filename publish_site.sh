@@ -208,13 +208,11 @@ ensure_remote_dir() {
 echo "Uploading changed files to ftp://$FTP_HOST:$FTP_PORT$REMOTE_PATH ..."
 
 cd "$PUBLISH_ROOT"
-mapfile -d '' files < <(find . -type f -print0)
-
 new_count=0
 edit_count=0
 skip_count=0
 
-for file in "${files[@]}"; do
+while IFS= read -r -d '' file; do
   rel="${file#./}"
   local_hash="$(shasum -a 256 "$file" | awk '{print $1}')"
   remote_hash="$(remote_file_hash "$REMOTE_PATH/$rel")"
@@ -235,6 +233,6 @@ for file in "${files[@]}"; do
     echo "EDIT  $rel"
     edit_count=$((edit_count + 1))
   fi
-done
+done < <(find . -type f -print0)
 
 echo "Done. New: $new_count, Edited: $edit_count, Unchanged: $skip_count"
