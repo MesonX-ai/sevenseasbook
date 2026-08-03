@@ -202,7 +202,9 @@ lftp_run() {
 
 ensure_remote_dir() {
   local remote_dir="$1"
-  lftp_run "mkdir -p \"$remote_dir\""
+  # GoDaddy FTP can return 550 when the directory already exists.
+  # Treat mkdir as best-effort to keep incremental uploads moving.
+  "${lftp_base[@]}" -e "set ssl:verify-certificate no; set cmd:fail-exit no; mkdir -p \"$remote_dir\"; bye" >/dev/null 2>&1 || true
 }
 
 MANIFEST_NAME=".deploy_sha256_manifest.tsv"
