@@ -1,25 +1,48 @@
 export default function McpPage() {
-  const currentYear = new Date().getFullYear();
-
   return (
     <div className="page-shell page-mcp">
-      <div id="header-wrap"><header><hgroup><h1><a href="/">Seven SEAS</a></h1><h3>Solutions for Enterprise Applications &amp; Services</h3></hgroup>
-        <nav><ul><li><a href="/">Home</a><span></span></li><li><a href="/chapters/1">State &amp; Memory</a><span></span></li><li><a href="/chapters/2">Tool Calls</a><span></span></li><li><a href="/chapters/3">Execution Loop</a><span></span></li><li><a href="/chapters/4">RAG Grounding</a><span></span></li><li><a href="/chapters/5">Multi-Agent</a><span></span></li><li><a href="/chapters/6">Guardrails</a><span></span></li><li><a href="/chapters/7">Observability</a><span></span></li></ul></nav>
-      </header></div>
+      <main className="page-main">
+        <div className="section-header" style={{ marginBottom: "40px" }}>
+          <p className="eyebrow">MCP</p>
+          <h1 className="hero-title" style={{ fontSize: "clamp(2.2rem, 4.5vw, 3.6rem)", marginBottom: "12px" }}>
+            MCP Reference
+          </h1>
+          <p className="hero-eyebrow" style={{ marginBottom: "0" }}>
+            Model Context Protocol notes
+          </p>
+        </div>
 
-      <div id="content-wrap"><div id="content" className="clearfix"><div id="main"><article className="post"><div className="primary">
-        <h2>MCP Reference</h2>
-        <p>This page keeps MCP-related migration notes while the complete legacy content is being adapted.</p>
-        <p><a className="more" href="/">Back to home &raquo;</a></p>
-      </div></article></div></div></div>
+        <div className="books-layout">
+          <div className="event-block">
+            <h3>About MCP</h3>
+            <p>
+              This page keeps MCP-related migration notes while the complete legacy content
+              is being adapted.
+            </p>
+            <p>
+              The Model Context Protocol (MCP) provides a standardized way for AI models to
+              interact with external tools, data sources, and services through a consistent
+              interface.
+            </p>
+          </div>
 
-      <div id="extra-wrap"><div id="extra" className="clearfix">
-        <div className="col first"><h3>Contact Info</h3><p><strong>E-mail: </strong>shiva.dhanuskodi@mesonsoft.com</p></div>
-        <div className="col"><h3>Site Links</h3><div className="footer-list"><ul><li><a href="/">Home</a></li><li><a href="/projects">Projects</a></li><li><a href="/style-demo">Style Demo</a></li><li><a href="/mcp">MCP Notes</a></li></ul></div></div>
-        <div className="col"><h3>Other Websites</h3><div className="footer-list"><ul><li><a href="https://www.mesonsoft.com" target="_blank" rel="noopener noreferrer">Mesonsoft</a></li><li><a href="https://www.wallofwisdom.org" target="_blank" rel="noopener noreferrer">Wall of Wisdom</a></li></ul></div></div>
-      </div></div>
+          <div className="event-block">
+            <h3>Key Concepts</h3>
+            <ul className="event-list">
+              <li>Standardized tool invocation across AI platforms</li>
+              <li>Structured data access for retrieval-augmented workflows</li>
+              <li>Secure, scoped permissions for enterprise deployments</li>
+              <li>Observable execution with traceable tool calls</li>
+            </ul>
+          </div>
 
-      <footer><p className="footer-left">Copyright &copy; {currentYear} Mesonsoft LLC. All Rights Reserved.</p><p className="footer-right"><a href="/">Home</a> | <a href="#top" className="back-to-top">Back to Top</a></p></footer>
+          <div style={{ textAlign: "center", marginTop: "24px" }}>
+            <a className="btn" href="/">
+              Back to Home
+            </a>
+          </div>
+        </div>
+      </main>
     </div>
   );
 }

@@ -1,266 +1,290 @@
+"use client";
+
+import { useState } from "react";
 import { acronymSections, chapters } from "../lib/sevenSeasData";
 
-export default function HomePage() {
-  const currentYear = new Date().getFullYear();
-  const journeyStages = [
-    {
-      title: "Foundation",
-      detail: "Model semantics and structural embeddings establish a stable reasoning substrate.",
-    },
-    {
-      title: "Grounding",
-      detail: "Retrieval orchestration injects factual, current, and policy-compliant enterprise context.",
-    },
-    {
-      title: "Autonomy",
-      detail: "Agentic planning loops coordinate deterministic tools under safety and observability boundaries.",
-    },
-  ];
-  const spotlightSections = [
-    {
-      key: "state",
-      tone: "light",
-      chapter: chapters[0],
-      eyebrow: "State Intelligence",
-      headline: "Memory layers that persist intent across every agent step.",
-      body: "Persistent state transforms short interactions into long-horizon execution with continuity, context, and explainability.",
-      caption: "WORKING / EPISODIC / SEMANTIC",
-      points: ["Session continuity", "Cross-step recall", "Policy-scoped memory"],
-      image: "/images/7_seas_logo.png",
-      imageAlt: "7 SEAS logo",
-    },
-    {
-      key: "execution",
-      tone: "dark",
-      chapter: chapters[2],
-      eyebrow: "Execution Discipline",
-      headline: "Plan, act, evaluate, and self-correct with deterministic rigor.",
-      body: "Agent loops become production-safe when orchestration, retries, and objective checks are explicit and traceable.",
-      caption: "PLAN / ACT / OBSERVE / REPLAN",
-      points: ["Deterministic orchestration", "Adaptive replanning", "Failure-aware loops"],
-      image: "/images/seven_seas.png",
-      imageAlt: "Seven SEAS architecture diagram",
-    },
-    {
-      key: "safety",
-      tone: "light",
-      chapter: chapters[5],
-      eyebrow: "Operational Trust",
-      headline: "Guardrails and observability keep autonomy safe at enterprise scale.",
-      body: "Safety controls and telemetry provide the confidence to move autonomous systems from pilot to critical operations.",
-      caption: "POLICY / SECURITY / EVALUATION",
-      points: ["Policy enforcement", "Runtime defenses", "Continuous evaluation"],
-      image: "/images/ss_symbol.png",
-      imageAlt: "Seven SEAS symbol",
-    },
-  ];
+const frameworkThemes = [
+  {
+    title: "Clarity over hype",
+    description:
+      "Translate AI ambition into an architecture people can actually build, evaluate, and defend.",
+  },
+  {
+    title: "Reliability over novelty",
+    description:
+      "Design systems that survive tool failures, ambiguity, policy constraints, and real-world pressure.",
+  },
+  {
+    title: "Adoption over experimentation",
+    description:
+      "Give teams a shared operating model for memory, retrieval, orchestration, and rollout.",
+  },
+];
 
-  const visualGallery = [
-    {
-      src: "/images/7_seas_logo.png",
-      alt: "7 SEAS identity mark",
-      title: "Identity",
-      description: "A modern identity for a practical enterprise AI framework.",
-    },
-    {
-      src: "/images/seven_seas.png",
-      alt: "Seven SEAS system architecture",
-      title: "Architecture",
-      description: "The transition from model reasoning to production systems.",
-    },
-    {
-      src: "/images/shiva_r_dhanuskodi.png",
-      alt: "Shiva R Dhanuskodi",
-      title: "Author",
-      description: "Built from practitioner experience in real enterprise deployments.",
-    },
-  ];
+const readerTakeaways = [
+  "A practical language for discussing enterprise AI without oversimplifying the complexity.",
+  "Implementation patterns for grounding, tool use, planning, memory, deployment, and observability.",
+  "Real-world examples for product teams, architects, founders, and technical leaders.",
+];
+
+const audienceGroups = [
+  "AI architects mapping systems from prototype to production",
+  "Product leaders building dependable copilots and agents",
+  "Engineering teams seeking clear technical architecture patterns",
+];
+
+const featuredInsights = [
+  {
+    title: "The architecture behind reliable AI agents",
+    blurb:
+      "A practical look at how memory, tool contracts, and execution loops make agentic systems dependable in production.",
+    href: "/chapters/1",
+  },
+  {
+    title: "Why grounding matters in enterprise workflows",
+    blurb:
+      "How retrieval-based evidence, policy constraints, and citation discipline improve trust in high-stakes AI applications.",
+    href: "/chapters/4",
+  },
+  {
+    title: "From prototype to operating system",
+    blurb:
+      "What it takes to turn early AI experiments into trusted platforms that can scale across teams and use cases.",
+    href: "/resources",
+  },
+];
+
+export default function HomePage() {
+  const [hasVideoSource, setHasVideoSource] = useState(true);
 
   return (
     <div className="page-shell page-home">
-      <div id="header-wrap">
-        <header>
-          <hgroup>
-            <h1>
-              <a href="/">Seven SEAS</a>
-            </h1>
-            <h3>Solutions for Enterprise Applications &amp; Services</h3>
-          </hgroup>
-
-          <nav>
-            <ul>
-              <li id="current">
-                <a href="/">Home</a>
-                <span></span>
-              </li>
-              {chapters.map((chapter) => (
-                <li key={chapter.id}>
-                  <a href={`/chapters/${chapter.id}`}>{chapter.navTitle || chapter.title}</a>
-                  <span></span>
-                </li>
-              ))}
-            </ul>
-          </nav>
-
-          <form id="quick-search" method="get" action="#">
-            <fieldset className="search">
-              <label htmlFor="qsearch">Search:</label>
-              <input
-                className="tbox"
-                id="qsearch"
-                type="text"
-                name="qsearch"
-                defaultValue="Search..."
-                title="Start typing and hit ENTER"
-              />
-              <button className="btn" title="Submit Search" type="submit">
-                Search
-              </button>
-            </fieldset>
-          </form>
-        </header>
-      </div>
-
-      <section className="home-hero full-bleed" aria-label="Seven SEAS hero">
-        <div className="hero-content">
-          <p className="hero-eyebrow">Seven SEAS for Enterprise AI</p>
-          <h2>From foundation models to production-grade autonomous systems.</h2>
-          <p className="hero-subcopy">
-            A premium blueprint for designing dependable agentic platforms with memory,
-            retrieval, orchestration, policy controls, and measurable quality.
-          </p>
-          <div className="hero-actions">
-            <a className="more" href="/docs/SevenSEAS.pdf" target="_blank" rel="noopener noreferrer">
-              Download Architecture PDF &raquo;
-            </a>
-            <a className="hero-link" href="/chapters/1">Explore the 7 Pillars</a>
+      <main className="page-main-wide">
+        {/* ===== HERO SECTION ===== */}
+        <section className="home-hero" aria-label="Seven SEAS hero">
+          <div className="hero-bg" aria-hidden="true">
+            <img src="/images/hero-bg.png" alt="" />
           </div>
-        </div>
-      </section>
-
-      <div id="content-wrap">
-        <div id="content" className="clearfix">
-          <div id="main">
-            <article className="post">
-              <div className="primary">
-                <p align="left">
-                  SevenSEAS is a practical architecture model for enterprise-grade AI systems. It
-                  bridges foundation-model theory and production implementation through a clear
-                  engineering path from data ingestion to real-world deployment.
-                </p>
-
-                <p align="left">
-                  7 SEAS now frames the updated AI lifecycle from foundational embeddings through
-                  scalable production deployment.
-                </p>
-
-                <p align="left">
-                  Let&apos;s dive into SevenSEAS (Structural Embeddings, Expanded Retrieval,
-                  Agentic Execution, and Scalable Deployment).
-                </p>
-
-                <div className="story-grid">
-                  {acronymSections.map((section) => (
-                    <article className="story-card" key={`${section.letter}-${section.title}`}>
-                      <p align="left">
-                        <b>
-                          {section.letter} - {section.title}
-                        </b>{" "}
-                        {section.description}
-                      </p>
-                      {section.title === "Scalable Deployment" ? (
-                        <p align="left">
-                          <img
-                            src="/images/seven_seas.png"
-                            alt="Seven SEAS architecture overview"
-                            style={{ maxWidth: "100%", height: "auto" }}
-                          />
-                        </p>
-                      ) : null}
-                    </article>
-                  ))}
-                </div>
-
-                <section className="journey-band" aria-label="Seven SEAS journey stages">
-                  {journeyStages.map((stage) => (
-                    <article className="journey-card" key={stage.title}>
-                      <h3>{stage.title}</h3>
-                      <p>{stage.detail}</p>
-                    </article>
-                  ))}
-                </section>
-
-                <hr />
-                <p align="left">
-                  To build resilient, enterprise-grade agents today, your architecture must master
-                  these 7 key technical pillars:
-                </p>
-
-                <ul>
-                  {chapters.map((chapter) => (
-                    <li key={`pillar-${chapter.id}`}>
-                      <b>{chapter.id}. {chapter.title}</b> - {chapter.summary}
-                    </li>
-                  ))}
-                </ul>
-
-                <p align="left" className="system-flow">
-                  [ DATA INPUT ] -&gt; Structural Embeddings -&gt; Expanded Retrieval -&gt; Agentic
-                  Execution -&gt; Scalable Deployment -&gt; [ PRODUCTION AI ]
-                </p>
-
-                <p>
-                  <a className="more" href="/docs/SevenSEAS.pdf" target="_blank" rel="noopener noreferrer">
-                    Download PDF version &raquo;
-                  </a>
-                </p>
-              </div>
-            </article>
-          </div>
-
-          <div id="sidebar">
-            <div className="sidemenu">
-              <h3>Quote</h3>
-              <blockquote>
-                <p>
-                  If necessity is the Mother of Invention then curiosity is the Father and
-                  we&apos;re their Kids!
-                </p>
-                <p className="author">
-                  Visit us at{" "}
-                  <a href="https://www.wallofwisdom.org" target="_blank" rel="noopener noreferrer">
-                    www.wallofwisdom.org
-                  </a>
-                </p>
-              </blockquote>
+          {hasVideoSource ? (
+            <div className="hero-video-wrap" aria-hidden="true">
+              <video
+                className="hero-video"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                poster="/images/hero-bg.png"
+                onError={() => setHasVideoSource(false)}
+              >
+                <source src="/videos/clouds.mp4" type="video/mp4" />
+              </video>
             </div>
+          ) : null}
+          <div className="hero-overlay" aria-hidden="true"></div>
 
-            <div className="about-me">
-              <h3>About Author</h3>
+          <div className="hero-content">
+            <h1 className="hero-title">
+              Enterprise AI Architecture for Dependable Agentic Systems
+            </h1>
+            <p className="hero-subcopy">
+              Seven SEAS is a practical framework for designing enterprise AI platforms with memory,
+              retrieval, orchestration, policy controls, and measurable quality for production-ready systems.
+              It helps teams move from flashy demos to durable, explainable, and governable AI operations.
+            </p>
+            <div className="hero-actions">
+              <a
+                className="btn btn-primary"
+                href="/docs/SevenSEAS.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Download Architecture PDF
+              </a>
+              <a className="btn" href="/chapters/1">
+                Explore the 7 Pillars
+              </a>
+            </div>
+          </div>
+        </section>
+
+        {/* ===== 7 PILLARS ===== */}
+        <section className="featured-pillars" aria-label="Seven key technical pillars">
+          <div className="section-header section-header-with-art">
+            <div className="section-art" aria-hidden="true">
+              <img src="/images/7_seas.png" alt="" />
+            </div>
+            <p className="eyebrow">The 7 Pillars</p>
+            <h2>Built on Seven Technical Foundations</h2>
+            <p>
+              To build resilient, enterprise-grade agents today, your architecture must master
+              these seven key pillars.
+            </p>
+          </div>
+
+          <div className="pillar-stack">
+            {chapters.map((chapter) => (
+              <a
+                key={`pillar-${chapter.id}`}
+                className="pillar-row"
+                href={`/chapters/${chapter.id}`}
+              >
+                <span className="pillar-num">{chapter.id}</span>
+                <div>
+                  <h3 className="pillar-title">{chapter.navTitle || chapter.title}</h3>
+                  <p className="pillar-summary">{chapter.summary}</p>
+                </div>
+                <span className="pillar-arrow" aria-hidden="true">
+                  &rarr;
+                </span>
+              </a>
+            ))}
+          </div>
+        </section>
+
+        {/* ===== ACRONYM ===== */}
+        <section className="section section-alt" aria-label="Seven SEAS acronym breakdown">
+          <div className="acronym-band">
+            <div className="section-header section-header-with-art">
+              <div className="section-art" aria-hidden="true">
+                <img src="/images/ss_symbol.png" alt="" />
+              </div>
+              <p className="eyebrow">What is Seven SEAS?</p>
+              <h2>Structural Embeddings, Expanded Retrieval, Agentic Execution, Scalable Deployment</h2>
+            </div>
+            <div className="acronym-grid">
+              {acronymSections.map((section) => (
+                <article className="acronym-card" key={`${section.letter}-${section.title}`}>
+                  <span className="acronym-letter">{section.letter}</span>
+                  <h3>{section.title}</h3>
+                  <p>{section.description}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ===== WHY IT MATTERS ===== */}
+        <section className="section" aria-label="Why the framework matters">
+          <div className="insight-band">
+            <div className="section-header section-header-with-art">
+              <div className="section-art" aria-hidden="true">
+                <img src="/images/content-bg.png" alt="" />
+              </div>
+              <p className="eyebrow">Why it matters</p>
+              <h2>Built for leaders, architects, and builders</h2>
               <p>
-                <a href="https://shiva-dhanuskodi.us" target="_blank" rel="noopener noreferrer">
-                  <img
-                    src="/images/shiva_r_dhanuskodi.png"
-                    width="60"
-                    alt="Shiva R Dhanuskodi"
-                    className="align-left"
-                  />
-                </a>
-                Shiva R Dhanuskodi, the author of Seven SEAS, is founder and CEO at Mesonsoft LLC.
-                <a href="https://www.shiva-dhanuskodi.us" target="_blank" rel="noopener noreferrer">
-                  {" "}Learn more...
-                </a>
+                The most useful AI systems are not the loudest ones. They are the ones that stay coherent,
+                auditable, and resilient when the work becomes real.
               </p>
             </div>
-          </div>
-        </div>
-      </div>
 
-      <section className="home-timeline full-bleed" aria-label="SEAS progression timeline">
-        <div className="timeline-content">
-          <h3>Architecture Storyline</h3>
-          <p>Each pillar compounds the next, creating an end-to-end enterprise AI operating model.</p>
-          <ol>
+            <div className="insight-grid">
+              {frameworkThemes.map((theme) => (
+                <article className="insight-card" key={theme.title}>
+                  <h3>{theme.title}</h3>
+                  <p>{theme.description}</p>
+                </article>
+              ))}
+            </div>
+
+            <div className="insight-quote">
+              <p>
+                “The future of enterprise AI will be shaped by teams that can design systems with discipline,
+                memory, and operational care.”
+              </p>
+              <span>— Seven SEAS</span>
+            </div>
+          </div>
+        </section>
+
+        {/* ===== SYSTEM FLOW ===== */}
+        <section className="section section-alt" aria-label="Seven SEAS system flow">
+          <div className="journey-strip">
+            <div className="section-header section-header-with-art">
+              <div className="section-art" aria-hidden="true">
+                <img src="/images/content-bg.png" alt="" />
+              </div>
+              <p className="eyebrow">System Flow</p>
+              <h2>From Data Input to Production AI</h2>
+            </div>
+            <div className="system-flow">
+              <span>[ DATA INPUT ]</span>
+              <i>&rarr;</i>
+              <span>Structural Embeddings</span>
+              <i>&rarr;</i>
+              <span>Expanded Retrieval</span>
+              <i>&rarr;</i>
+              <span>Agentic Execution</span>
+              <i>&rarr;</i>
+              <span>Scalable Deployment</span>
+              <i>&rarr;</i>
+              <span>[ PRODUCTION AI ]</span>
+            </div>
+
+            <div style={{ textAlign: "center", marginTop: "28px" }}>
+              <a
+                className="btn btn-outline-accent"
+                href="/docs/SevenSEAS.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Download PDF Version
+              </a>
+            </div>
+          </div>
+        </section>
+
+        {/* ===== READER TAKEAWAYS ===== */}
+        <section className="section" aria-label="What readers will learn">
+          <div className="reader-band">
+            <div className="section-header section-header-with-art">
+              <div className="section-art" aria-hidden="true">
+                <img src="/images/quote.png" alt="" />
+              </div>
+              <p className="eyebrow">What readers will find</p>
+              <h2>More than a framework — a practical playbook</h2>
+              <p>
+                This work is written for people who want to build AI systems that keep working long after the
+                first demo is over.
+              </p>
+            </div>
+
+            <div className="reader-columns">
+              <div className="reader-stack">
+                <h3>Key takeaways</h3>
+                <ul>
+                  {readerTakeaways.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+              <div className="reader-stack">
+                <h3>Built for</h3>
+                <ul>
+                  {audienceGroups.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ===== STORYLINE ===== */}
+        <section className="storyline-band" aria-label="Architecture storyline">
+          <div className="section-header section-header-with-art">
+            <div className="section-art" aria-hidden="true">
+              <img src="/images/quote.png" alt="" />
+            </div>
+            <p className="eyebrow">Architecture Storyline</p>
+            <h2>Each Pillar Compounds the Next</h2>
+            <p>
+              Creating an end-to-end enterprise AI operating model from reasoning through
+              production operations.
+            </p>
+          </div>
+          <ol className="storyline-list">
             {chapters.map((chapter) => (
               <li key={`timeline-${chapter.id}`}>
                 <span>{chapter.id}</span>
@@ -271,178 +295,81 @@ export default function HomePage() {
               </li>
             ))}
           </ol>
-        </div>
-      </section>
+        </section>
 
-      <section className="apple-spotlight full-bleed" aria-label="Seven SEAS featured architecture moments">
-        <div className="spotlight-content">
-          {spotlightSections.map((spotlight, index) => (
-            <article
-              key={spotlight.key}
-              className={`spotlight-row ${spotlight.tone === "dark" ? "is-dark" : "is-light"}`}
-            >
-              <div className="spotlight-copy">
-                <p className="spotlight-eyebrow">{spotlight.eyebrow}</p>
-                <h3>{spotlight.headline}</h3>
-                <p>{spotlight.body}</p>
-                <ul className="spotlight-points">
-                  {spotlight.points.map((point) => (
-                    <li key={`${spotlight.key}-${point}`}>{point}</li>
-                  ))}
-                </ul>
-                <a href={`/chapters/${spotlight.chapter.id}`} className="hero-link">
-                  Read {spotlight.chapter.navTitle || spotlight.chapter.title}
-                </a>
+        {/* ===== INSIGHTS ===== */}
+        <section className="section" aria-label="Featured insights">
+          <div className="insight-band">
+            <div className="section-header section-header-with-art">
+              <div className="section-art" aria-hidden="true">
+                <img src="/images/content-bg.png" alt="" />
               </div>
-              <div className="spotlight-visual-wrap">
-                <div className="spotlight-visual" aria-label={spotlight.caption} role="img">
-                  <span className="spotlight-index">0{index + 1}</span>
-                  <img src={spotlight.image} alt={spotlight.imageAlt} className="spotlight-image" />
-                  <strong>{spotlight.chapter.navTitle || spotlight.chapter.title}</strong>
-                  <p>{spotlight.caption}</p>
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
+              <p className="eyebrow">Featured insights</p>
+              <h2>Thoughtful essays for builders and decision-makers</h2>
+              <p>
+                These pieces explore the practical side of AI architecture, from stateful agent design to the
+                operating habits that keep systems trustworthy over time.
+              </p>
+            </div>
 
-      <section className="home-gallery full-bleed" aria-label="Seven SEAS visual gallery">
-        <div className="gallery-content">
-          <h3>Designed for Real-World AI Delivery</h3>
+            <div className="insight-grid">
+              {featuredInsights.map((item) => (
+                <article className="insight-card" key={item.title}>
+                  <h3>{item.title}</h3>
+                  <p>{item.blurb}</p>
+                  <a className="more" href={item.href}>
+                    Read more &rarr;
+                  </a>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ===== NEWSLETTER ===== */}
+        <section className="section section-alt" aria-label="Newsletter signup">
+          <div className="newsletter-band">
+            <div className="section-header section-header-with-art">
+              <div className="section-art" aria-hidden="true">
+                <img src="/images/quote.png" alt="" />
+              </div>
+              <p className="eyebrow">Stay close to the work</p>
+              <h2>Join the Seven SEAS newsletter</h2>
+              <p>
+                Get practical essays, architecture notes, and launch updates for enterprise AI systems that are
+                grounded in real implementation.
+              </p>
+            </div>
+
+            <form className="newsletter-form" action="https://formspree.io/f/your-form-id" method="POST">
+              <input type="email" name="email" placeholder="Enter your email" aria-label="Email address" required />
+              <button type="submit">Subscribe</button>
+            </form>
+          </div>
+        </section>
+
+        {/* ===== CTA ===== */}
+        <section className="cta-band" aria-label="Call to action">
+          <h2>Ready to build dependable enterprise AI?</h2>
           <p>
-            Seven SEAS combines conceptual clarity with implementation realism. These visuals map
-            the journey from architecture thinking to production-grade execution.
+            Explore the complete Seven SEAS architecture framework with practical implementation
+            guidance for memory, retrieval, orchestration, safety, and observability.
           </p>
-          <div className="gallery-grid">
-            {visualGallery.map((item) => (
-              <article key={item.title} className="gallery-card">
-                <img src={item.src} alt={item.alt} />
-                <div className="gallery-card-body">
-                  <h4>{item.title}</h4>
-                  <p>{item.description}</p>
-                </div>
-              </article>
-            ))}
+          <div className="hero-actions">
+            <a className="btn btn-primary" href="/chapters/1">
+              Start with Chapter 1
+            </a>
+            <a
+              className="btn"
+              href="/docs/SevenSEAS.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Download the PDF
+            </a>
           </div>
-        </div>
-      </section>
-
-      <div id="extra-wrap">
-        <div id="extra" className="clearfix">
-          <div className="col first">
-            <h3>Contact Info</h3>
-            <p>
-              <strong>E-mail: </strong>shiva.dhanuskodi@mesonsoft.com
-            </p>
-            <p>
-              To learn more about us. Please visit{" "}
-              <a href="https://shiva-dhanuskodi.us" target="_blank" rel="noopener noreferrer">
-                www.shiva-dhanuskodi.us
-              </a>{" "}
-              or{" "}
-              <a href="https://www.mesonsoft.com" target="_blank" rel="noopener noreferrer">
-                www.mesonsoft.com
-              </a>
-            </p>
-
-            <h3>Updates</h3>
-
-            <ul className="subscribe-stuff">
-              <li>
-                <a title="RSS" href="#" rel="nofollow">
-                  <img alt="RSS" title="RSS" src="/images/social_rss.png" width="25" />
-                </a>
-              </li>
-              <li>
-                <a title="Facebook" href="#" rel="nofollow">
-                  <img alt="Facebook" title="Facebook" src="/images/social_facebook.png" width="25" />
-                </a>
-              </li>
-              <li>
-                <a title="Twitter" href="#" rel="nofollow">
-                  <img alt="Twitter" title="Twitter" src="/images/social_twitter.png" width="25" />
-                </a>
-              </li>
-              <li>
-                <a title="E-mail this book to a friend!" href="#" rel="nofollow">
-                  <img
-                    alt="E-mail this book to a friend!"
-                    title="E-mail this book to a friend!"
-                    src="/images/social_email.png"
-                    width="25"
-                  />
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <div className="col">
-            <h3>Site Links</h3>
-            <div className="footer-list">
-              <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/projects">Projects</a></li>
-                <li><a href="/style-demo">Style Demo</a></li>
-                <li><a href="/mcp">MCP Notes</a></li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="col">
-            <h3>Other Websites</h3>
-            <div className="footer-list">
-              <ul>
-                <li>
-                  <a href="https://www.mesonsoft.com" target="_blank" rel="noopener noreferrer">
-                    Mesonsoft
-                  </a>
-                </li>
-                <li>
-                  <a href="https://www.wallofwisdom.org" target="_blank" rel="noopener noreferrer">
-                    Wall of Wisdom
-                  </a>
-                </li>
-                <li>
-                  <a href="https://mysports365.app" target="_blank" rel="noopener noreferrer">
-                    My Sports 365
-                  </a>
-                </li>
-                <li>
-                  <a href="https://myfamilyassistant.ai" target="_blank" rel="noopener noreferrer">
-                    My Family Assistant AI
-                  </a>
-                </li>
-                <li>
-                  <a href="https://squark-browser.ai" target="_blank" rel="noopener noreferrer">
-                    sQuark AI Browser
-                  </a>
-                </li>
-                <li>
-                  <a href="https://www.anishiv.com" target="_blank" rel="noopener noreferrer">
-                    AniShiv
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <footer>
-        <p className="footer-left">
-          Copyright &copy; {currentYear} Mesonsoft LLC. All Rights Reserved. &nbsp; &nbsp; &nbsp;
-          Published by{" "}
-          <a href="http://www.mesonsoft.com/" target="_blank" rel="noopener noreferrer">
-            Mesonsoft LLC
-          </a>{" "}
-          &nbsp; &nbsp; &nbsp; Views:<span id="display_visitor_number" className="visitor"></span>
-        </p>
-        <p className="footer-right">
-          <a href="/">Home</a> | <a href="#">Sitemap</a> | <a href="#">RSS Feed</a> |{" "}
-          <a href="#top" className="back-to-top">Back to Top</a>
-        </p>
-      </footer>
+        </section>
+      </main>
     </div>
   );
 }

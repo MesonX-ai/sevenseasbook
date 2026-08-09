@@ -67,6 +67,33 @@ export const chapters = [
         steps: ["Capture Event", "Classify Sensitivity", "Store by Tier", "Apply Retention", "Audit Access"],
       },
     ],
+    advancedTopics: [
+      "Transformer embeddings represent tokens in contextual vector spaces where attention layers encode semantic dependencies.",
+      "Long-context strategies combine summarization memory with retrieval memory to avoid quadratic token-cost blowups.",
+      "Neural memory compression can preserve intent while reducing context-window pressure in multi-turn enterprise sessions.",
+    ],
+    applicationExamples: [
+      "Healthcare triage copilots that retain patient-history context safely across encounters.",
+      "Customer-success agents that preserve account state across tickets and handoffs.",
+      "Sales engineering assistants that remember product constraints and past proof-of-concept outcomes.",
+    ],
+    videoSuggestions: [
+      {
+        title: "Neural Networks (3Blue1Brown)",
+        channel: "3Blue1Brown",
+        url: "https://www.youtube.com/results?search_query=3Blue1Brown+neural+networks",
+      },
+      {
+        title: "Embeddings Explained for LLMs",
+        channel: "AssemblyAI / Community",
+        url: "https://www.youtube.com/results?search_query=LLM+embeddings+explained",
+      },
+      {
+        title: "Vector Databases for AI Applications",
+        channel: "Pinecone / Community",
+        url: "https://www.youtube.com/results?search_query=vector+database+for+LLM+applications",
+      },
+    ],
   },
   {
     id: "2",
@@ -107,6 +134,33 @@ export const chapters = [
       {
         title: "Recovery & Retry Sequence",
         steps: ["Error Signal", "Classify Failure", "Apply Retry Policy", "Replay Safely", "Return Outcome"],
+      },
+    ],
+    advancedTopics: [
+      "Structured outputs turn probabilistic LLM generations into typed API contracts with deterministic runtime behavior.",
+      "Function calling reliability improves when argument constraints include enums, formats, and semantic validators.",
+      "Tool routers can use lightweight LLMs for intent classification before dispatching to specialized execution tools.",
+    ],
+    applicationExamples: [
+      "Banking assistants invoking payments, compliance checks, and fraud scoring via validated tool calls.",
+      "IT service agents opening tickets, querying CMDB records, and issuing runbooks through safe orchestration.",
+      "E-commerce agents coordinating inventory, pricing, and shipping APIs with idempotent retries.",
+    ],
+    videoSuggestions: [
+      {
+        title: "Function Calling with LLMs",
+        channel: "OpenAI / Community",
+        url: "https://www.youtube.com/results?search_query=LLM+function+calling+tutorial",
+      },
+      {
+        title: "JSON Schema for Reliable AI Tooling",
+        channel: "Engineering Channels",
+        url: "https://www.youtube.com/results?search_query=JSON+schema+for+AI+tool+calling",
+      },
+      {
+        title: "API Design for AI Agents",
+        channel: "System Design Community",
+        url: "https://www.youtube.com/results?search_query=API+design+for+AI+agents",
       },
     ],
   },
@@ -151,6 +205,33 @@ export const chapters = [
         steps: ["Detect Failure", "Retry Budget", "Replan", "Human Handoff", "Postmortem"],
       },
     ],
+    advancedTopics: [
+      "Agentic loops mirror control systems: observe state, choose action, evaluate delta, and adapt policy.",
+      "ReAct-style prompting increases transparency by separating reasoning traces from external action steps.",
+      "Tree-search or planner-executor variants improve success on tasks that require branching strategy exploration.",
+    ],
+    applicationExamples: [
+      "SOC analysts using autonomous triage agents for alert clustering and response recommendations.",
+      "Supply-chain planners running what-if simulations and replanning around disruption events.",
+      "Developer assistants that iteratively code, test, fix, and verify under policy constraints.",
+    ],
+    videoSuggestions: [
+      {
+        title: "ReAct Prompting and Agent Loops",
+        channel: "Prompt Engineering Community",
+        url: "https://www.youtube.com/results?search_query=ReAct+prompting+agent+loops",
+      },
+      {
+        title: "Building Autonomous AI Agents",
+        channel: "LangChain / Community",
+        url: "https://www.youtube.com/results?search_query=building+autonomous+AI+agents+tutorial",
+      },
+      {
+        title: "Planning and Self-Correction in LLM Systems",
+        channel: "AI Engineering Talks",
+        url: "https://www.youtube.com/results?search_query=LLM+planning+self+correction",
+      },
+    ],
   },
   {
     id: "4",
@@ -191,6 +272,33 @@ export const chapters = [
       {
         title: "Grounded Response Path",
         steps: ["User Question", "Retrieve", "Rank", "Inject Evidence", "Cited Response"],
+      },
+    ],
+    advancedTopics: [
+      "RAG quality depends on chunk granularity, metadata richness, and retrieval fusion across lexical and dense signals.",
+      "Cross-encoder re-ranking increases relevance precision for top-k passages consumed by downstream LLM prompts.",
+      "Context-window budgeting should prioritize high-confidence evidence and remove semantically redundant chunks.",
+    ],
+    applicationExamples: [
+      "Legal research assistants that cite current statutes and internal policy memos.",
+      "Clinical knowledge assistants grounded in updated treatment pathways and hospital protocols.",
+      "Enterprise support bots answering from product docs, release notes, and customer-specific runbooks.",
+    ],
+    videoSuggestions: [
+      {
+        title: "RAG Explained (Retrieval-Augmented Generation)",
+        channel: "NVIDIA / Community",
+        url: "https://www.youtube.com/results?search_query=RAG+retrieval+augmented+generation+explained",
+      },
+      {
+        title: "Hybrid Search for RAG",
+        channel: "Weaviate / Elastic / Community",
+        url: "https://www.youtube.com/results?search_query=hybrid+search+for+RAG",
+      },
+      {
+        title: "Production RAG Architectures",
+        channel: "LangChain / LlamaIndex Community",
+        url: "https://www.youtube.com/results?search_query=production+RAG+architecture+tutorial",
       },
     ],
   },
@@ -235,6 +343,33 @@ export const chapters = [
         steps: ["Collect Outputs", "Conflict Detection", "Reviewer Adjudication", "Patch Update", "Approve"],
       },
     ],
+    advancedTopics: [
+      "Agent societies benefit from role-specific prompts, memory scope boundaries, and explicit handoff schemas.",
+      "Supervisor policies can score sub-agent outputs by confidence, policy compliance, and evidence quality.",
+      "Multi-agent communication reliability improves with structured message envelopes and state signatures.",
+    ],
+    applicationExamples: [
+      "Product teams using planner-coder-reviewer agents for accelerated release cycles.",
+      "Research workflows with specialist agents for literature scan, synthesis, and critique.",
+      "Operations centers combining diagnosis, remediation, and compliance agents in one control plane.",
+    ],
+    videoSuggestions: [
+      {
+        title: "Multi-Agent Systems for LLM Applications",
+        channel: "Microsoft / Community",
+        url: "https://www.youtube.com/results?search_query=multi+agent+systems+LLM+applications",
+      },
+      {
+        title: "CrewAI / Multi-Agent Orchestration",
+        channel: "Open Source Community",
+        url: "https://www.youtube.com/results?search_query=CrewAI+multi+agent+orchestration+tutorial",
+      },
+      {
+        title: "Agent Collaboration Patterns",
+        channel: "AI Engineering Community",
+        url: "https://www.youtube.com/results?search_query=agent+collaboration+patterns+LLM",
+      },
+    ],
   },
   {
     id: "6",
@@ -277,6 +412,33 @@ export const chapters = [
         steps: ["Action Draft", "Scope Check", "Manager Approval", "Execution", "Compliance Archive"],
       },
     ],
+    advancedTopics: [
+      "Prompt-injection resilience requires retrieval provenance checks, instruction hierarchy, and sandboxed execution paths.",
+      "Least-privilege tool access should be dynamically scoped by user role, tenant, and task risk profile.",
+      "Guardrail evaluators can combine deterministic policy rules with classifier-based risk estimation.",
+    ],
+    applicationExamples: [
+      "Procurement agents restricted by spending thresholds and approver chains.",
+      "HR assistants that redact sensitive attributes before producing summaries.",
+      "DevOps agents allowed to execute only whitelisted commands under audited sessions.",
+    ],
+    videoSuggestions: [
+      {
+        title: "AI Guardrails and Safety Patterns",
+        channel: "OWASP / Security Community",
+        url: "https://www.youtube.com/results?search_query=AI+guardrails+safety+patterns",
+      },
+      {
+        title: "Prompt Injection Defense",
+        channel: "Security Engineering Talks",
+        url: "https://www.youtube.com/results?search_query=prompt+injection+defense+LLM",
+      },
+      {
+        title: "Policy Enforcement for AI Agents",
+        channel: "Enterprise AI Community",
+        url: "https://www.youtube.com/results?search_query=policy+enforcement+for+AI+agents",
+      },
+    ],
   },
   {
     id: "7",
@@ -317,6 +479,33 @@ export const chapters = [
       {
         title: "Evaluation Release Gate",
         steps: ["Candidate Build", "Eval Suite", "Threshold Check", "Approve/Block", "Rollout"],
+      },
+    ],
+    advancedTopics: [
+      "LLM observability should capture prompt versions, retrieval citations, tool-call arguments, and latency distributions.",
+      "Offline and online evals together provide both regression protection and live user-impact measurement.",
+      "Cost-quality frontiers help teams choose model tiers and caching strategies by workload profile.",
+    ],
+    applicationExamples: [
+      "Platform dashboards tracking hallucination risk and citation quality across business domains.",
+      "Release pipelines that block deployment when factuality or policy metrics regress.",
+      "Real-time SLO monitoring for latency, token cost, and completion success rates.",
+    ],
+    videoSuggestions: [
+      {
+        title: "LLM Observability in Production",
+        channel: "Arize / Langfuse / Community",
+        url: "https://www.youtube.com/results?search_query=LLM+observability+in+production",
+      },
+      {
+        title: "Eval-Driven Development for AI",
+        channel: "AI Engineering Community",
+        url: "https://www.youtube.com/results?search_query=eval+driven+development+for+LLMs",
+      },
+      {
+        title: "Tracing Agent Workflows",
+        channel: "OpenTelemetry / Community",
+        url: "https://www.youtube.com/results?search_query=tracing+agent+workflows+LLM",
       },
     ],
   },

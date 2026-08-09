@@ -117,7 +117,17 @@ build_static_export() {
     exit 1
   fi
 
-  trap restore_config EXIT
+  local build_log
+  build_log="$(mktemp)"
+
+  cleanup_build_log() {
+    rm -f "$build_log"
+  }
+  trap cleanup_build_log EXIT
+
+  if [[ -f "$CONFIG_BACKUP" ]]; then
+    rm -f "$CONFIG_BACKUP"
+  fi
 
   cp "$CONFIG_FILE" "$CONFIG_BACKUP"
   cat > "$CONFIG_FILE" <<'CFG'
@@ -135,13 +145,25 @@ export default nextConfig;
 CFG
 
   rm -rf .next out
-  npm run build >/dev/null
+  if ! npm run build >"$build_log" 2>&1; then
+    cat "$build_log"
+    restore_config
+    trap - EXIT
+    exit 1
+  fi
 
   restore_config
   trap - EXIT
 
-  if [[ ! -d "$PUBLISH_ROOT" || ! -f "$PUBLISH_ROOT/index.html" ]]; then
-    echo "ERROR: static export was not created at $PUBLISH_ROOT"
+  if [[ ! -d "$PUBLISH_ROOT" ]]; then
+    echo "ERROR: static export directory was not created at $PUBLISH_ROOT"
+    cat "$build_log"
+    exit 1
+  fi
+
+  if [[ ! -f "$PUBLISH_ROOT/404.html" && ! -f "$PUBLISH_ROOT/index.html" && ! -d "$PUBLISH_ROOT/404" ]]; then
+    echo "ERROR: static export output was not created at $PUBLISH_ROOT"
+    cat "$build_log"
     exit 1
   fi
 
