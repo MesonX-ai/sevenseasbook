@@ -820,7 +820,7 @@ p {
   width: 200px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 6px;
+  gap: 12px;
 }
 .ai-card-media img {
   width: 100%;
@@ -845,6 +845,48 @@ p {
   .ai-card { flex-direction: column; align-items: flex-start; }
   .ai-card-media,
   .ai-card-media-dual { width: 100%; flex-basis: auto; height: 140px; }
+}
+
+/* Lightbox overlay for expanded AI-term thumbnails */
+.ai-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 5vh 5vw;
+  background: rgba(10, 12, 24, 0.82);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  cursor: zoom-out;
+}
+.ai-lightbox.open,
+.ai-lightbox[aria-modal="true"] { display: flex; }
+.ai-lightbox img {
+  max-width: 92vw;
+  max-height: 86vh;
+  width: auto;
+  height: auto;
+  border-radius: 16px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+  display: block;
+  cursor: default;
+}
+.ai-lightbox-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #111;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
 }
 
 /* Acronym cards */

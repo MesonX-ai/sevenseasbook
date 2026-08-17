@@ -56,6 +56,8 @@ const featuredInsights = [
 
 export default function HomePage() {
   const [hasVideoSource, setHasVideoSource] = useState(true);
+  const [lightbox, setLightbox] = useState(null);
+  const openZoom = (src, alt) => setLightbox({ src, alt });
 
   return (
     <div className="page-shell page-home">
@@ -125,7 +127,7 @@ export default function HomePage() {
           <div className="ai-terms">
             <article className="ai-card">
               <div className="ai-card-media">
-                <img src="/images/A2A.jpeg" alt="Agentic AI (A2A)" />
+                <img src="/images/A2A.jpeg" alt="Agentic AI (A2A)" style={{ cursor: "zoom-in" }} onClick={() => openZoom("/images/A2A.jpeg", "Agentic AI (A2A)")} />
               </div>
               <div className="ai-card-body">
                 <h3>Agentic AI (A2A)</h3>
@@ -136,7 +138,7 @@ export default function HomePage() {
             <div className="ai-grid-2">
               <article className="ai-card">
                 <div className="ai-card-media">
-                  <img src="/images/LRM.jpeg" alt="Large Reasoning Models (LLMs)" />
+                  <img src="/images/LRM.jpeg" alt="Large Reasoning Models (LLMs)" style={{ cursor: "zoom-in" }} onClick={() => openZoom("/images/LRM.jpeg", "Large Reasoning Models (LLMs)")} />
                 </div>
                 <div className="ai-card-body">
                   <h3>Large Reasoning Models (LLMs)</h3>
@@ -145,7 +147,7 @@ export default function HomePage() {
               </article>
               <article className="ai-card">
                 <div className="ai-card-media">
-                  <img src="/images/RAG.jpeg" alt="Retrieval Augmented Generation (RAG)" />
+                  <img src="/images/RAG.jpeg" alt="Retrieval Augmented Generation (RAG)" style={{ cursor: "zoom-in" }} onClick={() => openZoom("/images/RAG.jpeg", "Retrieval Augmented Generation (RAG)")} />
                 </div>
                 <div className="ai-card-body">
                   <h3>Retrieval Augmented Generation (RAG)</h3>
@@ -156,8 +158,8 @@ export default function HomePage() {
 
             <article className="ai-card">
               <div className="ai-card-media ai-card-media-dual">
-                <img src="/images/VD1.jpeg" alt="Vector database" />
-                <img src="/images/VD2.jpeg" alt="Embedding models" />
+                <img src="/images/VD1.jpeg" alt="Vector database" style={{ cursor: "zoom-in" }} onClick={() => openZoom("/images/VD1.jpeg", "Vector database")} />
+                <img src="/images/VD2.jpeg" alt="Embedding models" style={{ cursor: "zoom-in" }} onClick={() => openZoom("/images/VD2.jpeg", "Embedding models")} />
               </div>
               <div className="ai-card-body">
                 <h3>Vector Databases (Embedding Models)</h3>
@@ -168,7 +170,7 @@ export default function HomePage() {
             <div className="ai-grid-2">
               <article className="ai-card">
                 <div className="ai-card-media">
-                  <img src="/images/MCP.jpeg" alt="Model Context Protocol (MCP)" />
+                  <img src="/images/MCP.jpeg" alt="Model Context Protocol (MCP)" style={{ cursor: "zoom-in" }} onClick={() => openZoom("/images/MCP.jpeg", "Model Context Protocol (MCP)")} />
                 </div>
                 <div className="ai-card-body">
                   <h3>Model Context Protocol (MCP)</h3>
@@ -177,7 +179,7 @@ export default function HomePage() {
               </article>
               <article className="ai-card">
                 <div className="ai-card-media">
-                  <img src="/images/MOE.jpeg" alt="Mixture of Experts (MoE)" />
+                  <img src="/images/MOE.jpeg" alt="Mixture of Experts (MoE)" style={{ cursor: "zoom-in" }} onClick={() => openZoom("/images/MOE.jpeg", "Mixture of Experts (MoE)")} />
                 </div>
                 <div className="ai-card-body">
                   <h3>Mixture of Experts (MoE)</h3>
@@ -188,7 +190,7 @@ export default function HomePage() {
 
             <article className="ai-card">
               <div className="ai-card-media">
-                <img src="/images/ASI.jpeg" alt="Artificial Super Intelligence (ASI)" />
+                <img src="/images/ASI.jpeg" alt="Artificial Super Intelligence (ASI)" style={{ cursor: "zoom-in" }} onClick={() => openZoom("/images/ASI.jpeg", "Artificial Super Intelligence (ASI)")} />
               </div>
               <div className="ai-card-body">
                 <h3>Artificial Super Intelligence (ASI)</h3>
@@ -426,6 +428,29 @@ export default function HomePage() {
           </div>
         </section>
       </main>
+
+      {lightbox && (
+        <div
+          className="ai-lightbox"
+          role="dialog"
+          aria-modal="true"
+          aria-label={lightbox.alt}
+          onClick={() => setLightbox(null)}
+        >
+          <button
+            type="button"
+            className="ai-lightbox-close"
+            aria-label="Close expanded image"
+            onClick={(e) => {
+              e.stopPropagation();
+              setLightbox(null);
+            }}
+          >
+            &times;
+          </button>
+          <img src={lightbox.src} alt={lightbox.alt} onClick={(e) => e.stopPropagation()} />
+        </div>
+      )}
     </div>
   );
 }
