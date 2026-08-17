@@ -114,31 +114,87 @@ export default function HomePage() {
             <div className="section-art" aria-hidden="true">
               <img src="/images/7_seas.png" alt="" />
             </div>
-            <p className="eyebrow">The 7 Pillars</p>
-            <h2>Built on Seven Technical Foundations</h2>
+            <p className="eyebrow">AI Industry</p>
+            <h2>Seven Eternal Terms in AI Industry</h2>
             <p>
-              To build resilient, enterprise-grade agents today, your architecture must master
-              these seven key pillars.
+              These seven concepts define how modern AI systems are built, connected, and scaled
+              across the industry.
             </p>
           </div>
 
-          <div className="pillar-stack">
-            {chapters.map((chapter) => (
-              <a
-                key={`pillar-${chapter.id}`}
-                className="pillar-row"
-                href={`/chapters/${chapter.id}`}
-              >
-                <span className="pillar-num">{chapter.id}</span>
-                <div>
-                  <h3 className="pillar-title">{chapter.navTitle || chapter.title}</h3>
-                  <p className="pillar-summary">{chapter.summary}</p>
+          <div className="ai-terms">
+            <article className="ai-card">
+              <div className="ai-card-media">
+                <img src="/images/A2A.jpeg" alt="Agentic AI (A2A)" />
+              </div>
+              <div className="ai-card-body">
+                <h3>Agentic AI (A2A)</h3>
+                <p>Agent-to-Agent systems let autonomous AI agents plan, delegate, and coordinate tasks across tools and services — turning a single model into a team that gets real work done.</p>
+              </div>
+            </article>
+
+            <div className="ai-grid-2">
+              <article className="ai-card">
+                <div className="ai-card-media">
+                  <img src="/images/LRM.jpeg" alt="Large Reasoning Models (LLMs)" />
                 </div>
-                <span className="pillar-arrow" aria-hidden="true">
-                  &rarr;
-                </span>
-              </a>
-            ))}
+                <div className="ai-card-body">
+                  <h3>Large Reasoning Models (LLMs)</h3>
+                  <p>Reasoning-tuned foundation models go beyond next-token prediction, applying step-by-step chain-of-thought, planning, and self-correction to solve complex problems.</p>
+                </div>
+              </article>
+              <article className="ai-card">
+                <div className="ai-card-media">
+                  <img src="/images/RAG.jpeg" alt="Retrieval Augmented Generation (RAG)" />
+                </div>
+                <div className="ai-card-body">
+                  <h3>Retrieval Augmented Generation (RAG)</h3>
+                  <p>RAG grounds generation in trusted external knowledge, retrieving relevant documents and augmenting responses with verified context to reduce hallucination.</p>
+                </div>
+              </article>
+            </div>
+
+            <article className="ai-card">
+              <div className="ai-card-media ai-card-media-dual">
+                <img src="/images/VD1.jpeg" alt="Vector database" />
+                <img src="/images/VD2.jpeg" alt="Embedding models" />
+              </div>
+              <div className="ai-card-body">
+                <h3>Vector Databases (Embedding Models)</h3>
+                <p>Embedding models turn text, images, and code into vectors that vector databases index and search by semantic similarity — powering retrieval, memory, and long-term context.</p>
+              </div>
+            </article>
+
+            <div className="ai-grid-2">
+              <article className="ai-card">
+                <div className="ai-card-media">
+                  <img src="/images/MCP.jpeg" alt="Model Context Protocol (MCP)" />
+                </div>
+                <div className="ai-card-body">
+                  <h3>Model Context Protocol (MCP)</h3>
+                  <p>MCP is an open standard that connects AI models to tools, data sources, and external systems through one uniform interface, replacing brittle custom integrations.</p>
+                </div>
+              </article>
+              <article className="ai-card">
+                <div className="ai-card-media">
+                  <img src="/images/MOE.jpeg" alt="Mixture of Experts (MoE)" />
+                </div>
+                <div className="ai-card-body">
+                  <h3>Mixture of Experts (MoE)</h3>
+                  <p>MoE activates specialized sub-networks per input instead of the full model, delivering greater scale and efficiency at lower inference cost.</p>
+                </div>
+              </article>
+            </div>
+
+            <article className="ai-card">
+              <div className="ai-card-media">
+                <img src="/images/ASI.jpeg" alt="Artificial Super Intelligence (ASI)" />
+              </div>
+              <div className="ai-card-body">
+                <h3>Artificial Super Intelligence (ASI)</h3>
+                <p>ASI describes a hypothetical future AI that surpasses human intelligence across every domain — the aspirational frontier these seven terms are building toward.</p>
+              </div>
+            </article>
           </div>
         </section>
 
