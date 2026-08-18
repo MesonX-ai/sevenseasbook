@@ -2020,7 +2020,6 @@ img {
 /* Refractive "liquid" warp on top of the frost (Apple-style), progressive enhancement */
 @supports ((-webkit-backdrop-filter: blur(2px)) or (backdrop-filter: blur(2px))) {
   .glass,
-  #site-header,
   .featured-pillars,
   .section,
   .section-alt,
