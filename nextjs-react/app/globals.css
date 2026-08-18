@@ -2003,7 +2003,6 @@ img {
 
 /* Frosted liquid glass applied to site chrome + cards */
 .glass,
-#site-header,
 .featured-pillars,
 .section,
 .section-alt,
@@ -2022,7 +2021,6 @@ img {
 @supports ((-webkit-backdrop-filter: blur(2px)) or (backdrop-filter: blur(2px))) {
   .glass,
   #site-header,
-  #site-footer,
   .featured-pillars,
   .section,
   .section-alt,
