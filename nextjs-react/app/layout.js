@@ -63,9 +63,18 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body>
+        <div className="liquid-bg" aria-hidden="true" />
         <SiteHeader />
         {children}
         <SiteFooter />
+        <svg className="liquid-glass-defs" width="0" height="0" aria-hidden="true" focusable="false">
+          <defs>
+            <filter id="lg-refract" x="-20%" y="-20%" width="140%" height="140%" colorInterpolationFilters="sRGB">
+              <feTurbulence type="fractalNoise" baseFrequency="0.009 0.013" numOctaves="2" seed="7" result="noise" />
+              <feDisplacementMap in="SourceGraphic" in2="noise" scale="16" xChannelSelector="R" yChannelSelector="G" />
+            </filter>
+          </defs>
+        </svg>
       </body>
     </html>
   );
