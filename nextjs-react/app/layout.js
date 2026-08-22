@@ -3,6 +3,7 @@ import "./ocean.css";
 import SiteHeader from "./components/SiteHeader";
 import SiteFooter from "./components/SiteFooter";
 import RevealOnScroll from "./components/RevealOnScroll";
+import CardSpotlight from "./components/CardSpotlight";
 
 const siteUrl = "https://www.sevenseasbook.us";
 
@@ -80,6 +81,7 @@ export default function RootLayout({ children }) {
         <SiteHeader />
         {children}
         <RevealOnScroll />
+        <CardSpotlight />
         <SiteFooter />
         <svg className="liquid-glass-defs" width="0" height="0" aria-hidden="true" focusable="false">
           <defs>
