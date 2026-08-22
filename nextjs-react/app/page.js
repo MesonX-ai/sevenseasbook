@@ -237,7 +237,7 @@ export default function HomePage() {
               </div>
               <div className="ai-card-body">
                 <h3>Agentic AI (A2A)</h3>
-                <p>Agent-to-Agent systems let autonomous AI agents plan, delegate, and coordinate tasks across tools and services — turning a single model into a team that gets real work done.</p>
+                <p>Agent-to-Agent protocols let autonomous agents discover each other's capabilities, delegate tasks through typed handoffs, and coordinate across tools and services — turning isolated models into governed teams that get real work done.</p>
               </div>
             </article>
 
@@ -248,7 +248,7 @@ export default function HomePage() {
                 </div>
                 <div className="ai-card-body">
                   <h3>Large Reasoning Models (LLMs)</h3>
-                  <p>Reasoning-tuned foundation models go beyond next-token prediction, applying step-by-step chain-of-thought, planning, and self-correction to solve complex problems.</p>
+                  <p>Reasoning-tuned models spend extra compute at inference time — planning steps, checking their own work, and backtracking from dead ends. That trade of latency for accuracy is what unlocks math, code, and multi-step enterprise analysis.</p>
                 </div>
               </article>
               <article className="ai-card">
@@ -257,7 +257,7 @@ export default function HomePage() {
                 </div>
                 <div className="ai-card-body">
                   <h3>Retrieval Augmented Generation (RAG)</h3>
-                  <p>RAG grounds generation in trusted external knowledge, retrieving relevant documents and augmenting responses with verified context to reduce hallucination.</p>
+                  <p>RAG grounds every answer in a trusted corpus: embed the query, retrieve semantically relevant passages, rerank for precision, and generate with citations. Knowledge stays current without retraining — and hallucinations have somewhere verifiable to come from.</p>
                 </div>
               </article>
             </div>
@@ -269,7 +269,7 @@ export default function HomePage() {
               </div>
               <div className="ai-card-body">
                 <h3>Vector Databases (Embedding Models)</h3>
-                <p>Embedding models turn text, images, and code into vectors that vector databases index and search by semantic similarity — powering retrieval, memory, and long-term context.</p>
+                <p>Embedding models map text, images, and code into high-dimensional vectors; vector databases index them with ANN algorithms such as HNSW so agents can search millions of documents by meaning in milliseconds — the backbone of retrieval and long-term memory.</p>
               </div>
             </article>
 
@@ -280,7 +280,7 @@ export default function HomePage() {
                 </div>
                 <div className="ai-card-body">
                   <h3>Model Context Protocol (MCP)</h3>
-                  <p>MCP is an open standard that connects AI models to tools, data sources, and external systems through one uniform interface, replacing brittle custom integrations.</p>
+                  <p>MCP is the open standard (originated by Anthropic) that exposes tools, prompts, and resources through one typed interface — build an integration once and every compliant model or agent can use it, replacing brittle point-to-point glue.</p>
                 </div>
               </article>
               <article className="ai-card">
@@ -289,7 +289,7 @@ export default function HomePage() {
                 </div>
                 <div className="ai-card-body">
                   <h3>Mixture of Experts (MoE)</h3>
-                  <p>MoE activates specialized sub-networks per input instead of the full model, delivering greater scale and efficiency at lower inference cost.</p>
+                  <p>MoE routes each token to a few specialized sub-networks (experts) instead of running the whole model — frontier-model scale at a fraction of the inference cost. It is the architecture behind Mixtral and DeepSeek-V3.</p>
                 </div>
               </article>
             </div>
@@ -300,7 +300,7 @@ export default function HomePage() {
               </div>
               <div className="ai-card-body">
                 <h3>Artificial Super Intelligence (ASI)</h3>
-                <p>ASI describes a hypothetical future AI that surpasses human intelligence across every domain — the aspirational frontier these seven terms are building toward.</p>
+                <p>ASI describes hypothetical systems that surpass human experts across every cognitive domain. No such system exists today — but the term anchors the alignment research, safety engineering, and governance work this framework prescribes.</p>
               </div>
             </article>
           </div>

@@ -1,4 +1,5 @@
 import { chapters } from "../../../lib/sevenSeasData";
+import { chapterExtras } from "../../../lib/chapterExtras";
 
 export function generateStaticParams() {
   return chapters.map((chapter) => ({ chapter: chapter.id }));
@@ -17,6 +18,11 @@ export default async function ChapterPage({ params }) {
   const advancedTopics = chapterData?.advancedTopics || [];
   const applicationExamples = chapterData?.applicationExamples || [];
   const videoSuggestions = chapterData?.videoSuggestions || [];
+  const extra = chapterExtras[chapterData?.id] || {};
+  const keyTerms = extra.keyTerms || [];
+  const codeExample = extra.codeExample || null;
+  const pitfalls = extra.pitfalls || [];
+  const furtherReading = extra.furtherReading || [];
 
   if (!chapterData) {
     return (
@@ -53,6 +59,47 @@ export default async function ChapterPage({ params }) {
           {implementationDetails.map((paragraph, index) => (
             <p key={`implementation-${chapterData.id}-${index}`}>{paragraph}</p>
           ))}
+
+          {keyTerms.length > 0 ? (
+            <>
+              <h3>Key Terms</h3>
+              <dl className="chapter-keyterms">
+                {keyTerms.map((item, index) => (
+                  <div className="chapter-keyterm" key={`term-${chapterData.id}-${index}`}>
+                    <dt>{item.term}</dt>
+                    <dd>{item.definition}</dd>
+                  </div>
+                ))}
+              </dl>
+            </>
+          ) : null}
+
+          {codeExample ? (
+            <>
+              <h3>Code Example</h3>
+              <figure className="chapter-code">
+                <figcaption>
+                  <span className="chapter-code-dot" aria-hidden="true" />
+                  {codeExample.title}
+                  <span className="chapter-code-lang">{codeExample.language}</span>
+                </figcaption>
+                <pre>
+                  <code>{codeExample.code}</code>
+                </pre>
+              </figure>
+            </>
+          ) : null}
+
+          {pitfalls.length > 0 ? (
+            <>
+              <h3>Common Pitfalls</h3>
+              <ul className="chapter-pitfalls">
+                {pitfalls.map((pitfall, index) => (
+                  <li key={`pitfall-${chapterData.id}-${index}`}>{pitfall}</li>
+                ))}
+              </ul>
+            </>
+          ) : null}
 
           {diagramSteps.length > 0 ? (
             <>
@@ -126,6 +173,21 @@ export default async function ChapterPage({ params }) {
                   </section>
                 ))}
               </div>
+            </>
+          ) : null}
+
+          {furtherReading.length > 0 ? (
+            <>
+              <h3>Further Reading</h3>
+              <ul className="chapter-reading-list">
+                {furtherReading.map((item, index) => (
+                  <li key={`reading-${chapterData.id}-${index}`}>
+                    <a href={item.url} target="_blank" rel="noopener noreferrer">
+                      {item.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </>
           ) : null}
 
