@@ -2001,6 +2001,40 @@ img {
   pointer-events: none;
 }
 
+/* Floating scroll-to-edge arrow (footer <-> header) */
+.scroll-fab {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 900;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+  box-shadow: var(--glass-shadow);
+  color: var(--ink);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+.scroll-fab:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--glass-shadow), 0 10px 26px rgba(26, 106, 255, 0.22);
+}
+.scroll-fab-arrow {
+  font-size: 1.5rem;
+  line-height: 1;
+  transition: transform 0.3s ease;
+}
+.scroll-fab.is-up .scroll-fab-arrow {
+  transform: rotate(180deg);
+}
+
 /* Frosted liquid glass applied to site chrome + cards */
 .glass,
 .featured-pillars,
@@ -2029,7 +2063,8 @@ img {
   .insight-card,
   .btn,
   .btn-primary,
-  .btn-outline-accent {
+  .btn-outline-accent,
+  .scroll-fab {
     -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat)) url(#lg-refract);
     backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat)) url(#lg-refract);
   }

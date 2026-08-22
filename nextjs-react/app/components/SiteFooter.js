@@ -3,6 +3,11 @@ const currentYear = new Date().getFullYear();
 export default function SiteFooter() {
   return (
     <div id="site-footer-wrap">
+      <div className="footer-wave" aria-hidden="true">
+        <svg viewBox="0 0 1440 90" preserveAspectRatio="none" focusable="false">
+          <path d="M0,52 C180,92 380,10 720,44 C1020,74 1240,14 1440,50 L1440,90 L0,90 Z" />
+        </svg>
+      </div>
       <footer id="site-footer">
         <div className="footer-col">
           <h4>Seven SEAS</h4>

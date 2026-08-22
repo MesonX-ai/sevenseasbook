@@ -9,12 +9,23 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 APP_DIR="$SCRIPT_DIR/nextjs-react"
 PUBLISH_ROOT="$APP_DIR/out"
-FTP_CONFIG="$SCRIPT_DIR/../ftp-config.json"
 PROFILE_NAME="SevenSeasBook"
 GITHUB_REMOTE_URL="https://github.com/MesonX-ai/sevenseasbook.git"
 BRANCH_NAME="main"
 CONFIG_FILE="$APP_DIR/next.config.mjs"
 CONFIG_BACKUP="$APP_DIR/next.config.mjs.publish_backup"
+
+# FTP credentials live in the shared aws-setup folder; fall back to the legacy location.
+if [[ -f "$SCRIPT_DIR/../aws-setup/ftp-config.json" ]]; then
+  FTP_CONFIG="$SCRIPT_DIR/../aws-setup/ftp-config.json"
+elif [[ -f "$SCRIPT_DIR/../ftp-config.json" ]]; then
+  FTP_CONFIG="$SCRIPT_DIR/../ftp-config.json"
+else
+  echo "ERROR: ftp-config.json not found. Looked in:"
+  echo "  $SCRIPT_DIR/../aws-setup/ftp-config.json"
+  echo "  $SCRIPT_DIR/../ftp-config.json"
+  exit 1
+fi
 
 BUILD_ONLY="false"
 SKIP_GIT="false"
@@ -185,6 +196,9 @@ if [[ "$SKIP_GIT" != "true" ]]; then
     exit 1
   fi
 
+  # Never hang waiting for username/password on an interactive prompt.
+  export GIT_TERMINAL_PROMPT=0
+
   if git remote get-url origin >/dev/null 2>&1; then
     git remote set-url origin "$GITHUB_REMOTE_URL"
   else
@@ -193,19 +207,25 @@ if [[ "$SKIP_GIT" != "true" ]]; then
 
   if [[ -n "$(git status --porcelain)" ]]; then
     git add -A
-    git commit -m "$COMMIT_MSG"
+    if ! git commit -m "$COMMIT_MSG"; then
+      echo "WARNING: git commit failed; continuing with publish."
+    fi
   else
     echo "No local git changes to commit."
   fi
 
   if git show-ref --verify --quiet "refs/heads/$BRANCH_NAME"; then
-    git push -u origin "$BRANCH_NAME"
+    PUSH_REF="$BRANCH_NAME"
   else
     current_branch="$(git branch --show-current)"
     if [[ -z "$current_branch" ]]; then
       current_branch="$BRANCH_NAME"
     fi
-    git push -u origin "$current_branch:$BRANCH_NAME"
+    PUSH_REF="$current_branch:$BRANCH_NAME"
+  fi
+
+  if ! git push -u origin "$PUSH_REF"; then
+    echo "WARNING: git push failed (check credentials/network); continuing with FTP publish."
   fi
 else
   echo "Skip-git mode: skipping commit/push."
@@ -307,7 +327,12 @@ while IFS= read -r -d '' file; do
   local_hash="$(shasum -a 256 "$file" | awk '{print $1}')"
   local_size="$(wc -c < "$file" | tr -d '[:space:]')"
   printf "%s\t%s\t%s\n" "$rel" "$local_hash" "$local_size" >> "$LOCAL_MANIFEST"
-done < <(find . -type f -print0)
+done < <(find . -type f \
+  ! -name '.DS_Store' \
+  ! -name 'Thumbs.db' \
+  ! -name 'desktop.ini' \
+  ! -path './.git/*' \
+  -print0)
 
 echo "Fetching remote checksum manifest ..."
 set +e
@@ -322,6 +347,7 @@ fi
 new_count=0
 edit_count=0
 skip_count=0
+fail_count=0
 
 while IFS=$'\t' read -r rel local_hash local_size; do
   if [[ -z "$rel" ]]; then
@@ -338,7 +364,16 @@ while IFS=$'\t' read -r rel local_hash local_size; do
 
   file="./$rel"
   ensure_remote_dir "$(dirname "$REMOTE_PATH/$rel")"
+  set +e
   "${lftp_base[@]}" -e "set ssl:verify-certificate no; set cmd:fail-exit yes; put -O \"$(dirname "$REMOTE_PATH/$rel")\" \"$file\"; bye" >/dev/null
+  put_rc=$?
+  set -e
+
+  if [[ $put_rc -ne 0 ]]; then
+    echo "FAIL  $rel"
+    fail_count=$((fail_count + 1))
+    continue
+  fi
 
   if [[ -z "$remote_hash" ]]; then
     echo "NEW   $rel"
@@ -348,6 +383,12 @@ while IFS=$'\t' read -r rel local_hash local_size; do
     edit_count=$((edit_count + 1))
   fi
 done < "$LOCAL_MANIFEST"
+
+if [[ $fail_count -gt 0 ]]; then
+  echo "ERROR: $fail_count file(s) failed to upload."
+  echo "Skipping manifest update so the next run retries them."
+  exit 1
+fi
 
 echo "Uploading checksum manifest ..."
 "${lftp_base[@]}" -e "set ssl:verify-certificate no; set cmd:fail-exit yes; put \"$LOCAL_MANIFEST\" -o \"$REMOTE_MANIFEST_PATH\"; bye" >/dev/null

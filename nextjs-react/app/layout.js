@@ -1,6 +1,8 @@
 import "./globals.css";
+import "./ocean.css";
 import SiteHeader from "./components/SiteHeader";
 import SiteFooter from "./components/SiteFooter";
+import RevealOnScroll from "./components/RevealOnScroll";
 
 const siteUrl = "https://www.sevenseasbook.us";
 
@@ -56,16 +58,22 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         <meta name="robots" content="index,follow" />
-        <meta name="theme-color" content="#f8fcff" />
+        <meta name="theme-color" content="#04101f" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
       <body>
-        <div className="liquid-bg" aria-hidden="true" />
+        <div className="liquid-bg" aria-hidden="true">
+          <span className="liquid-orb liquid-orb-1" />
+          <span className="liquid-orb liquid-orb-2" />
+          <span className="liquid-orb liquid-orb-3" />
+          <span className="liquid-orb liquid-orb-4" />
+        </div>
         <SiteHeader />
         {children}
+        <RevealOnScroll />
         <SiteFooter />
         <svg className="liquid-glass-defs" width="0" height="0" aria-hidden="true" focusable="false">
           <defs>

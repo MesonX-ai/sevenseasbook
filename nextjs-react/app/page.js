@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { acronymSections, chapters } from "../lib/sevenSeasData";
 
 const frameworkThemes = [
@@ -54,40 +54,137 @@ const featuredInsights = [
   },
 ];
 
+/* ---- Ocean hero scene data (deterministic — safe for SSR) ---- */
+
+const OCEAN_STARS = Array.from({ length: 46 }, (_, i) => ({
+  left: `${(i * 37 + 11) % 100}%`,
+  top: `${(i * 23) % 42}%`,
+  size: 1 + (i % 3),
+  duration: `${3 + (i % 5)}s`,
+  delay: `${((i * 7) % 10) * 0.45}s`,
+}));
+
+const OCEAN_BUBBLES = Array.from({ length: 16 }, (_, i) => {
+  const size = 5 + ((i * 3) % 4) * 5;
+  return {
+    left: `${(i * 61 + 7) % 100}%`,
+    size,
+    duration: `${9 + ((i * 5) % 8)}s`,
+    delay: `${((i * 13) % 12) * 1.1}s`,
+  };
+});
+
+const WAVE_PATHS = {
+  back: "M0,64 Q180,22 360,64 T720,64 T1080,64 T1440,64 L1440,120 L0,120 Z",
+  mid: "M0,72 Q180,30 360,72 T720,72 T1080,72 T1440,72 L1440,120 L0,120 Z",
+  front: "M0,80 Q180,118 360,80 T720,80 T1080,80 T1440,80 L1440,120 L0,120 Z",
+};
+
+function OceanWaveLayer({ variant, path }) {
+  return (
+    <div className={`ocean-wave ocean-wave-${variant}`} aria-hidden="true">
+      <svg viewBox="0 0 1440 120" preserveAspectRatio="none" focusable="false">
+        <path d={path} />
+      </svg>
+      <svg viewBox="0 0 1440 120" preserveAspectRatio="none" focusable="false">
+        <path d={path} />
+      </svg>
+    </div>
+  );
+}
+
+
 export default function HomePage() {
-  const [hasVideoSource, setHasVideoSource] = useState(true);
   const [lightbox, setLightbox] = useState(null);
   const openZoom = (src, alt) => setLightbox({ src, alt });
+
+  const [atBottom, setAtBottom] = useState(false);
+  useEffect(() => {
+    const onScroll = () => {
+      const scrollPos = window.scrollY + window.innerHeight;
+      const threshold = document.documentElement.scrollHeight - 80;
+      setAtBottom(scrollPos >= threshold);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+
+  const scrollToEdge = () => {
+    if (atBottom) {
+      const header = document.getElementById("site-header");
+      if (header) header.scrollIntoView({ behavior: "smooth", block: "start" });
+      else window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      const footer = document.getElementById("site-footer");
+      if (footer) footer.scrollIntoView({ behavior: "smooth", block: "end" });
+      else window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+    }
+  };
 
   return (
     <div className="page-shell page-home">
       <main className="page-main-wide">
-        {/* ===== HERO SECTION ===== */}
-        <section className="home-hero" aria-label="Seven SEAS hero">
-          <div className="hero-bg" aria-hidden="true">
-            <img src="/images/hero-bg.png" alt="" />
-          </div>
-          {hasVideoSource ? (
-            <div className="hero-video-wrap" aria-hidden="true">
-              <video
-                className="hero-video"
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                poster="/images/hero-bg.png"
-                onError={() => setHasVideoSource(false)}
-              >
-                <source src="/videos/clouds.mp4" type="video/mp4" />
-              </video>
+        {/* ===== HERO SECTION — deep ocean night scene ===== */}
+        <section className="home-hero ocean-hero" aria-label="Seven SEAS hero">
+          <div className="ocean-scene" aria-hidden="true">
+            <div className="ocean-stars">
+              {OCEAN_STARS.map((star, index) => (
+                <span
+                  key={`star-${index}`}
+                  style={{
+                    left: star.left,
+                    top: star.top,
+                    width: `${star.size}px`,
+                    height: `${star.size}px`,
+                    ["--tw-dur"]: star.duration,
+                    ["--tw-delay"]: star.delay,
+                  }}
+                />
+              ))}
             </div>
-          ) : null}
-          <div className="hero-overlay" aria-hidden="true"></div>
+
+            <span className="ocean-glow ocean-glow-a" />
+            <span className="ocean-glow ocean-glow-b" />
+            <span className="ocean-moon" />
+
+            <div className="ocean-lighthouse">
+              <img src="/images/lighthouse.png" alt="" />
+              <span className="ocean-beam" />
+              <span className="ocean-beam ocean-beam-reverse" />
+            </div>
+
+            <div className="ocean-waves">
+              <OceanWaveLayer variant="back" path={WAVE_PATHS.back} />
+              <OceanWaveLayer variant="mid" path={WAVE_PATHS.mid} />
+              <OceanWaveLayer variant="front" path={WAVE_PATHS.front} />
+            </div>
+
+            <div className="ocean-bubbles">
+              {OCEAN_BUBBLES.map((bubble, index) => (
+                <span
+                  key={`bubble-${index}`}
+                  style={{
+                    left: bubble.left,
+                    width: `${bubble.size}px`,
+                    height: `${bubble.size}px`,
+                    ["--bub-dur"]: bubble.duration,
+                    ["--bub-delay"]: bubble.delay,
+                  }}
+                />
+              ))}
+            </div>
+          </div>
 
           <div className="hero-content">
+            <p className="hero-eyebrow">Seven SEAS Framework</p>
             <h1 className="hero-title">
-              Enterprise AI Architecture for Dependable Agentic Systems
+              Enterprise AI Architecture for{" "}
+              <span className="hero-title-gradient">Dependable Agentic Systems</span>
             </h1>
             <p className="hero-subcopy">
               Seven SEAS is a practical framework for designing enterprise AI platforms with memory,
@@ -107,11 +204,20 @@ export default function HomePage() {
                 Explore the 7 Pillars
               </a>
             </div>
+            <a className="hero-scroll-hint" href="#home-pillars" aria-label="Scroll to content">
+              <span />
+            </a>
           </div>
         </section>
 
+        <div className="sea-divider" aria-hidden="true">
+          <svg viewBox="0 0 1440 90" preserveAspectRatio="none" focusable="false">
+            <path d="M0,56 C220,92 460,14 720,46 C980,78 1220,18 1440,54 L1440,90 L0,90 Z" />
+          </svg>
+        </div>
+
         {/* ===== 7 PILLARS ===== */}
-        <section className="featured-pillars" aria-label="Seven key technical pillars">
+        <section id="home-pillars" className="featured-pillars" aria-label="Seven key technical pillars">
           <div className="section-header section-header-with-art">
             <div className="section-art" aria-hidden="true">
               <img src="/images/7_seas.png" alt="" />
@@ -451,6 +557,15 @@ export default function HomePage() {
           <img src={lightbox.src} alt={lightbox.alt} onClick={(e) => e.stopPropagation()} />
         </div>
       )}
+
+      <button
+        type="button"
+        className={`scroll-fab ${atBottom ? "is-up" : "is-down"}`}
+        aria-label={atBottom ? "Scroll to top" : "Scroll to footer"}
+        onClick={scrollToEdge}
+      >
+        <span className="scroll-fab-arrow" aria-hidden="true">&#8595;</span>
+      </button>
     </div>
   );
 }

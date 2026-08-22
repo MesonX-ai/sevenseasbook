@@ -1,0 +1,969 @@
+/* ============================================================
+   Seven SEAS — DEEP OCEAN premium theme layer
+   Loaded after globals.css: re-themes every shared component
+   into a cinematic deep-ocean experience with glass surfaces,
+   glowing accents, waves, bubbles and scroll-reveal motion.
+   ============================================================ */
+
+:root {
+  --bg: #04101f;
+  --surface: rgba(15, 34, 60, 0.55);
+  --surface-alt: rgba(10, 25, 46, 0.6);
+  --ink: #eaf4ff;
+  --ink-soft: #b9cfe8;
+  --muted: #7f99ba;
+  --line: rgba(126, 180, 238, 0.16);
+  --accent: #38bdf8;
+  --accent-strong: #7dd3fc;
+  --ocean-deep: #02070f;
+  --ocean-mid: #062038;
+  --glass-bg: rgba(13, 32, 58, 0.5);
+  --glass-bg-strong: rgba(19, 44, 76, 0.68);
+  --glass-border: rgba(125, 211, 252, 0.18);
+  --glass-blur: 16px;
+  --glass-sat: 160%;
+  --glass-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.08),
+    inset 0 -1px 1px rgba(125, 211, 252, 0.06),
+    inset 0 0 18px rgba(56, 189, 248, 0.05),
+    0 18px 44px rgba(1, 8, 18, 0.5);
+}
+
+body {
+  background: var(--bg);
+}
+
+::selection {
+  background: rgba(56, 189, 248, 0.35);
+  color: #ffffff;
+}
+
+::-webkit-scrollbar {
+  width: 11px;
+}
+::-webkit-scrollbar-track {
+  background: #030a15;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #0ea5e9, #155e75);
+  border-radius: 8px;
+  border: 2px solid #030a15;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #38bdf8, #0e7490);
+}
+
+/* ------------------------------------------------------------
+   Global animated backdrop — deep ocean aurora
+   ------------------------------------------------------------ */
+
+.liquid-bg {
+  background:
+    radial-gradient(circle at 16% 14%, rgba(14, 116, 144, 0.5) 0%, transparent 42%),
+    radial-gradient(circle at 85% 10%, rgba(37, 99, 235, 0.42) 0%, transparent 44%),
+    radial-gradient(circle at 78% 84%, rgba(6, 182, 212, 0.36) 0%, transparent 44%),
+    radial-gradient(circle at 12% 88%, rgba(29, 78, 216, 0.34) 0%, transparent 44%),
+    linear-gradient(160deg, #010913 0%, #04101f 45%, #05192e 78%, #03101d 100%);
+  background-size: 180% 180%, 180% 180%, 180% 180%, 180% 180%, 100% 100%;
+}
+
+.liquid-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.35;
+  pointer-events: none;
+  animation: orbDrift 22s ease-in-out infinite alternate;
+}
+
+.liquid-orb-1 {
+  width: 480px;
+  height: 480px;
+  top: -140px;
+  left: -120px;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.55), transparent 65%);
+}
+
+.liquid-orb-2 {
+  width: 560px;
+  height: 560px;
+  top: 20%;
+  right: -180px;
+  background: radial-gradient(circle, rgba(129, 140, 248, 0.4), transparent 65%);
+  animation-delay: -6s;
+  animation-duration: 27s;
+}
+
+.liquid-orb-3 {
+  width: 520px;
+  height: 520px;
+  bottom: -160px;
+  left: 18%;
+  background: radial-gradient(circle, rgba(20, 184, 166, 0.38), transparent 65%);
+  animation-delay: -12s;
+  animation-duration: 31s;
+}
+
+.liquid-orb-4 {
+  width: 380px;
+  height: 380px;
+  top: 52%;
+  left: 44%;
+  background: radial-gradient(circle, rgba(14, 165, 233, 0.3), transparent 65%);
+  animation-delay: -18s;
+  animation-duration: 25s;
+}
+
+@keyframes orbDrift {
+  from {
+    transform: translate3d(-24px, -18px, 0) scale(1);
+  }
+  to {
+    transform: translate3d(36px, 30px, 0) scale(1.14);
+  }
+}
+
+/* ------------------------------------------------------------
+   Scroll reveal system (driven by RevealOnScroll component)
+   ------------------------------------------------------------ */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity 0.85s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.85s cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Cards inside a revealed section cascade in with a soft stagger */
+.reveal.is-visible :is(.ai-card, .insight-card, .acronym-card, .pillar-row, .quote-chip, .fact-card, .book-card, .chapter-index-card) {
+  animation: riseFade 0.75s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+.reveal.is-visible :is(.ai-card, .insight-card, .acronym-card, .pillar-row, .quote-chip, .fact-card, .book-card, .chapter-index-card):nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.reveal.is-visible :is(.ai-card, .insight-card, .acronym-card, .pillar-row, .quote-chip, .fact-card, .book-card, .chapter-index-card):nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.reveal.is-visible :is(.ai-card, .insight-card, .acronym-card, .pillar-row, .quote-chip, .fact-card, .book-card, .chapter-index-card):nth-child(n + 4) {
+  animation-delay: 0.3s;
+}
+
+/* ------------------------------------------------------------
+   Site header — deep glass with ocean gradient accents
+   ------------------------------------------------------------ */
+
+#site-header-wrap {
+  background: linear-gradient(180deg, rgba(4, 16, 31, 0.82) 0%, rgba(4, 14, 27, 0.72) 100%);
+  border-bottom: 1px solid rgba(125, 211, 252, 0.12);
+  box-shadow: 0 10px 34px rgba(1, 8, 18, 0.45);
+}
+
+#site-header-wrap::before {
+  background: linear-gradient(90deg, #22d3ee, #38bdf8, #6366f1, #14b8a6, #22d3ee);
+}
+
+#site-header-wrap::after {
+  background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.07), rgba(56, 189, 248, 0.08), rgba(99, 102, 241, 0.07), transparent);
+}
+
+.logo-link {
+  color: var(--ink);
+}
+
+.logo-lighthouse {
+  filter: drop-shadow(0 3px 10px rgba(56, 189, 248, 0.35));
+}
+
+.logo-gradient {
+  background: linear-gradient(90deg, #67e8f9, #38bdf8, #818cf8);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: gradientShift 4s ease-in-out infinite;
+}
+
+.header-rainbow-line {
+  background: linear-gradient(90deg, #22d3ee, #38bdf8, #818cf8, #2dd4bf, #22d3ee);
+  box-shadow: 0 0 12px rgba(34, 211, 238, 0.55);
+}
+
+.main-nav a {
+  color: var(--ink-soft);
+}
+
+.main-nav a::after {
+  background: linear-gradient(90deg, #22d3ee, #38bdf8, #818cf8);
+  box-shadow: 0 0 10px rgba(34, 211, 238, 0.5);
+}
+
+.main-nav a:hover {
+  color: var(--accent-strong);
+}
+
+.main-nav li.is-current a {
+  color: var(--accent);
+}
+
+.nav-dot {
+  background: linear-gradient(135deg, #22d3ee, #38bdf8);
+  box-shadow: 0 0 8px rgba(34, 211, 238, 0.7);
+}
+
+.header-chapter-links {
+  border-top: 1px solid rgba(126, 180, 238, 0.1);
+}
+
+.header-chapter-links a {
+  color: var(--muted);
+}
+
+.header-chapter-links a:hover {
+  color: var(--accent-strong);
+  background: linear-gradient(90deg, rgba(34, 211, 238, 0.1), rgba(56, 189, 248, 0.1), rgba(129, 140, 248, 0.1));
+  box-shadow: 0 4px 14px rgba(34, 211, 238, 0.15);
+}
+
+.header-chapter-links a.is-current {
+  color: var(--accent);
+  background: linear-gradient(90deg, rgba(34, 211, 238, 0.13), rgba(56, 189, 248, 0.13), rgba(129, 140, 248, 0.13));
+}
+
+/* ------------------------------------------------------------
+   Ocean hero — night sky over deep water
+   ------------------------------------------------------------ */
+
+.home-hero.ocean-hero {
+  min-height: 100vh;
+  padding: clamp(90px, 12vw, 160px) 20px clamp(150px, 18vw, 220px);
+  background: linear-gradient(
+    180deg,
+    #010713 0%,
+    #02101f 34%,
+    #04223c 58%,
+    #073a5e 76%,
+    #0a4a72 88%,
+    #0c567f 100%
+  );
+}
+
+.ocean-scene {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.ocean-stars span {
+  position: absolute;
+  border-radius: 50%;
+  background: #d6efff;
+  box-shadow: 0 0 6px rgba(214, 239, 255, 0.9);
+  animation: starTwinkle var(--tw-dur, 4s) ease-in-out infinite;
+  animation-delay: var(--tw-delay, 0s);
+}
+
+@keyframes starTwinkle {
+  0%, 100% { opacity: 0.15; transform: scale(0.75); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+.ocean-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  pointer-events: none;
+}
+
+.ocean-glow-a {
+  width: 540px;
+  height: 540px;
+  top: -120px;
+  left: -140px;
+  background: radial-gradient(circle, rgba(14, 116, 144, 0.55), transparent 65%);
+  animation: glowDrift 18s ease-in-out infinite alternate;
+}
+
+.ocean-glow-b {
+  width: 660px;
+  height: 660px;
+  right: -180px;
+  bottom: 4%;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.32), transparent 65%);
+  animation: glowDrift 24s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes glowDrift {
+  from { transform: translate3d(-20px, -14px, 0) scale(1); }
+  to { transform: translate3d(42px, 28px, 0) scale(1.12); }
+}
+
+.ocean-moon {
+  position: absolute;
+  top: 11%;
+  right: 13%;
+  width: clamp(70px, 9vw, 116px);
+  height: clamp(70px, 9vw, 116px);
+  border-radius: 50%;
+  background: radial-gradient(circle at 36% 32%, #ffffff 0%, #d9f1ff 42%, #8fd0f5 100%);
+  box-shadow:
+    0 0 44px rgba(217, 241, 255, 0.65),
+    0 0 130px rgba(56, 189, 248, 0.35),
+    inset -10px -8px 26px rgba(125, 211, 252, 0.35);
+  animation: moonFloat 9s ease-in-out infinite alternate;
+}
+
+@keyframes moonFloat {
+  from { transform: translateY(0); }
+  to { transform: translateY(-14px); }
+}
+
+/* Lighthouse silhouette with a sweeping beam */
+.ocean-lighthouse {
+  position: absolute;
+  bottom: 24%;
+  right: clamp(16px, 8vw, 130px);
+  width: clamp(54px, 7vw, 96px);
+  z-index: 1;
+}
+
+.ocean-lighthouse img {
+  width: 100%;
+  display: block;
+  filter: drop-shadow(0 0 22px rgba(125, 211, 252, 0.3)) brightness(0.85);
+}
+
+.ocean-beam {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  width: 300px;
+  height: 96px;
+  transform-origin: 0 50%;
+  background: linear-gradient(90deg, rgba(255, 240, 178, 0.55) 0%, rgba(255, 240, 178, 0.14) 52%, transparent 82%);
+  clip-path: polygon(0 43%, 100% 0%, 100% 100%, 0 57%);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  animation: beamSweep 7s ease-in-out infinite;
+}
+
+.ocean-beam-reverse {
+  animation-name: beamSweepReverse;
+}
+
+@keyframes beamSweep {
+  0%, 100% { transform: rotate(16deg); opacity: 0.12; }
+  45%, 55% { transform: rotate(-18deg); opacity: 0.9; }
+}
+
+@keyframes beamSweepReverse {
+  0%, 100% { transform: rotate(-16deg); opacity: 0.12; }
+  45%, 55% { transform: rotate(18deg); opacity: 0.9; }
+}
+
+/* Layered, endlessly scrolling waves */
+.ocean-waves {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: clamp(120px, 20vw, 230px);
+  z-index: 2;
+}
+
+.ocean-wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  width: 200%;
+  height: 100%;
+}
+
+.ocean-wave svg {
+  width: 50%;
+  height: 100%;
+  flex: none;
+}
+
+.ocean-wave path {
+  fill: currentColor;
+}
+
+.ocean-wave-back {
+  color: rgba(56, 189, 248, 0.22);
+  animation: waveSlide 15s linear infinite;
+}
+
+.ocean-wave-mid {
+  color: rgba(12, 74, 110, 0.62);
+  animation: waveSlideReverse 11s linear infinite;
+}
+
+.ocean-wave-front {
+  color: #062038;
+  animation: waveSlide 8s linear infinite;
+}
+
+@keyframes waveSlide {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+@keyframes waveSlideReverse {
+  from { transform: translate3d(-50%, 0, 0); }
+  to { transform: translate3d(0, 0, 0); }
+}
+
+/* Rising bubbles */
+.ocean-bubbles span {
+  position: absolute;
+  bottom: -36px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.55), rgba(125, 211, 252, 0.14) 58%, transparent 72%);
+  box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.28);
+  animation: bubbleRise linear infinite;
+  animation-duration: var(--bub-dur, 11s);
+  animation-delay: var(--bub-delay, 0s);
+  opacity: 0;
+}
+
+@keyframes bubbleRise {
+  0% { transform: translate3d(0, 0, 0) scale(0.85); opacity: 0; }
+  12% { opacity: 0.75; }
+  85% { opacity: 0.5; }
+  100% {
+    transform: translate3d(26px, calc(-88vh), 0) scale(1.1);
+    opacity: 0;
+  }
+}
+
+/* Hero copy entrance + gradient headline */
+.hero-content {
+  z-index: 3;
+}
+
+.hero-content .eyebrow,
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.74rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--accent-strong);
+  padding: 9px 20px;
+  border-radius: 999px;
+  border: 1px solid rgba(125, 211, 252, 0.28);
+  background: rgba(6, 24, 44, 0.45);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 0 26px rgba(56, 189, 248, 0.14);
+}
+
+.hero-content .hero-eyebrow::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #22d3ee;
+  box-shadow: 0 0 10px rgba(34, 211, 238, 0.95);
+  animation: pulseDot 2.4s ease-in-out infinite;
+}
+
+.ocean-hero .hero-content > * {
+  animation: heroRise 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+.ocean-hero .hero-content > *:nth-child(1) { animation-delay: 0.05s; }
+.ocean-hero .hero-content > *:nth-child(2) { animation-delay: 0.16s; }
+.ocean-hero .hero-content > *:nth-child(3) { animation-delay: 0.27s; }
+.ocean-hero .hero-content > *:nth-child(4) { animation-delay: 0.38s; }
+.ocean-hero .hero-content > *:nth-child(5) { animation-delay: 0.55s; }
+
+@keyframes heroRise {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-title-gradient {
+  display: inline-block;
+  background: linear-gradient(90deg, #67e8f9 0%, #38bdf8 30%, #818cf8 60%, #67e8f9 100%);
+  background-size: 250% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: gradientShift 7s linear infinite;
+  filter: drop-shadow(0 0 22px rgba(56, 189, 248, 0.35));
+}
+
+.ocean-hero .hero-content .btn {
+  border-color: rgba(125, 211, 252, 0.4);
+  color: #eaf6ff;
+  background: rgba(6, 24, 44, 0.42);
+}
+
+.ocean-hero .hero-content .btn:hover {
+  background: rgba(19, 44, 76, 0.66);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(2, 10, 22, 0.55), 0 0 26px rgba(56, 189, 248, 0.25);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%);
+  border: 1px solid rgba(147, 216, 255, 0.5);
+  color: #ffffff;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    0 10px 30px rgba(14, 165, 233, 0.38);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #38bdf8 0%, #3b82f6 100%);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 16px 40px rgba(14, 165, 233, 0.5),
+    0 0 34px rgba(56, 189, 248, 0.35);
+}
+
+.btn-outline-accent {
+  border-color: rgba(56, 189, 248, 0.55);
+  color: var(--accent-strong);
+}
+
+.btn-outline-accent:hover {
+  background: rgba(56, 189, 248, 0.16);
+  color: #ffffff;
+  border-color: rgba(125, 211, 252, 0.75);
+}
+
+/* Scroll hint — little mouse with a dropping dot */
+.hero-scroll-hint {
+  display: inline-flex;
+  justify-content: center;
+  width: 27px;
+  height: 44px;
+  margin-top: 46px;
+  border: 2px solid rgba(125, 211, 252, 0.55);
+  border-radius: 16px;
+  padding-top: 8px;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.hero-scroll-hint span {
+  width: 3px;
+  height: 9px;
+  border-radius: 3px;
+  background: #7dd3fc;
+  animation: scrollDot 1.9s ease-in-out infinite;
+}
+
+.hero-scroll-hint:hover {
+  border-color: #7dd3fc;
+  box-shadow: 0 0 18px rgba(56, 189, 248, 0.4);
+}
+
+@keyframes scrollDot {
+  0% { transform: translateY(0); opacity: 1; }
+  70% { transform: translateY(13px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 0; }
+}
+
+/* Wave divider between hero and content */
+.sea-divider {
+  position: relative;
+  z-index: 3;
+  line-height: 0;
+  margin-top: -1px;
+}
+
+.sea-divider svg {
+  display: block;
+  width: 100%;
+  height: 72px;
+}
+
+.sea-divider path {
+  fill: var(--bg);
+}
+
+/* ------------------------------------------------------------
+   Sections, bands and cards — deep glass panels
+   ------------------------------------------------------------ */
+
+.section {
+  position: relative;
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+.section-alt {
+  background: linear-gradient(160deg, rgba(10, 28, 52, 0.55) 0%, rgba(6, 20, 38, 0.65) 100%);
+}
+
+.featured-pillars {
+  background:
+    radial-gradient(circle at 12% 0%, rgba(56, 189, 248, 0.1) 0%, transparent 45%),
+    radial-gradient(circle at 90% 100%, rgba(99, 102, 241, 0.1) 0%, transparent 45%),
+    linear-gradient(150deg, rgba(13, 34, 62, 0.72) 0%, rgba(7, 22, 42, 0.78) 100%);
+  box-shadow: var(--glass-shadow);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+}
+
+.pillar-row {
+  background: linear-gradient(135deg, rgba(19, 44, 76, 0.55) 0%, rgba(9, 26, 48, 0.6) 100%);
+  border-color: rgba(125, 211, 252, 0.14);
+}
+
+.pillar-num {
+  background: linear-gradient(135deg, #22d3ee 0%, #2563eb 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 8px 20px rgba(34, 211, 238, 0.35);
+}
+
+.pillar-row:nth-child(odd) .pillar-num {
+  background: linear-gradient(135deg, #38bdf8 0%, #6366f1 100%);
+}
+
+.acronym-band,
+.journey-strip,
+.insight-band,
+.reader-band,
+.storyline-band,
+.newsletter-band {
+  background: rgba(8, 24, 46, 0.4);
+  border: 1px solid var(--glass-border);
+  border-radius: 28px;
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+  box-shadow: var(--glass-shadow);
+}
+
+.ai-card {
+  background: linear-gradient(160deg, rgba(17, 40, 70, 0.6) 0%, rgba(8, 23, 43, 0.66) 100%);
+  border: 1px solid rgba(125, 211, 252, 0.15);
+  border-radius: 20px;
+  transition: transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ai-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(56, 189, 248, 0.5);
+  box-shadow:
+    0 22px 46px rgba(1, 8, 18, 0.55),
+    0 0 32px rgba(56, 189, 248, 0.16);
+}
+
+.ai-card-media img {
+  filter: saturate(1.06) contrast(1.04);
+  transition: transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1), filter 0.4s ease;
+}
+
+.ai-card:hover .ai-card-media img {
+  transform: scale(1.045);
+  filter: saturate(1.18) brightness(1.06);
+}
+
+.insight-card,
+.acronym-card,
+.quote-chip,
+.fact-card,
+.chapter-index-card {
+  transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
+}
+
+.insight-card:hover,
+.acronym-card:hover,
+.fact-card:hover,
+.chapter-index-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(56, 189, 248, 0.45);
+  box-shadow: 0 18px 40px rgba(1, 8, 18, 0.5), 0 0 26px rgba(56, 189, 248, 0.14);
+}
+
+.quote-chip:hover {
+  transform: translateY(-2px);
+  border-color: rgba(56, 189, 248, 0.4);
+}
+
+.acronym-letter {
+  background: linear-gradient(135deg, #67e8f9 0%, #38bdf8 50%, #818cf8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  text-shadow: none;
+  filter: drop-shadow(0 0 16px rgba(56, 189, 248, 0.4));
+}
+
+.system-flow span {
+  background: var(--glass-bg-strong);
+  border: 1px solid var(--glass-border);
+  color: var(--ink);
+}
+
+.system-flow i {
+  color: #67e8f9;
+  text-shadow: 0 0 12px rgba(103, 232, 249, 0.7);
+}
+
+.storyline-list li span {
+  background: linear-gradient(135deg, #22d3ee 0%, #2563eb 100%);
+  color: #fff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 6px 16px rgba(34, 211, 238, 0.35);
+}
+
+.storyline-list li strong {
+  color: var(--ink);
+}
+
+/* ------------------------------------------------------------
+   Newsletter + CTA
+   ------------------------------------------------------------ */
+
+.newsletter-form input {
+  background: rgba(3, 12, 24, 0.65);
+  border: 1px solid rgba(125, 211, 252, 0.22);
+  color: var(--ink);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.newsletter-form input::placeholder {
+  color: var(--muted);
+}
+
+.newsletter-form input:focus {
+  outline: none;
+  border-color: rgba(56, 189, 248, 0.65);
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.18);
+}
+
+.newsletter-form button {
+  background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%);
+  color: #ffffff;
+  border: none;
+  box-shadow: 0 10px 26px rgba(14, 165, 233, 0.35);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.newsletter-form button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px rgba(14, 165, 233, 0.5), 0 0 28px rgba(56, 189, 248, 0.35);
+}
+
+.cta-band {
+  position: relative;
+  overflow: hidden;
+  border-radius: 30px;
+  border: 1px solid rgba(125, 211, 252, 0.22);
+  background:
+    radial-gradient(circle at 15% 20%, rgba(34, 211, 238, 0.16) 0%, transparent 50%),
+    radial-gradient(circle at 85% 85%, rgba(99, 102, 241, 0.18) 0%, transparent 52%),
+    linear-gradient(140deg, #072544 0%, #0a3a5e 55%, #0d4a72 100%);
+  box-shadow: 0 26px 60px rgba(1, 8, 18, 0.55);
+}
+
+.cta-band::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: conic-gradient(from 0deg, transparent 0%, rgba(103, 232, 249, 0.09) 12%, transparent 26%);
+  animation: ctaSweepSpin 14s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes ctaSweepSpin {
+  to { transform: rotate(360deg); }
+}
+
+.insight-quote p {
+  color: var(--ink);
+}
+
+.insight-quote span {
+  color: var(--accent);
+}
+
+/* ------------------------------------------------------------
+   Inner pages — about / books / chapters / press / events
+   ------------------------------------------------------------ */
+
+.hero-section {
+  background: transparent;
+}
+
+.chapter-diagram {
+  background: var(--surface-alt);
+  border-color: var(--line);
+}
+
+.chapter-diagram-node {
+  background: rgba(13, 32, 58, 0.7);
+  border-color: var(--glass-border);
+  color: var(--ink);
+}
+
+.book-cover {
+  position: relative;
+}
+
+.book-cover img {
+  border-radius: 10px;
+  box-shadow:
+    0 22px 48px rgba(1, 8, 18, 0.6),
+    0 0 40px rgba(56, 189, 248, 0.16);
+  transition: transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 0.45s ease;
+}
+
+.book-card:hover .book-cover img {
+  transform: translateY(-8px) rotate(-1deg) scale(1.02);
+  box-shadow:
+    0 30px 60px rgba(1, 8, 18, 0.65),
+    0 0 54px rgba(56, 189, 248, 0.28);
+}
+
+.author-photo {
+  border-radius: 16px;
+  box-shadow:
+    0 0 0 3px rgba(56, 189, 248, 0.4),
+    0 18px 42px rgba(1, 8, 18, 0.6),
+    0 0 36px rgba(56, 189, 248, 0.2);
+}
+
+.more {
+  color: var(--accent-strong);
+  font-weight: 500;
+}
+
+.more:hover {
+  color: #67e8f9;
+}
+
+.press-item-title a {
+  color: var(--ink);
+}
+
+.press-item-title a:hover {
+  color: var(--accent-strong);
+}
+
+/* Lightbox + floating button */
+.ai-lightbox {
+  background: rgba(2, 7, 15, 0.93);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.scroll-fab {
+  color: var(--ink);
+}
+
+.scroll-fab:hover {
+  color: var(--accent-strong);
+  box-shadow: var(--glass-shadow), 0 10px 28px rgba(56, 189, 248, 0.3);
+}
+
+/* ------------------------------------------------------------
+   Footer — deep sea floor with glowing wave top
+   ------------------------------------------------------------ */
+
+.footer-wave {
+  line-height: 0;
+}
+
+.footer-wave svg {
+  display: block;
+  width: 100%;
+  height: 74px;
+}
+
+.footer-wave path {
+  fill: #030b17;
+}
+
+#site-footer-wrap {
+  background: linear-gradient(180deg, #030b17 0%, #02070f 100%);
+  border-top: none;
+}
+
+#site-footer h4 {
+  color: var(--accent-strong);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.86rem;
+}
+
+#site-footer li a:hover {
+  color: #67e8f9;
+}
+
+.footer-legal {
+  border-top: 1px solid rgba(126, 180, 238, 0.1);
+}
+
+.footer-legal p {
+  color: var(--muted);
+}
+
+/* ------------------------------------------------------------
+   Responsive tweaks for the ocean scene
+   ------------------------------------------------------------ */
+
+@media (max-width: 900px) {
+  .ocean-lighthouse {
+    bottom: 30%;
+    opacity: 0.85;
+  }
+
+  .ocean-beam,
+  .ocean-beam-reverse {
+    width: 190px;
+    height: 64px;
+  }
+}
+
+@media (max-width: 640px) {
+  .ocean-moon {
+    right: 9%;
+    top: 9%;
+  }
+
+  .ocean-lighthouse {
+    right: 12px;
+    width: 46px;
+    opacity: 0.75;
+  }
+
+  .hero-scroll-hint {
+    margin-top: 32px;
+  }
+
+  .sea-divider svg {
+    height: 44px;
+  }
+
+  .footer-wave svg {
+    height: 46px;
+  }
+}
+
+
+
+
+
