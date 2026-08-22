@@ -22,7 +22,7 @@ function MoonIcon() {
 }
 
 export default function OceanThemeToggle() {
-  const [theme, setTheme] = useState("midnight");
+  const [theme, setTheme] = useState("sunny");
 
   useEffect(() => {
     let stored = null;
@@ -31,7 +31,11 @@ export default function OceanThemeToggle() {
     } catch (e) {
       stored = null;
     }
-    if (stored === "sunny") {
+    if (stored === "midnight") {
+      setTheme("midnight");
+      document.documentElement.removeAttribute("data-ocean-theme");
+    } else {
+      // Default (and any unknown/stored value) is sunny.
       setTheme("sunny");
       document.documentElement.setAttribute("data-ocean-theme", "sunny");
     }

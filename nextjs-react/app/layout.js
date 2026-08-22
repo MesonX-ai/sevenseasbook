@@ -58,11 +58,11 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         <meta name="robots" content="index,follow" />
-        <meta name="theme-color" content="#04101f" />
+        <meta name="theme-color" content="#ddf1fc" />
         <script
           dangerouslySetInnerHTML={{
             __html:
-              '(function(){try{if(localStorage.getItem("sevenseas-ocean-theme")==="sunny"){document.documentElement.setAttribute("data-ocean-theme","sunny");}}catch(e){}})();',
+              '(function(){function set(){document.documentElement.setAttribute("data-ocean-theme","sunny");}try{if(localStorage.getItem("sevenseas-ocean-theme")==="midnight"){return;}set();}catch(e){set();}})();',
           }}
         />
         <script

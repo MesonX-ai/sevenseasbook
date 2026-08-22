@@ -245,8 +245,9 @@ body {
    ------------------------------------------------------------ */
 
 .home-hero.ocean-hero {
-  min-height: 100vh;
-  padding: clamp(90px, 12vw, 160px) 20px clamp(150px, 18vw, 220px);
+  /* Compact hero (~25% of viewport): waves visible without scrolling */
+  min-height: 25vh;
+  padding: clamp(52px, 6vw, 88px) 20px clamp(130px, 16vw, 195px);
   background: linear-gradient(
     180deg,
     #010713 0%,
@@ -378,7 +379,7 @@ body {
   left: 0;
   right: 0;
   bottom: -2px;
-  height: clamp(120px, 20vw, 230px);
+  height: clamp(100px, 15vw, 175px);
   z-index: 2;
 }
 
@@ -558,7 +559,7 @@ body {
   justify-content: center;
   width: 27px;
   height: 44px;
-  margin-top: 46px;
+  margin-top: 22px;
   border: 2px solid rgba(125, 211, 252, 0.55);
   border-radius: 16px;
   padding-top: 8px;
@@ -951,7 +952,7 @@ body {
   }
 
   .hero-scroll-hint {
-    margin-top: 32px;
+    margin-top: 14px;
   }
 
   .sea-divider svg {
@@ -1148,6 +1149,11 @@ body {
 [data-ocean-theme="sunny"] .hero-title-gradient {
   background: linear-gradient(90deg, #f59e0b 0%, #f97316 30%, #0284c7 65%, #0891b2 100%);
   background-size: 250% auto;
+  /* The background shorthand above resets clipping — restore text-only fill */
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
   filter: drop-shadow(0 0 18px rgba(255, 200, 64, 0.35));
 }
 
