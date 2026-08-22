@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { chapters } from "../../lib/sevenSeasData";
+import OceanThemeToggle from "./OceanThemeToggle";
 
 const chapterNav = chapters.map((chapter) => ({
   id: chapter.id,
@@ -28,6 +29,7 @@ export default function SiteHeader() {
 
   return (
     <div id="site-header-wrap">
+      <OceanThemeToggle />
       <header id="site-header">
         <div className="logo-block">
           <a href="/" className="logo-link">

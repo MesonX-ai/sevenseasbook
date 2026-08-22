@@ -60,6 +60,12 @@ export default function RootLayout({ children }) {
         <meta name="robots" content="index,follow" />
         <meta name="theme-color" content="#04101f" />
         <script
+          dangerouslySetInnerHTML={{
+            __html:
+              '(function(){try{if(localStorage.getItem("sevenseas-ocean-theme")==="sunny"){document.documentElement.setAttribute("data-ocean-theme","sunny");}}catch(e){}})();',
+          }}
+        />
+        <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />

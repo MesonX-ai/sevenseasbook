@@ -963,6 +963,355 @@ body {
   }
 }
 
+/* ------------------------------------------------------------
+   Sun / Moon theme toggle (header)
+   ------------------------------------------------------------ */
+
+.ocean-theme-toggle {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 999px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px) saturate(150%);
+  -webkit-backdrop-filter: blur(10px) saturate(150%);
+  box-shadow: var(--glass-shadow);
+  cursor: pointer;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.ocean-theme-toggle:hover {
+  transform: translateY(-1px);
+  border-color: rgba(56, 189, 248, 0.5);
+  box-shadow: var(--glass-shadow), 0 8px 22px rgba(56, 189, 248, 0.25);
+}
+
+.ot-option {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 27px;
+  height: 27px;
+  border-radius: 50%;
+  color: var(--muted);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+}
+
+.ot-option svg {
+  width: 15px;
+  height: 15px;
+}
+
+.ot-option.is-active {
+  background: linear-gradient(135deg, #22d3ee 0%, #2563eb 100%);
+  color: #ffffff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 4px 12px rgba(34, 211, 238, 0.45);
+  transform: scale(1.05);
+}
+
+.ot-option.ot-sun.is-active {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 4px 14px rgba(245, 158, 11, 0.55);
+}
+
+/* ============================================================
+   SUNNY OCEAN THEME
+   Activated via <html data-ocean-theme="sunny"> by OceanThemeToggle.
+   Midnight remains the default when no attribute is present.
+   ============================================================ */
+
+[data-ocean-theme="sunny"] {
+  --bg: #ddf1fc;
+  --surface: rgba(255, 255, 255, 0.72);
+  --surface-alt: rgba(238, 250, 255, 0.82);
+  --ink: #0b2437;
+  --ink-soft: #2b516c;
+  --muted: #5b7f97;
+  --line: rgba(11, 80, 122, 0.14);
+  --accent: #0284c7;
+  --accent-strong: #0369a1;
+  --glass-bg: rgba(255, 255, 255, 0.55);
+  --glass-bg-strong: rgba(255, 255, 255, 0.78);
+  --glass-border: rgba(2, 132, 199, 0.22);
+  --glass-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.9),
+    inset 0 -1px 1px rgba(2, 132, 199, 0.05),
+    inset 0 0 16px rgba(255, 255, 255, 0.35),
+    0 16px 38px rgba(2, 62, 94, 0.12);
+}
+
+[data-ocean-theme="sunny"] body {
+  background: var(--bg);
+}
+
+[data-ocean-theme="sunny"] ::selection {
+  background: rgba(2, 132, 199, 0.25);
+  color: #06283d;
+}
+
+[data-ocean-theme="sunny"] ::-webkit-scrollbar-track {
+  background: #c9e8f8;
+}
+
+[data-ocean-theme="sunny"] ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #38bdf8, #0369a1);
+}
+
+/* Sunny global backdrop */
+[data-ocean-theme="sunny"] .liquid-bg {
+  background:
+    radial-gradient(circle at 78% 6%, rgba(255, 214, 112, 0.5) 0%, transparent 40%),
+    radial-gradient(circle at 15% 15%, rgba(125, 211, 252, 0.4) 0%, transparent 44%),
+    radial-gradient(circle at 85% 85%, rgba(45, 212, 191, 0.28) 0%, transparent 44%),
+    radial-gradient(circle at 10% 88%, rgba(56, 189, 248, 0.28) 0%, transparent 44%),
+    linear-gradient(160deg, #bfe7fb 0%, #d8f2fd 40%, #c2ecfb 70%, #aee4f9 100%);
+}
+
+/* --- Sunny hero scene ---------------------------------------- */
+
+[data-ocean-theme="sunny"] .home-hero.ocean-hero {
+  background: linear-gradient(
+    180deg,
+    #6ec1ee 0%,
+    #86cff3 26%,
+    #a5ddf7 46%,
+    #56c3e8 64%,
+    #1899cf 82%,
+    #0b7fb8 100%
+  );
+}
+
+[data-ocean-theme="sunny"] .ocean-stars {
+  display: none;
+}
+
+/* The moon becomes a radiant sun */
+[data-ocean-theme="sunny"] .ocean-moon {
+  background: radial-gradient(circle at 40% 36%, #fffbe8 0%, #ffe98a 45%, #ffc93c 100%);
+  box-shadow:
+    0 0 54px rgba(255, 214, 92, 0.9),
+    0 0 160px rgba(255, 200, 64, 0.5),
+    inset -8px -6px 20px rgba(255, 176, 32, 0.35);
+}
+
+[data-ocean-theme="sunny"] .ocean-glow-a {
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.55), transparent 65%);
+}
+
+[data-ocean-theme="sunny"] .ocean-glow-b {
+  background: radial-gradient(circle, rgba(255, 224, 130, 0.42), transparent 65%);
+}
+
+[data-ocean-theme="sunny"] .ocean-lighthouse img {
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.45));
+}
+
+[data-ocean-theme="sunny"] .ocean-beam {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.75) 0%, rgba(255, 244, 200, 0.18) 52%, transparent 82%);
+}
+
+/* Daylight water layers */
+[data-ocean-theme="sunny"] .ocean-wave-back {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+[data-ocean-theme="sunny"] .ocean-wave-mid {
+  color: rgba(23, 162, 208, 0.55);
+}
+
+[data-ocean-theme="sunny"] .ocean-wave-front {
+  color: #0a86bd;
+}
+
+[data-ocean-theme="sunny"] .ocean-bubbles span {
+  background: radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.3) 58%, transparent 72%);
+  box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.7);
+}
+
+/* --- Sunny hero copy ------------------------------------------ */
+
+[data-ocean-theme="sunny"] .hero-content .hero-title {
+  color: #0b3049;
+  text-shadow: 0 2px 18px rgba(255, 255, 255, 0.45);
+}
+
+[data-ocean-theme="sunny"] .hero-title-gradient {
+  background: linear-gradient(90deg, #f59e0b 0%, #f97316 30%, #0284c7 65%, #0891b2 100%);
+  background-size: 250% auto;
+  filter: drop-shadow(0 0 18px rgba(255, 200, 64, 0.35));
+}
+
+[data-ocean-theme="sunny"] .hero-content .hero-subcopy {
+  color: #123a54;
+  text-shadow: none;
+}
+
+[data-ocean-theme="sunny"] .hero-content .eyebrow,
+[data-ocean-theme="sunny"] .hero-eyebrow {
+  color: #075985;
+  border-color: rgba(7, 89, 133, 0.3);
+  background: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 0 26px rgba(255, 255, 255, 0.35);
+}
+
+[data-ocean-theme="sunny"] .hero-content .hero-eyebrow::before {
+  background: #f59e0b;
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.95);
+}
+
+[data-ocean-theme="sunny"] .ocean-hero .hero-content .btn {
+  background: rgba(255, 255, 255, 0.62);
+  color: #075985;
+  border-color: rgba(7, 89, 133, 0.35);
+}
+
+[data-ocean-theme="sunny"] .ocean-hero .hero-content .btn:hover {
+  background: #ffffff;
+  color: #075985;
+  box-shadow: 0 12px 30px rgba(2, 62, 94, 0.22), 0 0 26px rgba(255, 214, 92, 0.4);
+}
+
+[data-ocean-theme="sunny"] .btn-primary {
+  background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+  border-color: rgba(255, 255, 255, 0.55);
+  color: #ffffff;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 10px 30px rgba(2, 132, 199, 0.4);
+}
+
+[data-ocean-theme="sunny"] .btn-primary:hover {
+  background: linear-gradient(135deg, #7dd3fc 0%, #0ea5e9 100%);
+  color: #ffffff;
+}
+
+[data-ocean-theme="sunny"] .hero-scroll-hint {
+  border-color: rgba(7, 89, 133, 0.5);
+}
+
+[data-ocean-theme="sunny"] .hero-scroll-hint span {
+  background: #075985;
+}
+
+/* --- Sunny header ---------------------------------------------- */
+
+[data-ocean-theme="sunny"] #site-header-wrap {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.88) 0%, rgba(233, 248, 255, 0.82) 100%);
+  border-bottom-color: rgba(2, 62, 94, 0.1);
+  box-shadow: 0 10px 30px rgba(2, 62, 94, 0.08);
+}
+
+[data-ocean-theme="sunny"] .header-chapter-links a:hover {
+  background: linear-gradient(90deg, rgba(2, 132, 199, 0.1), rgba(14, 165, 233, 0.1), rgba(245, 158, 11, 0.12));
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.15);
+}
+
+[data-ocean-theme="sunny"] .header-chapter-links a.is-current {
+  background: linear-gradient(90deg, rgba(2, 132, 199, 0.12), rgba(14, 165, 233, 0.12), rgba(245, 158, 11, 0.14));
+}
+
+/* --- Sunny panels & cards -------------------------------------- */
+
+[data-ocean-theme="sunny"] .section-alt {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.62) 0%, rgba(224, 244, 255, 0.72) 100%);
+}
+
+[data-ocean-theme="sunny"] .featured-pillars {
+  background:
+    radial-gradient(circle at 12% 0%, rgba(125, 211, 252, 0.2) 0%, transparent 45%),
+    radial-gradient(circle at 90% 100%, rgba(45, 212, 191, 0.16) 0%, transparent 45%),
+    linear-gradient(150deg, rgba(255, 255, 255, 0.78) 0%, rgba(230, 247, 255, 0.85) 100%);
+}
+
+[data-ocean-theme="sunny"] .pillar-row {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.88) 0%, rgba(235, 248, 255, 0.92) 100%);
+  border-color: rgba(2, 132, 199, 0.16);
+}
+
+[data-ocean-theme="sunny"] .acronym-band,
+[data-ocean-theme="sunny"] .journey-strip,
+[data-ocean-theme="sunny"] .insight-band,
+[data-ocean-theme="sunny"] .reader-band,
+[data-ocean-theme="sunny"] .storyline-band,
+[data-ocean-theme="sunny"] .newsletter-band {
+  background: rgba(255, 255, 255, 0.58);
+}
+
+[data-ocean-theme="sunny"] .ai-card {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.88) 0%, rgba(232, 247, 255, 0.92) 100%);
+  border-color: rgba(2, 132, 199, 0.16);
+}
+
+[data-ocean-theme="sunny"] .ai-card:hover {
+  box-shadow:
+    0 22px 46px rgba(2, 62, 94, 0.16),
+    0 0 32px rgba(56, 189, 248, 0.28);
+}
+
+[data-ocean-theme="sunny"] .system-flow span {
+  background: #ffffff;
+  color: var(--ink);
+}
+
+[data-ocean-theme="sunny"] .system-flow i {
+  color: #f59e0b;
+  text-shadow: 0 0 10px rgba(245, 158, 11, 0.6);
+}
+
+[data-ocean-theme="sunny"] .cta-band {
+  background:
+    radial-gradient(circle at 15% 20%, rgba(255, 224, 130, 0.32) 0%, transparent 50%),
+    radial-gradient(circle at 85% 85%, rgba(45, 212, 191, 0.3) 0%, transparent 52%),
+    linear-gradient(140deg, #0aa2cf 0%, #0b86bb 55%, #0a6da0 100%);
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+[data-ocean-theme="sunny"] .newsletter-form input {
+  background: #ffffff;
+  border-color: rgba(2, 132, 199, 0.25);
+}
+
+/* --- Sunny footer ----------------------------------------------- */
+
+[data-ocean-theme="sunny"] .footer-wave path {
+  fill: #e6f5fd;
+}
+
+[data-ocean-theme="sunny"] #site-footer-wrap {
+  background: linear-gradient(180deg, #e6f5fd 0%, #d2ecfa 100%);
+}
+
+[data-ocean-theme="sunny"] .footer-legal {
+  border-top-color: rgba(2, 62, 94, 0.1);
+}
+
+[data-ocean-theme="sunny"] .ai-lightbox {
+  background: rgba(230, 246, 253, 0.94);
+}
+
+/* --- Responsive -------------------------------------------------- */
+
+@media (max-width: 900px) {
+  .ocean-theme-toggle {
+    top: 10px;
+    right: 12px;
+  }
+}
+
+
+
+
+
 
 
 
