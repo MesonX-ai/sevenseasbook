@@ -217,7 +217,8 @@ export default function HomePage() {
         </div>
 
         {/* ===== 7 PILLARS ===== */}
-        <section id="home-pillars" className="featured-pillars" aria-label="Seven key technical pillars">
+        <section id="home-pillars" className="section" aria-label="Seven key technical pillars">
+          <div className="featured-pillars">
           <div className="section-header section-header-with-art">
             <div className="section-art" aria-hidden="true">
               <img src="/images/7_seas.png" alt="" />
@@ -303,6 +304,7 @@ export default function HomePage() {
                 <p>ASI describes hypothetical systems that surpass human experts across every cognitive domain. No such system exists today — but the term anchors the alignment research, safety engineering, and governance work this framework prescribes.</p>
               </div>
             </article>
+          </div>
           </div>
         </section>
 
