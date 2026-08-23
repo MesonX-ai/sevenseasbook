@@ -678,6 +678,22 @@ body {
   padding-right: clamp(18px, 3vw, 36px);
 }
 
+/* roomier vertical spacing for both panels */
+.featured-pillars {
+  padding-top: clamp(84px, 8vw, 112px);
+  padding-bottom: clamp(68px, 7vw, 96px);
+}
+
+.storyline-band {
+  padding-top: clamp(64px, 6.5vw, 88px);
+  padding-bottom: clamp(52px, 5.5vw, 76px);
+}
+
+/* breathing room inside each pillar card */
+.storyline-list li {
+  padding: clamp(20px, 2.2vw, 28px) clamp(22px, 2.4vw, 30px);
+}
+
 .ai-card {
   background: linear-gradient(160deg, rgba(17, 40, 70, 0.6) 0%, rgba(8, 23, 43, 0.66) 100%);
   border: 1px solid rgba(125, 211, 252, 0.15);
