@@ -45,6 +45,17 @@ export default function ProjectsPage() {
           </ul>
 
           <div style={{ textAlign: "center", marginTop: "32px" }}>
+            <a
+              className="btn btn-primary"
+              href="https://anishiv.com/progress_monitor.htm"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              AniShiv Progress Monitor →
+            </a>
+          </div>
+
+          <div style={{ textAlign: "center", marginTop: "16px" }}>
             <a className="btn" href="/">
               Back to Home
             </a>
