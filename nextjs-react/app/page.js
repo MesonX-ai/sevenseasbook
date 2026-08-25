@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { acronymSections, chapters } from "../lib/sevenSeasData";
+import { eternalTerms } from "../lib/eternalTerms";
 
 const frameworkThemes = [
   {
@@ -489,6 +490,41 @@ export default function HomePage() {
                 </article>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* ===== SEVEN ETERNAL TERMS ===== */}
+        <section className="section" aria-label="Seven eternal terms in the AI industry">
+          <div className="container">
+            <div className="section-header">
+              <p className="eyebrow">Evergreen concepts</p>
+              <h2>Seven Eternal Terms in the AI Industry</h2>
+              <p>
+                Tools change; ideas endure. These seven terms have anchored AI from its founding
+                decades through every hype cycle — and each will still matter when today's tools
+                are forgotten.
+              </p>
+            </div>
+
+            <div className="insight-grid">
+              {eternalTerms.map((term, index) => (
+                <article className="insight-card" key={term.slug}>
+                  <h3>
+                    <span aria-hidden="true">{term.icon}</span> {term.name}
+                  </h3>
+                  <p>{term.tagline}</p>
+                  <a className="more" href={`/eternal-terms/${term.slug}`}>
+                    Explore term {index + 1} &rarr;
+                  </a>
+                </article>
+              ))}
+            </div>
+
+            <p style={{ textAlign: "center", marginTop: "24px" }}>
+              <a className="btn btn-primary" href="/eternal-terms">
+                View all seven eternal terms
+              </a>
+            </p>
           </div>
         </section>
 
