@@ -1,5 +1,6 @@
 import { chapters } from "../../../lib/sevenSeasData";
 import { chapterExtras } from "../../../lib/chapterExtras";
+import { chapterGuides } from "../../../lib/topicGuides";
 
 export function generateStaticParams() {
   return chapters.map((chapter) => ({ chapter: chapter.id }));
@@ -23,6 +24,7 @@ export default async function ChapterPage({ params }) {
   const codeExample = extra.codeExample || null;
   const pitfalls = extra.pitfalls || [];
   const furtherReading = extra.furtherReading || [];
+  const guides = chapterGuides[chapterData?.id] || [];
 
   if (!chapterData) {
     return (
@@ -205,6 +207,27 @@ export default async function ChapterPage({ params }) {
                   </li>
                 ))}
               </ul>
+            </>
+          ) : null}
+
+          {guides.length > 0 ? (
+            <>
+              <h3>Study Guides</h3>
+              <p>
+                Short, beginner-friendly pages that explain this chapter step by step — start
+                here if the material above feels dense.
+              </p>
+              <div className="insight-grid">
+                {guides.map((guide, index) => (
+                  <article className="insight-card" key={`study-guide-${chapterData.id}-${index}`}>
+                    <h3>{guide.title}</h3>
+                    <p>{guide.intro}</p>
+                    <a className="more" href={`/chapters/${chapterData.id}/${guide.slug}`}>
+                      Read the guide &rarr;
+                    </a>
+                  </article>
+                ))}
+              </div>
             </>
           ) : null}
 

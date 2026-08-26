@@ -1,4 +1,5 @@
 import { eternalTerms } from "../../../lib/eternalTerms";
+import { eternalTermGuides } from "../../../lib/topicGuides";
 
 export function generateStaticParams() {
   return eternalTerms.map((term) => ({ term: term.slug }));
@@ -22,6 +23,7 @@ export async function generateMetadata({ params }) {
 export default async function EternalTermPage({ params }) {
   const { term: slug } = await params;
   const term = eternalTerms.find((item) => item.slug === slug);
+  const guides = term ? eternalTermGuides[term.slug] || [] : [];
   const index = eternalTerms.findIndex((item) => item.slug === slug);
   const prev = index > 0 ? eternalTerms[index - 1] : null;
   const next = index >= 0 && index < eternalTerms.length - 1 ? eternalTerms[index + 1] : null;
@@ -110,6 +112,27 @@ export default async function EternalTermPage({ params }) {
                   </li>
                 ))}
               </ul>
+            </>
+          ) : null}
+
+          {guides.length > 0 ? (
+            <>
+              <h3>Study Guides</h3>
+              <p>
+                Short, beginner-friendly pages that explain this term step by step — perfect
+                before or after the deep dive above.
+              </p>
+              <div className="insight-grid">
+                {guides.map((guide, gIndex) => (
+                  <article className="insight-card" key={`study-guide-${term.slug}-${gIndex}`}>
+                    <h3>{guide.title}</h3>
+                    <p>{guide.intro}</p>
+                    <a className="more" href={`/eternal-terms/${term.slug}/${guide.slug}`}>
+                      Read the guide &rarr;
+                    </a>
+                  </article>
+                ))}
+              </div>
             </>
           ) : null}
 
