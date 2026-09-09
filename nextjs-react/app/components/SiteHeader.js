@@ -21,6 +21,7 @@ export default function SiteHeader() {
     if (key === "events") return pathname === "/events";
     if (key === "projects") return pathname === "/projects";
     if (key === "resources") return pathname === "/resources";
+    if (key === "students") return pathname === "/students";
     if (key.startsWith("chapter-")) {
       return pathname === `/chapters/${key.replace("chapter-", "")}`;
     }
@@ -88,6 +89,11 @@ export default function SiteHeader() {
             <li className={isCurrent("resources") ? "is-current" : ""}>
               <a href="/resources">
                 <span className="nav-dot" aria-hidden="true"></span>Resources
+              </a>
+            </li>
+            <li className={isCurrent("students") ? "is-current" : ""}>
+              <a href="/students">
+                <span className="nav-dot" aria-hidden="true"></span>Students
               </a>
             </li>
           </ul>

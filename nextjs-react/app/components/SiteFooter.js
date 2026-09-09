@@ -22,6 +22,7 @@ export default function SiteFooter() {
           <ul>
             <li><a href="/">Home</a></li>
             <li><a href="/chapters/1">Chapters</a></li>
+            <li><a href="/students">Students</a></li>
             <li><a href="/projects">Projects</a></li>
             <li><a href="/resources">Learning Resources</a></li>
             <li><a href="/press">Press</a></li>

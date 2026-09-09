@@ -2081,4 +2081,184 @@ img {
     animation: none !important;
     transition: none !important;
   }
+/* ============================================================
+   Middle School lessons — analogies, activities, quizzes
+   ============================================================ */
+
+.chapter-callout {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface-alt);
+  padding: 18px 20px;
+  margin: 20px 0;
+}
+
+.chapter-callout h3 {
+  font-size: 1.05rem;
+  margin: 0 0 6px;
+  color: var(--ink);
+}
+
+.chapter-callout h4 {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  margin-bottom: 8px;
+  color: var(--ink);
+}
+
+.chapter-callout p {
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+
+.chapter-callout-list {
+  margin: 4px 0 0;
+  padding-left: 20px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+
+.chapter-quiz {
+  margin-top: 12px;
+}
+
+.chapter-quiz-hint {
+  font-size: 0.92rem;
+  color: var(--muted);
+  margin: 6px 0 14px;
+}
+
+.chapter-quiz-question {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  padding: 14px 16px;
+  margin-bottom: 12px;
+}
+
+.chapter-quiz-prompt {
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.chapter-quiz-option {
+  margin: 4px 0;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+.chapter-quiz-option.is-answer {
+  color: var(--accent-strong);
+  font-weight: 600;
+}
+
+.chapter-quiz-why {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-top: 8px;
+}
+
+/* ============================================================
+   Students landing page
+   ============================================================ */
+
+.students-intro {
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.students-intro p {
+  color: var(--ink-soft);
+  line-height: 1.8;
+  max-width: 70ch;
+}
+
+.students-grid {
+  display: grid;
+  gap: 18px;
+  margin-top: 12px;
+}
+
+.students-card {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+  padding: 18px 20px;
+  display: grid;
+  gap: 10px;
+}
+
+.students-card-top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.students-chip {
+  display: inline-block;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface-alt);
+  color: var(--muted);
+  padding: 3px 10px;
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+.students-chip-lesson {
+  color: var(--accent);
+  border-color: var(--accent);
+  font-weight: 600;
+}
+
+.students-card h3 {
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.students-card p {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+.students-card-analogy {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.students-card-features {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.students-card-features li {
+  font-size: 0.82rem;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 2px 10px;
+}
+
+.students-card-link {
+  margin-top: 2px;
+}
+
+@media (max-width: 640px) {
+  .students-grid {
+    gap: 12px;
+  }
+
+  .students-card {
+    padding: 14px 16px;
+  }
+}
 }

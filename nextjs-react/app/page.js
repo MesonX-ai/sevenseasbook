@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { acronymSections, chapters } from "../lib/sevenSeasData";
 import { eternalTerms } from "../lib/eternalTerms";
+import { chapterGuides } from "../lib/topicGuides";
 
 const frameworkThemes = [
   {
@@ -33,6 +34,13 @@ const audienceGroups = [
   "Product leaders building dependable copilots and agents",
   "Engineering teams seeking clear technical architecture patterns",
 ];
+
+const middleSchoolLessons = chapters
+  .map((chapter) => ({
+    chapter,
+    guide: (chapterGuides[chapter.id] || []).find((g) => g.audience === "middle-school"),
+  }))
+  .filter((row) => Boolean(row.guide));
 
 const featuredInsights = [
   {
@@ -490,6 +498,40 @@ export default function HomePage() {
                 </article>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* ===== MIDDLE SCHOOL ===== */}
+        <section className="section section-alt" aria-label="AI lessons for middle school students">
+          <div className="container">
+            <div className="section-header">
+              <p className="eyebrow">For middle school students</p>
+              <h2>AI for Middle Schoolers</h2>
+              <p>
+                Seven short, friendly lessons that explain AI with everyday analogies, hands-on activities,
+                and quick quizzes — no coding needed.
+              </p>
+            </div>
+
+            <div className="insight-grid">
+              {middleSchoolLessons.map(({ chapter, guide }, index) => (
+                <article className="insight-card" key={`ms-${chapter.id}`}>
+                  <h3>
+                    <span aria-hidden="true">🎒</span> Lesson {index + 1}: {chapter.navTitle}
+                  </h3>
+                  <p>{guide.intro}</p>
+                  <a className="more" href={`/chapters/${chapter.id}/${guide.slug}`}>
+                    Read the lesson &rarr;
+                  </a>
+                </article>
+              ))}
+            </div>
+
+            <p style={{ textAlign: "center", marginTop: "24px" }}>
+              <a className="btn btn-primary" href="/students">
+                View all middle school lessons
+              </a>
+            </p>
           </div>
         </section>
 

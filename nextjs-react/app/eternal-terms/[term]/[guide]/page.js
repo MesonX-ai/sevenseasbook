@@ -65,6 +65,7 @@ export default async function EternalTermGuidePage({ params }) {
           <p className="eyebrow">
             <span aria-hidden="true">{term.icon}</span> Study Guide &middot; {term.name}
             {typeof guide.minutes === "number" ? ` · ${guide.minutes} min read` : ""}
+            {guide.audience === "middle-school" ? " · 🎒 Middle School" : ""}
           </p>
           <h2>{guide.title}</h2>
           <p>
@@ -79,6 +80,53 @@ export default async function EternalTermGuidePage({ params }) {
               ))}
             </section>
           ))}
+
+          {guide.analogy ? (
+            <section className="chapter-callout chapter-callout-analogy">
+              <h3>💡 The Big Analogy</h3>
+              <h4>{guide.analogy.title}</h4>
+              <p>{guide.analogy.text}</p>
+            </section>
+          ) : null}
+
+          {guide.activity ? (
+            <section className="chapter-callout chapter-callout-activity">
+              <h3>🛠️ Try It Yourself</h3>
+              <h4>{guide.activity.title}</h4>
+              <ol className="chapter-callout-list">
+                {guide.activity.steps.map((step, sIndex) => (
+                  <li key={`activity-${guide.slug}-${sIndex}`}>{step}</li>
+                ))}
+              </ol>
+            </section>
+          ) : null}
+
+          {guide.quiz && guide.quiz.length > 0 ? (
+            <section className="chapter-quiz" aria-label="Quick quiz">
+              <h3>📝 Quick Quiz</h3>
+              <p className="chapter-quiz-hint">
+                Try to answer before peeking. The correct answer is marked with a check, and the explanation
+                shows you why.
+              </p>
+              {guide.quiz.map((item, qIndex) => (
+                <div className="chapter-quiz-question" key={`quiz-${guide.slug}-${qIndex}`}>
+                  <p className="chapter-quiz-prompt">
+                    <strong>Q{qIndex + 1}.</strong> {item.question}
+                  </p>
+                  {item.options.map((option, oIndex) => (
+                    <p
+                      className={`chapter-quiz-option${oIndex === item.answer ? " is-answer" : ""}`}
+                      key={`opt-${guide.slug}-${qIndex}-${oIndex}`}
+                    >
+                      {String.fromCharCode(65 + oIndex)}. {option}
+                      {oIndex === item.answer ? " ✔" : ""}
+                    </p>
+                  ))}
+                  <p className="chapter-quiz-why">Why? {item.why}</p>
+                </div>
+              ))}
+            </section>
+          ) : null}
 
           <h3>Key Points</h3>
           <ul className="chapter-outcomes">

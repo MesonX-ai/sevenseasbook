@@ -123,6 +123,86 @@ export const chapterGuides = {
         "Begin with three simple stores; add sophistication only when conversation length demands it.",
       ],
     },
+    {
+      slug: "middle-school",
+      audience: "middle-school",
+      title: "AI Memory for Middle Schoolers",
+      minutes: 5,
+      intro:
+        "Have you ever come back to a chatbot a day later and it acted like you were strangers? That is what happens when AI forgets. This lesson shows how AI keeps memories — and how you already use the same trick every day at school.",
+      sections: [
+        {
+          heading: "AI forgets, just like you do",
+          paragraphs: [
+            "A large language model can only hold a small amount of text in its head at one time — kind of like a desk that fits only a few papers. Anything that does not fit on the desk is gone.",
+            "So when you talk to an AI today, it usually starts fresh. Engineers fix this by giving AI memory systems — like a diary and an encyclopedia it can peek into.",
+          ],
+        },
+        {
+          heading: "Three places AI keeps memories",
+          paragraphs: [
+            "Working memory is the desk: the current goal and the last few seconds of conversation. It is fast, but tiny.",
+            "Episodic memory is the diary: a careful log of everything that happened before. Semantic memory is the encyclopedia: big facts about the world that can be searched any time. Together, these three layers make the AI feel like it has been paying attention all along.",
+          ],
+        },
+        {
+          heading: "Why remembering makes AI smarter",
+          paragraphs: [
+            "An AI with good memory keeps promises it made yesterday, remembers your name, and never asks the same question twice.",
+            "Without memory, it repeats itself, contradicts its own answers, and loses track of multi-step tasks — like a friend who forgets your conversation every ten minutes.",
+          ],
+        },
+      ],
+      analogy: {
+        title: "The Homework Desk",
+        text: "Your brain keeps schoolwork in three places. Your desk holds what you are working on right now (working memory). Your diary records what happened yesterday (episodic memory). Your textbooks hold facts you can look up any time (semantic memory). AI does exactly the same thing — a desk drawer, a diary file, and an encyclopedia — so it never has to start over from zero.",
+      },
+      activity: {
+        title: "Build a three-layer memory for your day",
+        steps: [
+          "Get three sticky notes and label them 'Desk', 'Diary', and 'Encyclopedia'.",
+          "On Desk, write one thing you are doing right now.",
+          "On Diary, write one thing that happened yesterday.",
+          "On Encyclopedia, write a fact everyone in your class knows — like the capital of your state.",
+          "Cover the Desk note. Now try to answer: what were you just doing? That is what happens to AI when its working memory overflows — good memory design keeps a diary and an encyclopedia ready as backup.",
+        ],
+      },
+      quiz: [
+        {
+          question: "What does working memory hold?",
+          options: [
+            "Everything the AI ever learned",
+            "What the AI is working on right now",
+            "The names of all users",
+            "The AI's favorite movies",
+          ],
+          answer: 1,
+          why: "Working memory is like the desk — fast and small, and it only holds the current task.",
+        },
+        {
+          question: "Which kind of memory is most like a diary?",
+          options: ["Semantic memory", "Working memory", "Episodic memory", "Context window"],
+          answer: 2,
+          why: "Episodic memory is a durable log of past interactions and outcomes — exactly what a diary records.",
+        },
+        {
+          question: "What happens when an AI has no memory?",
+          options: [
+            "It repeats questions and loses track of tasks",
+            "It becomes smarter",
+            "It answers faster than ever",
+            "Nothing changes",
+          ],
+          answer: 0,
+          why: "Without memory, an AI asks the same questions twice, contradicts yesterday's answers, and loses the thread of long conversations.",
+        },
+      ],
+      keyPoints: [
+        "AI can only hold a little text at once — memory systems give it more.",
+        "Desk, diary, encyclopedia = working, episodic, and semantic memory.",
+        "Better remembering means fewer repeated questions and more helpful answers.",
+      ],
+    },
   ],
   "2": [
     {
@@ -231,6 +311,90 @@ export const chapterGuides = {
         "Version schemas and run golden-payload tests on every release.",
         "Tool names and descriptions are part of your prompt — write them for the model.",
         "Prefer many small, focused tools over a few overloaded ones.",
+      ],
+    },
+    {
+      slug: "middle-school",
+      audience: "middle-school",
+      title: "AI That Uses Tools, for Middle Schoolers",
+      minutes: 5,
+      intro:
+        "A chatbot that only talks is fun, but a chatbot that can actually check the weather, solve math, or book a study room is useful. The secret is the tool call — a neat order form the AI fills out to ask another program for help.",
+      sections: [
+        {
+          heading: "A chatbot that can DO things",
+          paragraphs: [
+            "A plain chatbot just types back words. Give it tools, and suddenly it can search the web, run a calculator, look up dates, or send messages.",
+            "When the AI wants help, it writes a tiny note — like an order form — saying exactly what it needs. A program called the tool does the work and sends back the result.",
+          ],
+        },
+        {
+          heading: "The order form has rules",
+          paragraphs: [
+            "If the AI writes a messy note, the tool cannot understand it. That is why every tool comes with a strict form — the schema — that says exactly what to fill in: what kind of item, how many, where, and so on.",
+            "It works like a school lunch form: you cannot just scribble 'food' anywhere. You fill the boxes — name, lunch number, choice — or the form is rejected.",
+          ],
+        },
+        {
+          heading: "Strict forms keep us safe",
+          paragraphs: [
+            "Because the form is checked before anything runs, the AI cannot accidentally do something risky, like deleting a file it should not touch.",
+            "The form is the AI's permission slip. Fill it correctly, and the tool acts. Fill it wrong, and the tool politely says no — try again.",
+          ],
+        },
+      ],
+      analogy: {
+        title: "The Lunch Order Form",
+        text: "Imagine an assistant who must order your lunch but cannot talk to the cafeteria. The only way to communicate is a printed form with exact boxes. Fill the boxes correctly and the cafeteria is happy. Scribble on the form and it is rejected — so the assistant reads the boxes and tries once more. That form is the tool call, and the boxes are its schema.",
+      },
+      activity: {
+        title: "Design your own tool form",
+        steps: [
+          "Pick a real tool an AI could use: 'Look up homework due dates' is a great one.",
+          "Write down three boxes the form needs — for example: Class name, Assignment title, Due date.",
+          "Swap forms with a classmate. Fill out each other's forms without asking any questions. Were the boxes clear enough?",
+          "Add a fourth, safer box: for example, 'Send reminder to parent? Yes/No'. How does that new box make the tool safer?",
+        ],
+      },
+      quiz: [
+        {
+          question: "What is a tool call?",
+          options: [
+            "An AI asking another program to do something for it",
+            "An AI talking to another human",
+            "A type of app download",
+            "A math problem",
+          ],
+          answer: 0,
+          why: "A tool call is the AI's structured request to another program — the order form that gets the job done.",
+        },
+        {
+          question: "Why are tool forms strict?",
+          options: [
+            "To make the AI look smart",
+            "So the tool always understands what is wanted",
+            "Because engineers enjoy paperwork",
+            "To save electricity",
+          ],
+          answer: 1,
+          why: "A strict schema guarantees the tool gets a clear, safe request — no mysteriously written notes.",
+        },
+        {
+          question: "What happens if the AI fills the form wrong?",
+          options: [
+            "The tool rejects it and the AI tries again",
+            "The tool explodes",
+            "The AI gets deleted",
+            "Nothing at all",
+          ],
+          answer: 0,
+          why: "Validation catches mistakes early, so the tool says no and the AI self-corrects before anything dangerous happens.",
+        },
+      ],
+      keyPoints: [
+        "Tools let AI DO things, not just talk about them.",
+        "A tool call is like a strict order form with exact boxes.",
+        "Strict forms mean fewer mistakes and safer AI.",
       ],
     },
   ],
@@ -343,6 +507,90 @@ export const chapterGuides = {
         "Loop traces are your richest debugging asset — capture them from the start.",
       ],
     },
+    {
+      slug: "middle-school",
+      audience: "middle-school",
+      title: "How AI Learns From Trying, for Middle Schoolers",
+      minutes: 5,
+      intro:
+        "Ask a chatbot a question and it answers once. Give an AI agent a big job — like planning a party — and it has to try steps, check whether they worked, and fix its mistakes. That repeating pattern is called an execution loop, and it is how AI gets things done.",
+      sections: [
+        {
+          heading: "Think, do, check, repeat",
+          paragraphs: [
+            "For big tasks, an agent does not answer once and stop. It runs a loop: think about the next step, do it, look at the result, and repeat until the goal is complete.",
+            "Engineers call this pattern ReAct — Reason, Act, Observe. It is how experienced cooks work through a new recipe: read the step, do the step, look at the pan, adjust.",
+          ],
+        },
+        {
+          heading: "Plans are just recipes",
+          paragraphs: [
+            "Before acting, good agents write a plan: a list of steps in order, with the tools each step needs. Big goals are just many small plans chained together.",
+            "The trick is that plans are flexible. When reality disagrees with the plan — a link is broken, a step fails — the agent updates the plan instead of marching bravely into a wall.",
+          ],
+        },
+        {
+          heading: "Mistakes are fuel",
+          paragraphs: [
+            "Every failed step is a signal. Maybe the step was in the wrong order, or the wrong tool was used, or the goal was unclear.",
+            "Smart agents use those signals to change strategy: try differently, pick another tool, or ask a human for help. Escalating to a human is not failure — it is the agent knowing its own limits.",
+          ],
+        },
+      ],
+      analogy: {
+        title: "Beating a Video Game Level",
+        text: "You cannot see the whole level at once. You plan a route, try it, fall into the pit, and learn. Next try you jump earlier — further, faster. That is an execution loop: plan, act, observe, adjust, repeat. AI agents do the same thing, except they keep notes on what failed so they do not need a new game every time.",
+      },
+      activity: {
+        title: "Spot the missing steps",
+        steps: [
+          "Write 5 steps for 'get ready for school in the morning' — for example: get up, eat breakfast, go to school.",
+          "Read your list to a friend who pretends to be super-literal. They do exactly what you wrote, nothing more.",
+          "Find at least three missing details. Did you say 'put on shoes' before 'go outside'? Did you pack a backpack?",
+          "Rewrite your improved list. Congratulations — you just did the 'replan' step of an execution loop!",
+        ],
+      },
+      quiz: [
+        {
+          question: "What does an execution loop do?",
+          options: [
+            "Plans, acts, checks, and adjusts until the goal is done",
+            "Answers only once and stops",
+            "Deletes old data",
+            "Talks faster",
+          ],
+          answer: 0,
+          why: "Execution loops repeat think → do → check → adjust until the task is genuinely complete.",
+        },
+        {
+          question: "When an agent's step fails, what should it do?",
+          options: [
+            "Give up forever",
+            "Look at why it failed and try a better step",
+            "Pretend it succeeded",
+            "Turn itself off",
+          ],
+          answer: 1,
+          why: "Failure feedback is the signal the loop needs to replan, retry differently, or escalate to a human.",
+        },
+        {
+          question: "Why plan before acting?",
+          options: [
+            "It makes big tasks clearer and easier to fix",
+            "Plans never change, so they are always right",
+            "Plans are faster than doing anything",
+            "You only need plans for tests",
+          ],
+          answer: 0,
+          why: "A good plan breaks big goals into steps, and those steps can be revised when reality disagrees.",
+        },
+      ],
+      keyPoints: [
+        "Big tasks run in loops: think, do, check, adjust, repeat.",
+        "Mistakes teach the agent what to change.",
+        "Plans are flexible recipes — designed to be revised.",
+      ],
+    },
   ],
   "4": [
     {
@@ -451,6 +699,91 @@ export const chapterGuides = {
         "Enforce access control inside retrieval; filter by permissions before ranking.",
         "Keep indexes fresh with automated update pipelines — staleness erodes trust fastest.",
         "Measure retrieval and generation separately to find where quality is lost.",
+      ],
+    },
+    {
+      slug: "middle-school",
+      audience: "middle-school",
+      title: "AI That Checks Its Work, for Middle Schoolers",
+      minutes: 5,
+      intro:
+        "Some AIs answer from memory — and memory makes things up when it is fuzzy. RAG (Retrieval-Augmented Generation) lets AI look facts up in a library before answering, the way you use notes in an open-book test.",
+      sections: [
+        {
+          heading: "Don't guess — look it up",
+          paragraphs: [
+            "Imagine a student who answers every question from memory. When the facts are new — like this month's school schedule — they will guess, and sometimes guess wrong.",
+            "RAG fixes that. The AI is allowed an extra step: search a library of trusted documents for the answer before it writes a single word.",
+          ],
+        },
+        {
+          heading: "The reading-before-writing step",
+          paragraphs: [
+            "When you ask a RAG AI a question, it quietly does three things: search the library for the best passages, pick the most relevant few, and then write an answer using those passages as the source.",
+            "The AI is not 'remembering' the answer. It is reading fresh, current information — like checking a textbook the moment before you answer a question.",
+          ],
+        },
+        {
+          heading: "Receipts make answers trustworthy",
+          paragraphs: [
+            "Because the answer comes from real documents, the AI can show its sources — like a citation in a research paper: '(Source: School Handbook, page 12)'.",
+            "And if the library has no good answer? A well-built RAG AI says 'I don't know' instead of making something up. Honesty is a feature!",
+          ],
+        },
+      ],
+      analogy: {
+        title: "The Open-Book Test",
+        text: "In a closed-book test you rely on memory — and memory invents things when it is fuzzy. In an open-book test, you find the right passage, read it, then write. RAG AI is the open-book champion: search the library, read the best pages, answer with citations — and never guess what it could simply look up.",
+      },
+      activity: {
+        title: "Be a RAG AI for one question",
+        steps: [
+          "Pick a real question: 'When is spring break this year?' or 'What is the dress code on Fridays?'",
+          "Search your school handbook, website, or another trusted document for the answer.",
+          "Copy the exact sentence (or two) that answers the question. That is your retrieved passage.",
+          "Write your answer with a citation — for example: '(Source: School Handbook, page 4)'.",
+          "Swap with a partner. Does each citation really support the answer? If not, retrieve a better passage.",
+        ],
+      },
+      quiz: [
+        {
+          question: "What does the 'R' in RAG let the AI do?",
+          options: [
+            "Run faster",
+            "Retrieve — look up documents before answering",
+            "Remember everything forever",
+            "Reply in rhyme",
+          ],
+          answer: 1,
+          why: "RAG stands for Retrieval-Augmented Generation — the AI retrieves relevant passages before it generates an answer.",
+        },
+        {
+          question: "Why does RAG reduce made-up answers?",
+          options: [
+            "The AI answers from real documents instead of guessing",
+            "The AI is magical",
+            "The library is empty",
+            "Searching is faster than thinking",
+          ],
+          answer: 0,
+          why: "Grounded answers are based on retrieved evidence, so the AI is far less likely to invent facts.",
+        },
+        {
+          question: "What should a RAG AI say when it cannot find an answer?",
+          options: [
+            "It should guess anyway",
+            "'I don't know' — honestly",
+            "It should change the question",
+            "It should stay silent forever",
+          ],
+          answer: 1,
+          why: "When no solid evidence exists, the correct answer is 'I don't know' — honesty builds trust.",
+        },
+      ],
+      keyPoints: [
+        "RAG = look it up first, then answer.",
+        "Open-book beats closed-book when facts matter.",
+        "Citations are proof — and 'I don't know' is always allowed.",
       ],
     },
   ],
@@ -563,6 +896,90 @@ export const chapterGuides = {
         "Log all inter-agent messages — most failures hide at handoffs.",
       ],
     },
+    {
+      slug: "middle-school",
+      audience: "middle-school",
+      title: "A Team of AI Helpers, for Middle Schoolers",
+      minutes: 5,
+      intro:
+        "One AI trying to do everything is like one kid trying to plan, research, build, and grade their own project — it gets tired and misses things. That is why some AI systems are teams: several specialist AIs with a supervisor who keeps them in sync.",
+      sections: [
+        {
+          heading: "A team, not a superhero",
+          paragraphs: [
+            "Instead of one giant, overloaded AI, multi-agent systems give each job to a focused specialist: a planner breaks the goal into steps, an executor does the work, and a reviewer checks the result.",
+            "Each specialist has one narrow job, so its instructions can be sharper and its work more reliable — the same reason sports teams beat one player doing every position.",
+          ],
+        },
+        {
+          heading: "The supervisor keeps everyone in sync",
+          paragraphs: [
+            "A special AI — the supervisor, or orchestrator — hands out tasks, collects results, and settles disagreements between team members.",
+            "Without a boss, an agent team becomes a noisy committee: duplicated work, contradictory answers, and nobody responsible for the final result.",
+          ],
+        },
+        {
+          heading: "When teams are worth the trouble",
+          paragraphs: [
+            "Teams are great when a job really needs different skills — like writing a song that needs a lyricist, a musician, and a producer.",
+            "But every teammate adds coordination cost. If one smart AI can do the job well, adding more agents just makes the system slower. Great teams are designed, not just assembled.",
+          ],
+        },
+      ],
+      analogy: {
+        title: "The School Play Crew",
+        text: "Making a play needs a director, actors, and stagehands. The director gives each person a clear role and keeps the show on time. Actors perform. A stage manager checks that everything is in place before the curtain rises. A multi-agent AI system works exactly like this — each AI has one clear job, and the supervisor makes sure all the parts fit together into one smooth show.",
+      },
+      activity: {
+        title: "Build a four-person AI team",
+        steps: [
+          "Pick a mini-project: 'plan a class bake sale' or 'design a poster about saving water'.",
+          "Assign four roles — Planner, Researcher, Builder, and Checker.",
+          "Pass the work from role to role with a handoff note: what did the previous role hand you, and what do you need to finish your part?",
+          "Hold a 'team huddle' at the end. Did the Checker find at least one fix? What would go wrong if you skipped the Checker?",
+        ],
+      },
+      quiz: [
+        {
+          question: "Why use a team of AI specialists?",
+          options: [
+            "Each member is great at one job, so quality goes up",
+            "Teams are always faster than one AI",
+            "Specialists cost nothing",
+            "One AI cannot talk to tools",
+          ],
+          answer: 0,
+          why: "Narrow roles mean sharper instructions and more reliable output — the same reason human teams divide work.",
+        },
+        {
+          question: "What does the supervisor do?",
+          options: [
+            "Does all the hard work alone",
+            "Hands out tasks and keeps the team in sync",
+            "Deletes the other agents",
+            "Answers every question by itself",
+          ],
+          answer: 1,
+          why: "The supervisor routes work, merges results, and resolves conflicts — it is the glue that keeps the team coherent.",
+        },
+        {
+          question: "When is one AI enough?",
+          options: [
+            "When the task is simple and needs only one skill",
+            "Never — teams are always better",
+            "Only on weekends",
+            "When the AI is less than one year old",
+          ],
+          answer: 0,
+          why: "Coordination costs real effort, so simple tasks are better handled by a single well-prompted agent.",
+        },
+      ],
+      keyPoints: [
+        "Specialist AIs beat one tired super-AI on complex jobs.",
+        "A supervisor keeps the team coherent and accountable.",
+        "Teams cost coordination — use them when a job truly needs many skills.",
+      ],
+    },
   ],
   "6": [
     {
@@ -673,6 +1090,91 @@ export const chapterGuides = {
         "Balance escape rate against false-block rate so approvals stay meaningful.",
       ],
     },
+    {
+      slug: "middle-school",
+      audience: "middle-school",
+      title: "Safety Rules for AI, for Middle Schoolers",
+      minutes: 5,
+      intro:
+        "The more an AI can do, the more it can accidentally do wrong. Serious AI systems come with guardrails — the seatbelts, traffic lights, and permission slips of AI — so powerful helpers stay safe helpers.",
+      sections: [
+        {
+          heading: "Power needs rules",
+          paragraphs: [
+            "An AI that can send messages, buy things, or control software is powerful. But power without rules is dangerous — like a car without brakes.",
+            "Guardrails are the safety system built around the AI: filters on what goes in, checks before actions run, and scanners on what comes out.",
+          ],
+        },
+        {
+          heading: "Layers of protection",
+          paragraphs: [
+            "One rule alone is never enough. Real systems stack layers: an input filter catches bad instructions, a policy engine checks every proposed action, and a human approves the riskiest ones — like needing a parent to sign a permission slip.",
+            "Each layer assumes the layer below it can fail. That is what makes the whole system strong.",
+          ],
+        },
+        {
+          heading: "Rules help AI do MORE, not less",
+          paragraphs: [
+            "This sounds backwards, but it is true: with good guardrails, an AI is allowed to do far more, because every risky action has a safety net.",
+            "Well-built guardrails are what let companies say yes to powerful AI at all — the safety is what unlocks the superpower.",
+          ],
+        },
+      ],
+      analogy: {
+        title: "Playground Rules",
+        text: "On a playground, rules are not about stopping fun — they are about letting everyone play without getting hurt. 'No running near the swings' means everyone gets to swing safely. AI guardrails work the same way: filters, permission checks, and approval steps give the AI more freedom, because nothing it does can explode into a problem.",
+      },
+      activity: {
+        title: "Design a robot rulebook",
+        steps: [
+          "Imagine a 'homework helper robot' that can also send messages.",
+          "Write 2 things it should always do — for example, show its sources.",
+          "Write 2 things it must NEVER do without asking — for example, send a message or buy anything.",
+          "Pick one 'must never' action and draw its approval chain: who (or what) has to approve it before it happens?",
+          "Debate with a partner: would you add a 'human approval needed' step for texts to your friends? Why or why not?",
+        ],
+      },
+      quiz: [
+        {
+          question: "What are guardrails for AI?",
+          options: [
+            "Safety rules that stop harmful actions before they happen",
+            "Fences around the server room",
+            "A style of fonts",
+            "Extra batteries",
+          ],
+          answer: 0,
+          why: "Guardrails are the layered safety system around AI — filters, policy checks, and approval gates.",
+        },
+        {
+          question: "Why is one single rule not enough?",
+          options: [
+            "One filter can fail, so layers protect each other",
+            "Rules are expensive to write",
+            "One rule is always enough",
+            "Rules only work in pairs",
+          ],
+          answer: 0,
+          why: "Defense in depth assumes every layer might fail, so serious systems stack multiple independent checks.",
+        },
+        {
+          question: "Who approves the riskiest AI actions?",
+          options: [
+            "A human",
+            "The same AI that proposed the action",
+            "Nobody",
+            "The internet",
+          ],
+          answer: 0,
+          why: "High-stakes actions pass through a human approval gate — the AI never holds the only key.",
+        },
+      ],
+      keyPoints: [
+        "More AI power means more need for rules.",
+        "Layers of protection beat any single rule.",
+        "Good guardrails let AI do MORE — safely.",
+      ],
+    },
   ],
   "7": [
     {
@@ -781,6 +1283,91 @@ export const chapterGuides = {
         "Traces turn regression hunts from guesswork into step-by-step reading.",
         "Adoption can start free: OpenTelemetry, RAGAS, and Langfuse cover the basics.",
         "Feed every production failure back into the golden dataset.",
+      ],
+    },
+    {
+      slug: "middle-school",
+      audience: "middle-school",
+      title: "Watching AI Play the Game, for Middle Schoolers",
+      minutes: 5,
+      intro:
+        "AI usually hands you an answer and hides the why. Observability is how engineers watch everything an AI did, step by step — the replay camera and scorecard that turn 'seems fine' into 'proven fine.'",
+      sections: [
+        {
+          heading: "See inside the black box",
+          paragraphs: [
+            "When an AI answers, you cannot see its work. Was the answer based on the right document? Did it use the right tool?",
+            "Observability records the whole trip: what question came in, what it looked up, what tools it used, and what came out. It is the instant replay of AI.",
+          ],
+        },
+        {
+          heading: "Grading with a scorecard",
+          paragraphs: [
+            "You cannot grade an open-ended answer with a simple right or wrong. So engineers build 'golden sets' — known questions paired with model answers — and score the AI on every change.",
+            "Is the new version better than last week's? Now that is a number, not a feeling. That number is called an evaluation.",
+          ],
+        },
+        {
+          heading: "Fixing problems before users see them",
+          paragraphs: [
+            "Replay plus scorecards catch quiet problems early — like an AI that suddenly answers worse after an update.",
+            "Teams spot the drop, find the cause, and fix it before anyone notices. Observability turns guessing into game-planning.",
+          ],
+        },
+      ],
+      analogy: {
+        title: "The Basketball Coach's Film Room",
+        text: "A coach does not just watch the game live. They record it, review every play, and check stats — shot percentage, turnovers, rebounds — to find what to fix for next time. AI observability is the same routine: record every move (that is tracing), grade the performance (that is evaluation), and fix the weak plays before the next game.",
+      },
+      activity: {
+        title: "Be the coach: grade an AI answer",
+        steps: [
+          "Write a question and a reference answer — what the perfect answer should say.",
+          "Ask a chatbot the same question (or use a sample AI answer your teacher provides).",
+          "Circle every fact in the AI's answer that the reference supports. Put an X on facts that do not match.",
+          "Score it: factuality = supported facts ÷ total facts.",
+          "Present your score. Would you let this AI answer tomorrow's questions without changes? Why or why not?",
+        ],
+      },
+      quiz: [
+        {
+          question: "What does observability let engineers do?",
+          options: [
+            "Watch every step the AI took, like instant replay",
+            "Make AI run faster",
+            "Delete bad answers forever",
+            "Talk to the AI in private",
+          ],
+          answer: 0,
+          why: "Traces record every step of an AI run — prompts, lookups, tools, and outputs — so teams can replay what happened.",
+        },
+        {
+          question: "What is a golden set?",
+          options: [
+            "A set of known questions with good answers, used to score AI",
+            "A box of golden coins",
+            "The AI's favorite playlist",
+            "A type of soccer drill",
+          ],
+          answer: 0,
+          why: "Golden datasets define what 'working' means and are used to grade every new version of the AI.",
+        },
+        {
+          question: "If the score drops after an update, what happens?",
+          options: [
+            "Engineers find the cause and fix it before users notice",
+            "The score stays low forever",
+            "The AI is erased",
+            "Nobody cares about scores",
+          ],
+          answer: 0,
+          why: "Eval scores plus traces turn a silent quality drop into a findable, fixable problem.",
+        },
+      ],
+      keyPoints: [
+        "Observability = replay camera + scorecard for AI.",
+        "Golden sets turn quality into a number you can improve.",
+        "Fixing early beats apologizing later.",
       ],
     },
   ],
