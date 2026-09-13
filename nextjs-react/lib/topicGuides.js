@@ -124,9 +124,8 @@ export const chapterGuides = {
       ],
     },
     {
-      slug: "middle-school",
-      audience: "middle-school",
-      title: "AI Memory for Middle Schoolers",
+      slug: "made-simple",
+      title: "AI Memory, Made Simple",
       minutes: 5,
       intro:
         "Have you ever come back to a chatbot a day later and it acted like you were strangers? That is what happens when AI forgets. This lesson shows how AI keeps memories — and how you already use the same trick every day at school.",
@@ -314,9 +313,8 @@ export const chapterGuides = {
       ],
     },
     {
-      slug: "middle-school",
-      audience: "middle-school",
-      title: "AI That Uses Tools, for Middle Schoolers",
+      slug: "made-simple",
+      title: "AI That Uses Tools, Made Simple",
       minutes: 5,
       intro:
         "A chatbot that only talks is fun, but a chatbot that can actually check the weather, solve math, or book a study room is useful. The secret is the tool call — a neat order form the AI fills out to ask another program for help.",
@@ -508,9 +506,8 @@ export const chapterGuides = {
       ],
     },
     {
-      slug: "middle-school",
-      audience: "middle-school",
-      title: "How AI Learns From Trying, for Middle Schoolers",
+      slug: "made-simple",
+      title: "How AI Learns From Trying, Made Simple",
       minutes: 5,
       intro:
         "Ask a chatbot a question and it answers once. Give an AI agent a big job — like planning a party — and it has to try steps, check whether they worked, and fix its mistakes. That repeating pattern is called an execution loop, and it is how AI gets things done.",
@@ -702,9 +699,8 @@ export const chapterGuides = {
       ],
     },
     {
-      slug: "middle-school",
-      audience: "middle-school",
-      title: "AI That Checks Its Work, for Middle Schoolers",
+      slug: "made-simple",
+      title: "AI That Checks Its Work, Made Simple",
       minutes: 5,
       intro:
         "Some AIs answer from memory — and memory makes things up when it is fuzzy. RAG (Retrieval-Augmented Generation) lets AI look facts up in a library before answering, the way you use notes in an open-book test.",
@@ -897,9 +893,8 @@ export const chapterGuides = {
       ],
     },
     {
-      slug: "middle-school",
-      audience: "middle-school",
-      title: "A Team of AI Helpers, for Middle Schoolers",
+      slug: "made-simple",
+      title: "A Team of AI Helpers, Made Simple",
       minutes: 5,
       intro:
         "One AI trying to do everything is like one kid trying to plan, research, build, and grade their own project — it gets tired and misses things. That is why some AI systems are teams: several specialist AIs with a supervisor who keeps them in sync.",
@@ -1091,9 +1086,8 @@ export const chapterGuides = {
       ],
     },
     {
-      slug: "middle-school",
-      audience: "middle-school",
-      title: "Safety Rules for AI, for Middle Schoolers",
+      slug: "made-simple",
+      title: "Safety Rules for AI, Made Simple",
       minutes: 5,
       intro:
         "The more an AI can do, the more it can accidentally do wrong. Serious AI systems come with guardrails — the seatbelts, traffic lights, and permission slips of AI — so powerful helpers stay safe helpers.",
@@ -1286,9 +1280,8 @@ export const chapterGuides = {
       ],
     },
     {
-      slug: "middle-school",
-      audience: "middle-school",
-      title: "Watching AI Play the Game, for Middle Schoolers",
+      slug: "made-simple",
+      title: "Watching AI Play the Game, Made Simple",
       minutes: 5,
       intro:
         "AI usually hands you an answer and hides the why. Observability is how engineers watch everything an AI did, step by step — the replay camera and scorecard that turn 'seems fine' into 'proven fine.'",

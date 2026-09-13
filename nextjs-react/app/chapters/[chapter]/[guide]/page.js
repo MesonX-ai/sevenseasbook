@@ -65,7 +65,6 @@ export default async function ChapterGuidePage({ params }) {
           <p className="eyebrow">
             Study Guide &middot; Chapter {chapter.id}: {chapter.navTitle || chapter.title}
             {typeof guide.minutes === "number" ? ` · ${guide.minutes} min read` : ""}
-            {guide.audience === "middle-school" ? " · 🎒 Middle School" : ""}
           </p>
           <h2>{guide.title}</h2>
           <p>

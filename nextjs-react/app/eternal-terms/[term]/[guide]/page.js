@@ -65,7 +65,6 @@ export default async function EternalTermGuidePage({ params }) {
           <p className="eyebrow">
             <span aria-hidden="true">{term.icon}</span> Study Guide &middot; {term.name}
             {typeof guide.minutes === "number" ? ` · ${guide.minutes} min read` : ""}
-            {guide.audience === "middle-school" ? " · 🎒 Middle School" : ""}
           </p>
           <h2>{guide.title}</h2>
           <p>

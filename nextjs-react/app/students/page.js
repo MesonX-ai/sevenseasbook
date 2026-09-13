@@ -3,9 +3,9 @@ import { chapterGuides } from "../../lib/topicGuides";
 
 export async function generateMetadata() {
   return {
-    title: "AI for Middle School Students",
+    title: "AI, Made Simple",
     description:
-      "Seven short, friendly lessons that explain AI with everyday analogies, hands-on activities, and quick quizzes — made for middle school students (ages 11–14).",
+      "Seven short, friendly lessons that explain AI with everyday analogies, hands-on activities, and quick quizzes — written for curious learners of any age.",
     alternates: {
       canonical: "/students",
     },
@@ -15,7 +15,7 @@ export async function generateMetadata() {
 const studentLessons = chapters
   .map((chapter) => ({
     chapter,
-    guide: (chapterGuides[chapter.id] || []).find((g) => g.audience === "middle-school"),
+    guide: (chapterGuides[chapter.id] || []).find((g) => g.slug === "made-simple"),
   }))
   .filter((row) => Boolean(row.guide));
 
@@ -39,12 +39,12 @@ export default function StudentsPage() {
     <div className="page-shell page-students">
       <main className="page-main">
         <div className="section-header" style={{ marginBottom: "48px" }}>
-          <p className="eyebrow">For Middle School Students</p>
+          <p className="eyebrow">Made Simple</p>
           <h1
             className="hero-title"
             style={{ fontSize: "clamp(2.2rem, 4.5vw, 3.6rem)", marginBottom: "12px" }}
           >
-            AI, Explained for Middle Schoolers
+            AI, Made Simple
           </h1>
           <p className="hero-eyebrow" style={{ marginBottom: "0" }}>
             Seven short lessons about the big ideas behind AI — with analogies, hands-on activities, and quizzes.
@@ -59,8 +59,8 @@ export default function StudentsPage() {
               school desks, lunch forms, video games, sports film rooms, and playgrounds.
             </p>
             <p>
-              <strong>Who is this for?</strong> Middle school students (ages 11–14), teachers, and parents who
-              want a friendly way into AI. Each lesson takes about 5 minutes to read.
+              <strong>Who is this for?</strong> Curious learners of any age — students, teachers, and parents
+              who want a friendly way into AI. Each lesson takes about 5 minutes to read.
             </p>
           </div>
         </section>
@@ -129,7 +129,7 @@ export default function StudentsPage() {
         <section className="cta-band" aria-label="Continue learning">
           <h2>Ready to see the professional version?</h2>
           <p>
-            Each middle-school lesson is the friendly front door to a full Seven SEAS chapter on dependable AI
+            Each easy lesson is the friendly front door to a full Seven SEAS chapter on dependable AI
             systems. Go deeper whenever you are curious.
           </p>
           <div className="hero-actions">
