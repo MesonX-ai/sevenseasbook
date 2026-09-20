@@ -1,3 +1,6 @@
+import ArchDiagram from "../components/ArchDiagram";
+import { pageDiagrams } from "../../lib/diagrams/pageDiagrams";
+
 export default function PressPage() {
   const pressItems = [
     {
@@ -68,6 +71,8 @@ export default function PressPage() {
             Coverage of the Seven SEAS architecture framework
           </p>
         </div>
+
+        {pageDiagrams.press ? <ArchDiagram {...pageDiagrams.press} /> : null}
 
         <div className="books-layout">
           {pressItems.map((item) => (

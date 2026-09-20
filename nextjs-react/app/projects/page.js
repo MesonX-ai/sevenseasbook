@@ -1,4 +1,6 @@
 import { associatedSites } from "../../lib/sevenSeasData";
+import ArchDiagram from "../components/ArchDiagram";
+import { pageDiagrams } from "../../lib/diagrams/pageDiagrams";
 
 const siteNames = {
   "https://www.mesonsoft.com/": "Mesonsoft",
@@ -33,6 +35,8 @@ export default function ProjectsPage() {
             This page centralizes the Seven SEAS ecosystem and related websites associated with
             Shiva Dhanuskodi and Mesonsoft initiatives.
           </p>
+
+          {pageDiagrams.projects ? <ArchDiagram {...pageDiagrams.projects} /> : null}
 
           <ul className="project-list">
             {associatedSites.map((site) => (

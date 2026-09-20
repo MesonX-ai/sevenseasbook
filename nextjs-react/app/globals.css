@@ -2261,4 +2261,48 @@ img {
     padding: 14px 16px;
   }
 }
+
+/* ===== ArchDiagram (Google/AWS/Microsoft-style architecture diagrams) ===== */
+.arch-diagram {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 16px 12px 10px;
+  margin: 26px 0;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+  overflow: hidden;
+}
+
+.arch-diagram svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.arch-diagram figcaption {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  text-align: center;
+  padding: 10px 12px 2px;
+  border-top: 1px solid rgba(17, 17, 17, 0.06);
+  margin-top: 10px;
+}
+
+@media (min-width: 1200px) {
+  .chapter-article .arch-diagram {
+    width: 1080px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 720px) {
+  .arch-diagram {
+    padding: 10px 6px 6px;
+    border-radius: 12px;
+  }
+}
+
 }

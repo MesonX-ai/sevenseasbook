@@ -1,4 +1,6 @@
 import { chapters } from "../../lib/sevenSeasData";
+import ArchDiagram from "../components/ArchDiagram";
+import { pageDiagrams } from "../../lib/diagrams/pageDiagrams";
 
 export default function AboutPage() {
   const pressQuotes = [
@@ -83,6 +85,8 @@ export default function AboutPage() {
             </div>
           ))}
         </div>
+
+        {pageDiagrams.about ? <ArchDiagram {...pageDiagrams.about} /> : null}
 
         <div className="about-layout">
           <div className="about-copy">

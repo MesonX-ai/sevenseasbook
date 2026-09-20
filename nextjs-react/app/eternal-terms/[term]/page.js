@@ -1,5 +1,7 @@
 import { eternalTerms } from "../../../lib/eternalTerms";
 import { eternalTermGuides } from "../../../lib/topicGuides";
+import ArchDiagram from "../../components/ArchDiagram";
+import { termDiagrams } from "../../../lib/diagrams/termDiagrams";
 
 export function generateStaticParams() {
   return eternalTerms.map((term) => ({ term: term.slug }));
@@ -57,6 +59,8 @@ export default async function EternalTermPage({ params }) {
           <p>
             <em>{term.tagline}</em>
           </p>
+
+          {termDiagrams[term.slug] ? <ArchDiagram {...termDiagrams[term.slug]} /> : null}
 
           <h3>What It Means</h3>
           <p>{term.definition}</p>

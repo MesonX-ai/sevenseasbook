@@ -2,6 +2,8 @@
 
 import { useMemo, useState } from "react";
 import { chapters } from "../../lib/sevenSeasData";
+import ArchDiagram from "../components/ArchDiagram";
+import { pageDiagrams } from "../../lib/diagrams/pageDiagrams";
 
 function getDifficultyLevel(title, channel) {
   const text = `${title} ${channel}`.toLowerCase();
@@ -110,6 +112,8 @@ export default function ResourcesPage() {
             Curated YouTube suggestions mapped to Seven SEAS pillars
           </p>
         </div>
+
+        {pageDiagrams.resources ? <ArchDiagram {...pageDiagrams.resources} /> : null}
 
         {/* Featured playlists */}
         <div className="event-block" style={{ marginBottom: "28px" }}>

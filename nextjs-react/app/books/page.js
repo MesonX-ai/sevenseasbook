@@ -1,4 +1,6 @@
 import { chapters } from "../../lib/sevenSeasData";
+import ArchDiagram from "../components/ArchDiagram";
+import { pageDiagrams } from "../../lib/diagrams/pageDiagrams";
 
 const chaptersNav = chapters.map((chapter) => ({
   id: chapter.id,
@@ -39,6 +41,8 @@ export default function BooksPage() {
             Enterprise AI Architecture Framework
           </p>
         </div>
+
+        {pageDiagrams.books ? <ArchDiagram {...pageDiagrams.books} /> : null}
 
         <div className="books-layout">
           {books.map((book) => (

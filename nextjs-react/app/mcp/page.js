@@ -1,3 +1,6 @@
+import ArchDiagram from "../components/ArchDiagram";
+import { pageDiagrams } from "../../lib/diagrams/pageDiagrams";
+
 export default function McpPage() {
   return (
     <div className="page-shell page-mcp">
@@ -11,6 +14,8 @@ export default function McpPage() {
             Model Context Protocol notes
           </p>
         </div>
+
+        {pageDiagrams.mcp ? <ArchDiagram {...pageDiagrams.mcp} /> : null}
 
         <div className="books-layout">
           <div className="event-block">

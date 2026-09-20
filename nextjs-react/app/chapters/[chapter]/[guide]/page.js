@@ -1,5 +1,7 @@
 import { chapters } from "../../../../lib/sevenSeasData";
 import { chapterGuides, GUIDE_ORDER } from "../../../../lib/topicGuides";
+import ArchDiagram from "../../../components/ArchDiagram";
+import { chapterGuideDiagrams } from "../../../../lib/diagrams/chapterGuideDiagrams";
 
 export function generateStaticParams() {
   const params = [];
@@ -70,6 +72,10 @@ export default async function ChapterGuidePage({ params }) {
           <p>
             <em>{guide.intro}</em>
           </p>
+
+          {((chapterGuideDiagrams[chapter.id] || {})[guide.slug]) ? (
+            <ArchDiagram {...chapterGuideDiagrams[chapter.id][guide.slug]} />
+          ) : null}
 
           {guide.sections.map((section, sIndex) => (
             <section key={`section-${guide.slug}-${sIndex}`}>

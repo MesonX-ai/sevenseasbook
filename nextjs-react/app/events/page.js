@@ -1,3 +1,6 @@
+import ArchDiagram from "../components/ArchDiagram";
+import { pageDiagrams } from "../../lib/diagrams/pageDiagrams";
+
 export default function EventsPage() {
   const eventCategories = [
     {
@@ -51,6 +54,8 @@ export default function EventsPage() {
             Bringing enterprise AI architecture to teams everywhere
           </p>
         </div>
+
+        {pageDiagrams.events ? <ArchDiagram {...pageDiagrams.events} /> : null}
 
         <div className="events-layout">
           {eventCategories.map((cat) => (

@@ -1,5 +1,7 @@
 import { eternalTerms } from "../../../../lib/eternalTerms";
 import { eternalTermGuides, GUIDE_ORDER } from "../../../../lib/topicGuides";
+import ArchDiagram from "../../../components/ArchDiagram";
+import { termGuideDiagrams } from "../../../../lib/diagrams/termDiagrams";
 
 export function generateStaticParams() {
   const params = [];
@@ -70,6 +72,10 @@ export default async function EternalTermGuidePage({ params }) {
           <p>
             <em>{guide.intro}</em>
           </p>
+
+          {((termGuideDiagrams[term.slug] || {})[guide.slug]) ? (
+            <ArchDiagram {...termGuideDiagrams[term.slug][guide.slug]} />
+          ) : null}
 
           {guide.sections.map((section, sIndex) => (
             <section key={`section-${guide.slug}-${sIndex}`}>

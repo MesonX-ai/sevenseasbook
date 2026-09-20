@@ -1,3 +1,6 @@
+import ArchDiagram from "../components/ArchDiagram";
+import { pageDiagrams } from "../../lib/diagrams/pageDiagrams";
+
 export default function NewsPage() {
   const newsItems = [
     {
@@ -49,6 +52,8 @@ export default function NewsPage() {
             Latest developments from the Seven SEAS framework
           </p>
         </div>
+
+        {pageDiagrams.news ? <ArchDiagram {...pageDiagrams.news} /> : null}
 
         <div className="books-layout">
           {newsItems.map((item) => (

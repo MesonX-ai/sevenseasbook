@@ -1,6 +1,8 @@
 import { chapters } from "../../../lib/sevenSeasData";
 import { chapterExtras } from "../../../lib/chapterExtras";
 import { chapterGuides } from "../../../lib/topicGuides";
+import ArchDiagram from "../../components/ArchDiagram";
+import { chapterDiagrams, stepsToDiagram } from "../../../lib/diagrams/chapterDiagrams";
 
 export function generateStaticParams() {
   return chapters.map((chapter) => ({ chapter: chapter.id }));
@@ -51,6 +53,10 @@ export default async function ChapterPage({ params }) {
           <p className="eyebrow">Chapter {chapterData.id}</p>
           <h2>{chapterData.title}</h2>
           <p>{chapterData.summary}</p>
+
+          {chapterDiagrams[chapterData.id] ? (
+            <ArchDiagram {...chapterDiagrams[chapterData.id]} />
+          ) : null}
 
           <h3>The Concept</h3>
           {conceptDetails.map((paragraph, index) => (
@@ -106,14 +112,7 @@ export default async function ChapterPage({ params }) {
           {diagramSteps.length > 0 ? (
             <>
               <h3>{diagramTitle || "Architecture Diagram"}</h3>
-              <div className="chapter-diagram" role="img" aria-label={diagramTitle || "Chapter architecture diagram"}>
-                {diagramSteps.map((step, index) => (
-                  <div className="chapter-diagram-step" key={`diagram-${chapterData.id}-${index}`}>
-                    <span className="chapter-diagram-node">{step}</span>
-                    {index < diagramSteps.length - 1 ? <span className="chapter-diagram-arrow">&rarr;</span> : null}
-                  </div>
-                ))}
-              </div>
+              <ArchDiagram {...stepsToDiagram(diagramTitle || "Architecture Diagram", diagramSteps)} />
             </>
           ) : null}
 
@@ -160,21 +159,12 @@ export default async function ChapterPage({ params }) {
           {flowDiagrams.length > 0 ? (
             <>
               <h3>Flow Diagrams</h3>
-              <div className="chapter-flow-grid">
-                {flowDiagrams.map((flow, flowIndex) => (
-                  <section className="chapter-flow-card" key={`flow-${chapterData.id}-${flowIndex}`}>
-                    <h4>{flow.title}</h4>
-                    <div className="chapter-diagram" role="img" aria-label={flow.title}>
-                      {(flow.steps || []).map((step, stepIndex) => (
-                        <div className="chapter-diagram-step" key={`flow-step-${chapterData.id}-${flowIndex}-${stepIndex}`}>
-                          <span className="chapter-diagram-node">{step}</span>
-                          {stepIndex < flow.steps.length - 1 ? <span className="chapter-diagram-arrow">&rarr;</span> : null}
-                        </div>
-                      ))}
-                    </div>
-                  </section>
-                ))}
-              </div>
+              {flowDiagrams.map((flow, flowIndex) => (
+                <ArchDiagram
+                  key={`flow-${chapterData.id}-${flowIndex}`}
+                  {...stepsToDiagram(flow.title, flow.steps || [])}
+                />
+              ))}
             </>
           ) : null}
 

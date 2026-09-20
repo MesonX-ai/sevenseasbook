@@ -1,4 +1,6 @@
 import { eternalTerms } from "../../lib/eternalTerms";
+import ArchDiagram from "../components/ArchDiagram";
+import { pageDiagrams } from "../../lib/diagrams/pageDiagrams";
 
 export const metadata = {
   title: "Seven Eternal Terms in the AI Industry",
@@ -22,6 +24,8 @@ export default function EternalTermsIndex() {
             today's tools are forgotten. Each page explores where the term came from, why it never
             goes away, the ideas inside it, where it is applied, and where it is heading.
           </p>
+
+          {pageDiagrams["eternal-terms"] ? <ArchDiagram {...pageDiagrams["eternal-terms"]} /> : null}
 
           <div className="insight-grid">
             {eternalTerms.map((term, index) => (

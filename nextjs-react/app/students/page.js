@@ -1,5 +1,7 @@
 import { chapters } from "../../lib/sevenSeasData";
 import { chapterGuides } from "../../lib/topicGuides";
+import ArchDiagram from "../components/ArchDiagram";
+import { pageDiagrams } from "../../lib/diagrams/pageDiagrams";
 
 export async function generateMetadata() {
   return {
@@ -50,6 +52,8 @@ export default function StudentsPage() {
             Seven short lessons about the big ideas behind AI — with analogies, hands-on activities, and quizzes.
           </p>
         </div>
+
+        {pageDiagrams.students ? <ArchDiagram {...pageDiagrams.students} /> : null}
 
         <section className="section" aria-label="About these lessons">
           <div className="students-intro">
